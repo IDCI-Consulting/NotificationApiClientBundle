@@ -40,3 +40,14 @@ public function registerBundles()
 
 How to use it
 =============
+
+The gold of this bundle is to call the services of the NotificationBundle, see the link below :
+
+(https://github.com/IDCI-Consulting/NotificationClientApiBundle)
+
+Create a notification:
+----------------------
+
+
+
+
