@@ -1,0 +1,4 @@
+services:
+    notification_client_api:
+        class: IDCI\Bundle\NotificationClientApiBundle\Service\NotificationClientApi
+        arguments: [@validator]
