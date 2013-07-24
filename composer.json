@@ -1,7 +1,7 @@
 {
-    "name": "idci/notification-client-api-bundle",
+    "name": "idci/notification-api-client-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony NotificationClientApiBundle",
+    "description": "Symfony NotificationApiClientBundle",
     "keywords": ["notification", "email", "sms", "twitter", "facebook", "mail", "webservice", "api", "rest", "client"],
     "license": "GPL-3.0+",
     "authors": [
@@ -22,8 +22,8 @@
         "twig/twig":                        "*"
     },
     "autoload": {
-        "psr-0": { "IDCI\\Bundle\\NotificationClientApiBundle": "" }
+        "psr-0": { "IDCI\\Bundle\\NotificationApiClientBundle": "" }
     },
-    "target-dir": "IDCI/Bundle/NotificationClientApiBundle",
+    "target-dir": "IDCI/Bundle/NotificationApiClientBundle",
     "minimum-stability": "dev"
 }

@@ -8,7 +8,7 @@
  *
  */
 
-namespace IDCI\Bundle\NotificationClientApiBundle\Notification;
+namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 interface NotificationInterface
 {

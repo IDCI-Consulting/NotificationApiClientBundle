@@ -8,8 +8,9 @@
  *
  */
 
-namespace IDCI\Bundle\NotificationClientApiBundle\Notification;
-use IDCI\Bundle\NotificationClientApiBundle\Util\Inflector;
+namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
+
+use IDCI\Bundle\NotificationApiClientBundle\Util\Inflector;
 
 abstract class NotificationFactory
 {
@@ -22,7 +23,7 @@ abstract class NotificationFactory
     {
         $class = sprintf(
             '%s\%sNotification',
-            'IDCI\Bundle\NotificationClientApiBundle\Notification',
+            'IDCI\Bundle\NotificationApiClientBundle\Notification',
             Inflector::camelize($type)
         );
 

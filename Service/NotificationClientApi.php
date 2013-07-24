@@ -15,6 +15,7 @@ use IDCI\Bundle\NotificationClientApiBundle\Notification;
 class NotificationClientApi
 {
     protected $validator;
+
     /**
      * Constructor
      */
@@ -37,6 +38,7 @@ class NotificationClientApi
      * Notify
      *
      * @param array $notificationParameters
+     * @param string $type
      */
     public function notify(array $notificationParameters, $type)
     {

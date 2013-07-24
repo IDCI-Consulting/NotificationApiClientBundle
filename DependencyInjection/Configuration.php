@@ -8,7 +8,7 @@
  *
  */
 
-namespace IDCI\Bundle\NotificationClientApiBundle\DependencyInjection;
+namespace IDCI\Bundle\NotificationApiClientBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

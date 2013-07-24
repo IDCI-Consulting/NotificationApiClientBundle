@@ -1,7 +1,7 @@
-NotificationClientApiBundle
+NotificationApiClientBundle
 ===========================
 
-Symfony2 notification client api bundle
+Symfony2 notification api client bundle
 
 Installation
 ============
@@ -13,7 +13,7 @@ First add the dependency in your `composer.json` file:
 ```json
 "require": {
     ...
-    "idci/notification-client-api-bundle": "dev-master"
+    "idci/notification-api-client-bundle": "dev-master"
 },
 ```
 
@@ -33,7 +33,7 @@ public function registerBundles()
 {
     $bundles = array(
         //
-        new IDCI\Bundle\NotificationClientApiBundle\IDCINotificationClientApiBundle(),
+        new IDCI\Bundle\NotificationApiClientBundle\IDCINotificationApiClientBundle(),
     );
 }
 ```
@@ -44,7 +44,7 @@ How to use it
 
 The gold of this bundle is to call services of the NotificationBundle, see the link below :
 
-https://github.com/IDCI-Consulting/NotificationClientApiBundle
+https://github.com/IDCI-Consulting/NotificationBundle
 
 Send notifications:
 -------------------
