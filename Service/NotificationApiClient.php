@@ -20,7 +20,7 @@ class NotificationApiClient
     /**
      * Constructor
      */
-    public function __construct($validator, $apiClient)
+    public function __construct($validator, RestHttpApiClientInterface $apiClient)
     {
         $this->validator = $validator;
     }
@@ -39,7 +39,6 @@ class NotificationApiClient
      * Notify
      *
      * @param array $notificationParameters
-     * @param string $type
      */
     public function notify(array $notificationParameters)
     {
