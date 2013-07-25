@@ -2,3 +2,7 @@ services:
     notification_api_client:
         class: IDCI\Bundle\NotificationApiClientBundle\Service\Notifier
         arguments: [@validator]
+
+    notification_api_client.api_client.da:
+        class:     IDCI\Bundle\NotificationApiClientBundle\HttpClient\RestHttpApiClient
+        arguments: [null, null]
