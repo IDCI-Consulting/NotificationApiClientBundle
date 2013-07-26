@@ -23,4 +23,12 @@ class RestHttpApiClient extends RestApiClientBridge implements RestHttpApiClient
 
         return 'It works!';
     }
+
+    /**
+     * @see RestHttpClientApiInterface
+     */
+    public function post($path, $queryString = null)
+    {
+        echo 'test thomas';
+    }
 }

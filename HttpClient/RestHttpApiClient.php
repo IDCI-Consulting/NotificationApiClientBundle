@@ -10,13 +10,14 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\HttpClient;
 
-class RestHttpApiClient implements RestHttpApiClientImplementorInterface
+class RestHttpApiClient implements RestHttpApiClientInterface
 {
     /**
      * @see RestHttpClientApiInterface
      */
     public function get($path, $queryString = null)
     {
+
     }
 
     /**
@@ -24,6 +25,7 @@ class RestHttpApiClient implements RestHttpApiClientImplementorInterface
      */
     public function post($path, $queryString = null)
     {
+        echo 'test sekou';
     }
 
     /**
@@ -39,4 +41,13 @@ class RestHttpApiClient implements RestHttpApiClientImplementorInterface
     public function delete($path, $queryString = null)
     {
     }
+
+    /**
+     * @see RestHttpClientApiInterface
+     */
+    public function test()
+    {
+
+    }
+
 }
