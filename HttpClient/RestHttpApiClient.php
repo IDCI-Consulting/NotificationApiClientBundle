@@ -12,12 +12,30 @@ namespace IDCI\Bundle\NotificationApiClientBundle\HttpClient;
 
 class RestHttpApiClient implements RestHttpApiClientInterface
 {
+    private static function initCurl($path)
+    {
+        $cUrl = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $path);
+
+        return $cUrl;
+    }
+
+    /**
+     *
+     */
+    private static function closeCurl($cUrl)
+    {
+        curl_close($cUrl);
+    }
+
     /**
      * @see RestHttpClientApiInterface
      */
     public function get($path, $queryString = null)
     {
+        $cUrl = self::initCurl($path);
 
+        self::closeCurl($cUrl);
     }
 
     /**
@@ -25,7 +43,9 @@ class RestHttpApiClient implements RestHttpApiClientInterface
      */
     public function post($path, $queryString = null)
     {
-        echo 'test sekou';
+        $cUrl = self::initCurl($path);
+
+        self::closeCurl($cUrl);
     }
 
     /**
@@ -33,6 +53,9 @@ class RestHttpApiClient implements RestHttpApiClientInterface
      */
     public function put($path, $queryString = null)
     {
+        $cUrl = self::initCurl($path);
+
+        self::closeCurl($cUrl);
     }
 
     /**
@@ -40,14 +63,9 @@ class RestHttpApiClient implements RestHttpApiClientInterface
      */
     public function delete($path, $queryString = null)
     {
-    }
+        $cUrl = self::initCurl($path);
 
-    /**
-     * @see RestHttpClientApiInterface
-     */
-    public function test()
-    {
-
+        self::closeCurl($cUrl);
     }
 
 }
