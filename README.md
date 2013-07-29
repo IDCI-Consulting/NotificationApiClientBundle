@@ -60,25 +60,25 @@ Example of usage
 
 $this->get('service_name')->notify(array(
     /**
-     * case 1 : notification email
+     * case 1 : email notification
      */
     "email" => array(
-        "to" => array("adress1@test.com", "adresse2@test.com", "adresse3@test.com", "..."),
-        "cc" => array("cc1@test.com", "cc2@test.com", "cc3@test.com", "..."),
+        "to" => array("to1@mail.com", "to2@mail.com", "to3@mail.com", "..."),
+        "cc" => array("cc1@mail.com", "cc2@mail.com", "cc3@mail.com", "..."),
         "subject" => "Notification subject",
-        "bcc" => array("test1@test.com", "test2@test.com", "test3@test.com", "..."),
+        "bcc" => array("bcc1@mail.com", "bcc2@mail.com", "bcc3@mail.com", "..."),
         "message" => "Notification Message",
         "attachements" => array()
     ),
     /**
-     * case 2 : notification sms
+     * case 2 : sms notification
      */
     "sms" => array(
         "to" => array("0612345678", "0610111213", "0610112214", "..."),
         "message" => "Notification Message"
     ),
     /**
-     * case 3 : notification mail
+     * case 3 : mail notification
      */
     "mail" => array(
         "to" => array(
@@ -92,24 +92,19 @@ $this->get('service_name')->notify(array(
         "message" => "Notification Message",
     ),
     /**
-    * case 4 : notification facebook
-    */
+     * case 4 : facebook notification
+     */
     "facebook" => array(
-        "to" => array("test1@facebook.com", "test2@facebook.com", "test3@facebook.com", "..."),
+        "to" => array("user1@facebook.com", "user2@facebook.com", "user3@facebook.com", "..."),
         "message" => "Notification Message"
     ),
     /**
-     * case 5 : notification twitter
+     * case 5 : twitter notification
      */
     "twitter" => array(
-        "to" => array("test1@twitter.com", "test2@twitter.com", "test3@twitter.com", "..."),
+        "to" => array("user1@twitter.com", "user2@twitter.com", "user3@twitter.com", "..."),
         "message" => "Notification Message"
     )
 ));
-
 ```
-
-
-
-
 
