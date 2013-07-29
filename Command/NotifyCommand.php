@@ -24,11 +24,6 @@ class NotifyCommand extends ContainerAwareCommand
 EOT
             )
             ->addArgument(
-                'url',
-                InputArgument::REQUIRED,
-                'Url argument'
-            )
-            ->addArgument(
                 'email',
                 InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
                 'Email argument'
@@ -64,10 +59,9 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $url = $input->getArgument('url');
         $params = $this->getParams($input);
 
-        $output->writeln($this->get('notification_api_client.notifier')->notify($url, $params));
+        $output->writeln($this->get('notification_api_client.notifier')->notify($params));
     }
 
     /**
@@ -77,29 +71,15 @@ EOT
      */
     protected function getParams(InputInterface $input)
     {
-        $email = $input->getArgument('email');
-        $mail = $input->getArgument('mail');
-        $sms = $input->getArgument('sms');
-        $facebook = $input->getArgument('facebook');
-        $twitter = $input->getArgument('twitter');
-        $params = array();
+        $params = array(
+            'email'     => $input->getArgument('email'),
+            'mail'      => $input->getArgument('mail'),
+            'sms'       => $input->getArgument('sms'),
+            'facebook'  => $input->getArgument('facebook'),
+            'twitter'   => $input->getArgument('twitter'),
+        );
 
-        if($email){
-            $params['email'] = $email;
-        }
-        if($mail){
-            $params['mail'] = $mail;
-        }
-        if($sms){
-            $params['sms'] = $sms;
-        }
-        if($facebook){
-            $params['facebook'] = $facebook;
-        }
-        if($twitter){
-            $params['twitter'] = $twitter;
-        }
-
+        var_dump($params);
         return $params;
     }
 
