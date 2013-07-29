@@ -28,6 +28,14 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('idci_notification_api_client');
 
+        $rootNode
+            ->children()
+                ->scalarNode('api_client')
+                    ->defaultValue('notification_api_client.api_client.default')
+                ->end()
+            ->end()
+        ;
+
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
