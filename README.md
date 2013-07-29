@@ -58,7 +58,7 @@ Example of usage
 <?php
 // Inside your controller
 
-$this->get('service_name')->notify(array(
+$this->get('notification_api_client.notifier')->notify(array(
     /**
      * case 1 : email notification
      */
