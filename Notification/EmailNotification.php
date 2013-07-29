@@ -16,7 +16,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class EmailNotification implements NotificationInterface
 {
     /**
-     * @Assert\Email()
      * @Assert\NotBlank()
      */
     protected $to;
@@ -47,8 +46,27 @@ class EmailNotification implements NotificationInterface
     /**
      * @see NotificationInterface
      */
-    public function notify()
+    public function getType()
     {
+        return 'email';
+    }
+
+    /**
+     * @see NotificationInterface
+     */
+    public function getQueryString()
+    {
+        return sprintf('%s=%s',
+            $this->getType(),
+            json_encode(array(
+                'to' => $this->getTo(),
+                'cc' => $this->getCc(),
+                'bcc' => $this->getBcc(),
+                'subject' => $this->getSubject(),
+                'message' => $this->getMessage(),
+                'attachements' => $this->getAttachements()
+            ))
+        );
     }
 
     /**

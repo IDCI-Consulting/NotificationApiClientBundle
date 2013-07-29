@@ -28,7 +28,15 @@ class FacebookNotification implements NotificationInterface
     /**
      * @see NotificationInterface
      */
-    public function notify()
+    public function getType()
+    {
+        return 'facebook';
+    }
+
+    /**
+     * @see NotificationInterface
+     */
+    public function getQueryString()
     {
     }
 

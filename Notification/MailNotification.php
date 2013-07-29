@@ -57,7 +57,15 @@ class MailNotification implements NotificationInterface
     /**
      * @see NotificationInterface
      */
-    public function notify()
+    public function getType()
+    {
+        return 'mail';
+    }
+
+    /**
+     * @see NotificationInterface
+     */
+    public function getQueryString()
     {
     }
 

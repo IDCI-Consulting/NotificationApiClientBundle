@@ -13,11 +13,13 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Service;
 use Symfony\Component\Validator\ValidatorInterface;
 use IDCI\Bundle\NotificationApiClientBundle\Exception\UnavailableNotificationDataException;
 use IDCI\Bundle\NotificationApiClientBundle\HttpClient\RestHttpApiClientInterface;
+use IDCI\Bundle\NotificationApiClientBundle\Factory\NotificationFactory;
 
 class Notifier
 {
     protected $validator;
     protected $apiClient;
+    protected $notifications;
 
     /**
      * Constructor
@@ -29,28 +31,7 @@ class Notifier
     {
         $this->validator = $validator;
         $this->apiClient = $apiClient;
-    }
-
-    /**
-     * Notify
-     *
-     * @param array $notificationParameters
-     * @throw UnavailableNotificationDataException
-     */
-    public function notify(array $notificationParameters)
-    {
-        $queryParameters = array();
-        foreach($notificationParameters as $type => $params) {
-            $notification = NotificationFactory::create($type, $params);
-            $erroList = $this->getValidator->validate($notification);
-            if(count($erroList) > 0) {
-                throw new UnavailableNotificationDataException(print_r($errorList, true));
-            }
-
-            $queryParameters[] = $notification->getQueryParameters();
-        }
-
-        $this->getApiClient()->post($queryParameters);
+        $this->notifications = array();
     }
 
     /**
@@ -72,6 +53,75 @@ class Notifier
     protected function getApiClient()
     {
         return $this->apiClient;
+    }
+
+    /**
+     * Get Notifications
+     *
+     * @return array
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * Add Notification
+     *
+     * @param string $type
+     * @param array $parameters
+     * @return Notifier
+     * @throw UnavailableNotificationDataException
+     */
+    public function addNotification($type, array $parameters)
+    {
+        $notification = NotificationFactory::create($type, $parameters);
+        $errorList = $this->getValidator()->validate($notification);
+        if(count($errorList) > 0) {
+            throw new UnavailableNotificationDataException($errorList);
+        }
+        $this->notifications[] = $notification;
+
+        return $this;
+    }
+
+    /**
+     * Notify
+     *
+     * @return string
+     */
+    public function notify()
+    {
+        $response = $this->getApiClient()->post(
+            '/notifications/add',
+            $this->buildNotificationQuery()
+        );
+        $this->purgeNotifications();
+
+        return $response;
+    }
+
+    /**
+     * Build Notification Query
+     *
+     * @return string
+     */
+    public function buildNotificationQuery()
+    {
+        $queryString = '';
+        foreach($this->getNotifications() as $notification) {
+            $queryString .= $notification->getQueryString();
+        }
+
+        return $queryString;
+    }
+
+    /**
+     * Purge Notifications
+     */
+    public function purgeNotifications()
+    {
+        $this->notifications = array();
     }
 }
 

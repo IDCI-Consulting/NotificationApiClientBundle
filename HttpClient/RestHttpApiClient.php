@@ -10,22 +10,60 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\HttpClient;
 
+use IDCI\Bundle\NotificationApiClientBundle\Exception\ApiResponseException;
+
 class RestHttpApiClient implements RestHttpApiClientInterface
 {
-    private static function initCurl($path)
-    {
-        $cUrl = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $path);
+    const USER_AGENT_NAME = "NotificationApiClient php/curl/REST-UA";
 
-        return $cUrl;
+    protected $configuration;
+
+    /**
+     * Constructor
+     *
+     * @param array $configuration
+     */
+    public function __construct($configuration)
+    {
+        $this->configuration = $configuration;
     }
 
     /**
+     * Get configuration
      *
+     * @return array
      */
-    private static function closeCurl($cUrl)
+    public function getConfiguration()
     {
-        curl_close($cUrl);
+        return $this->configuration;
+    }
+
+    /**
+     * Get parameter
+     *
+     * @param string $name
+     * @return mixed | null
+     */
+    public function getParameter($name)
+    {
+        return isset($this->configuration[$name]) ?
+            $this->configuration[$name] :
+            null
+        ;
+    }
+
+    /**
+     * Get the full path
+     *
+     * @param string $path
+     * @return string
+     */
+    protected function getFullEndpointPath($path)
+    {
+        return sprintf('%s%s',
+            $this->getParameter('endpoint_root'),
+            $path
+        );
     }
 
     /**
@@ -33,9 +71,9 @@ class RestHttpApiClient implements RestHttpApiClientInterface
      */
     public function get($path, $queryString = null)
     {
-        $cUrl = self::initCurl($path);
+        $cUrl = self::initCurl($this->getFullEndpointPath($path));
 
-        self::closeCurl($cUrl);
+        return self::execute($cUrl);
     }
 
     /**
@@ -43,9 +81,11 @@ class RestHttpApiClient implements RestHttpApiClientInterface
      */
     public function post($path, $queryString = null)
     {
-        $cUrl = self::initCurl($path);
+        $cUrl = self::initCurl($this->getFullEndpointPath($path));
+        curl_setopt($cUrl, CURLOPT_POST, true);
+        curl_setopt($cUrl, CURLOPT_POSTFIELDS, $queryString);
 
-        self::closeCurl($cUrl);
+        return self::execute($cUrl);
     }
 
     /**
@@ -53,9 +93,10 @@ class RestHttpApiClient implements RestHttpApiClientInterface
      */
     public function put($path, $queryString = null)
     {
-        $cUrl = self::initCurl($path);
+        $cUrl = self::initCurl($this->getFullEndpointPath($path));
+        curl_setopt($cUrl, CURLOPT_PUT, true);
 
-        self::closeCurl($cUrl);
+        return self::execute($cUrl);
     }
 
     /**
@@ -63,9 +104,45 @@ class RestHttpApiClient implements RestHttpApiClientInterface
      */
     public function delete($path, $queryString = null)
     {
-        $cUrl = self::initCurl($path);
+        $cUrl = self::initCurl($this->getFullEndpointPath($path));
 
-        self::closeCurl($cUrl);
+        return self::execute($cUrl);
     }
 
+    /**
+     * Init cUrl
+     *
+     * @param string $path
+     * @return cUrl
+     */
+    protected static function initCurl($path)
+    {
+        $cUrl = curl_init();
+        curl_setopt($cUrl, CURLOPT_URL, $path);
+        curl_setopt($cUrl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($cUrl, CURLOPT_USERAGENT, self::USER_AGENT_NAME);
+
+        return $cUrl;
+    }
+
+    /**
+     * Execute cUrl
+     *
+     * @param cUrl $cUrl
+     * @return string
+     * @throw Exception
+     */
+    protected static function execute($cUrl)
+    {
+        $data = curl_exec($cUrl);
+        $path = $httpCode = curl_getinfo($cUrl, CURLINFO_EFFECTIVE_URL);
+        $httpCode = curl_getinfo($cUrl, CURLINFO_HTTP_CODE);
+        curl_close($cUrl);
+
+        if($httpCode != 200) {
+            throw new ApiResponseException($path, $httpCode);
+        }
+
+        return $data;
+    }
 }

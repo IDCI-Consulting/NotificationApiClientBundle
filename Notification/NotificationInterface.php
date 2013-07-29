@@ -13,7 +13,16 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 interface NotificationInterface
 {
     /**
-     * Notify
+     * getType
+     *
+     * return string
      */
-    public function notify();
+    public function getType();
+
+    /**
+     * getQueryString
+     *
+     * return string
+     */
+    public function getQueryString();
 }

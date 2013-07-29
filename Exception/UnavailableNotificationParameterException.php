@@ -15,11 +15,16 @@ class UnavailableNotificationDataException extends \Exception
     /**
      * Constructor
      *
-     * @param array $errorList
+     * @param string $className
+     * @param string $field
      */
-    public function __construct($errorList)
+    public function __construct($className, $field)
     {
-        parent::__construct(print_r($errorList, true), 0, null);
+        parent::__construct(sprintf(
+            'Unknown field %s for %s object',
+            $field,
+            $className
+        ), 0, null);
     }
 }
 

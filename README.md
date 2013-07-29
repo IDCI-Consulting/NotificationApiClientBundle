@@ -58,29 +58,29 @@ Example of usage
 <?php
 // Inside your controller
 
-$this->get('notification_api_client.notifier')->notify(array(
+$this->get('notification_api_client.notifier')
     /**
      * case 1 : email notification
      */
-    "email" => array(
+    ->addNotification("email", array(
         "to" => array("to1@mail.com", "to2@mail.com", "to3@mail.com", "..."),
         "cc" => array("cc1@mail.com", "cc2@mail.com", "cc3@mail.com", "..."),
         "subject" => "Notification subject",
         "bcc" => array("bcc1@mail.com", "bcc2@mail.com", "bcc3@mail.com", "..."),
         "message" => "Notification Message",
         "attachements" => array()
-    ),
+    )),
     /**
      * case 2 : sms notification
      */
-    "sms" => array(
+    ->addNotification("sms", array(
         "to" => array("0612345678", "0610111213", "0610112214", "..."),
         "message" => "Notification Message"
-    ),
+    )),
     /**
      * case 3 : mail notification
      */
-    "mail" => array(
+    ->addNotification("mail", array(
         "to" => array(
             "firstName" => '',
             "lastName" => '',
@@ -90,21 +90,22 @@ $this->get('notification_api_client.notifier')->notify(array(
             "country" => ''
         ),
         "message" => "Notification Message",
-    ),
+    )),
     /**
      * case 4 : facebook notification
      */
-    "facebook" => array(
+    ->addNotification("facebook" => array(
         "to" => array("user1@facebook.com", "user2@facebook.com", "user3@facebook.com", "..."),
         "message" => "Notification Message"
-    ),
+    )),
     /**
      * case 5 : twitter notification
      */
-    "twitter" => array(
+    ->addNotification("twitter" => array(
         "to" => array("user1@twitter.com", "user2@twitter.com", "user3@twitter.com", "..."),
         "message" => "Notification Message"
-    )
+    ))
+    ->notify()
 ));
 ```
 

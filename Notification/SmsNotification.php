@@ -28,7 +28,15 @@ class SmsNotification implements NotificationInterface
     /**
      * @see NotificationInterface
      */
-    public function notify()
+    public function getType()
+    {
+        return 'sms';
+    }
+
+    /**
+     * @see NotificationInterface
+     */
+    public function getQueryString()
     {
     }
 

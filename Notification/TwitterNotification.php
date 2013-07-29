@@ -28,7 +28,15 @@ class TwitterNotification implements NotificationInterface
     /**
      * @see NotificationInterface
      */
-    public function notify()
+    public function getType()
+    {
+        return 'twitter';
+    }
+
+    /**
+     * @see NotificationInterface
+     */
+    public function getQueryString()
     {
     }
 
