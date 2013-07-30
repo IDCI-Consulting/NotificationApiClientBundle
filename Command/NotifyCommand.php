@@ -23,31 +23,6 @@ class NotifyCommand extends ContainerAwareCommand
                 The <info>%command.name%</info> command allows to notify.
 EOT
             )
-            ->addArgument(
-                'email',
-                InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
-                'Email argument'
-            )
-            ->addArgument(
-                'mail',
-                InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
-                'mail argument'
-            )
-            ->addArgument(
-                'sms',
-                InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
-                'Sms argument'
-            )
-            ->addArgument(
-                'facebook',
-                InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
-                'Facebook argument'
-            )
-            ->addArgument(
-                'twitter',
-                InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
-                'Twitter argument'
-            )
         ;
     }
 
@@ -63,25 +38,5 @@ EOT
 
         $output->writeln($this->get('notification_api_client.notifier')->notify($params));
     }
-
-    /**
-     * Get params
-     *
-     * @param sInputInterface $input
-     */
-    protected function getParams(InputInterface $input)
-    {
-        $params = array(
-            'email'     => $input->getArgument('email'),
-            'mail'      => $input->getArgument('mail'),
-            'sms'       => $input->getArgument('sms'),
-            'facebook'  => $input->getArgument('facebook'),
-            'twitter'   => $input->getArgument('twitter'),
-        );
-
-        var_dump($params);
-        return $params;
-    }
-
 }
 
