@@ -17,14 +17,16 @@ class ApiResponseException extends \Exception
      *
      * @param string $url
      * @param string $httpCode
+     * @param string $content
      */
-    public function __construct($url, $httpCode)
+    public function __construct($url, $httpCode, $content)
     {
         parent::__construct(
             sprintf(
-                "%s \nApi response error code: %d",
+                "%s\nApi response error code: %d\n%s",
                 $url,
-                $httpCode
+                $httpCode,
+                $content
             ),
             0,
             null

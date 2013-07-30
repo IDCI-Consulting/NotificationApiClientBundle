@@ -13,7 +13,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-class TwitterNotification implements NotificationInterface
+class TwitterNotification implements QueryStringableInterface
 {
     /**
      * @Assert\NotBlank()
@@ -26,18 +26,14 @@ class TwitterNotification implements NotificationInterface
     protected $message;
 
     /**
-     * @see NotificationInterface
+     * @see QueryStringableInterface
      */
-    public function getType()
+    public function toQueryString()
     {
-        return 'twitter';
-    }
-
-    /**
-     * @see NotificationInterface
-     */
-    public function getQueryString()
-    {
+        return json_encode(array(
+            'to' => $this->getTo(),
+            'message' => $this->getMessage(),
+        ));
     }
 
     /**

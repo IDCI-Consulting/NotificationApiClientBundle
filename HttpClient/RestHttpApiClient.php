@@ -140,7 +140,7 @@ class RestHttpApiClient implements RestHttpApiClientInterface
         curl_close($cUrl);
 
         if($httpCode != 200) {
-            throw new ApiResponseException($path, $httpCode);
+            throw new ApiResponseException($path, $httpCode, $data);
         }
 
         return $data;

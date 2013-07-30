@@ -13,7 +13,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-class FacebookNotification implements NotificationInterface
+class FacebookNotification implements QueryStringableInterface
 {
     /**
      * @Assert\NotBlank()
@@ -26,18 +26,14 @@ class FacebookNotification implements NotificationInterface
     protected $message;
 
     /**
-     * @see NotificationInterface
+     * @see QueryStringableInterface
      */
-    public function getType()
+    public function toQueryString()
     {
-        return 'facebook';
-    }
-
-    /**
-     * @see NotificationInterface
-     */
-    public function getQueryString()
-    {
+        return json_encode(array(
+            'to' => $this->getTo(),
+            'message' => $this->getMessage(),
+        ));
     }
 
     /**

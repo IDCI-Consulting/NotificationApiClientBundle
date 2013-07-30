@@ -69,18 +69,26 @@ class Notifier
      * Add Notification
      *
      * @param string $type
-     * @param array $parameters
+     * @param array|string $parameters
      * @return Notifier
      * @throw UnavailableNotificationDataException
      */
-    public function addNotification($type, array $parameters)
+    public function addNotification($type, $parameters)
     {
+        if(!is_array($parameters)) {
+            $parameters = json_decode($parameters, true);
+        }
+
+        if(!isset($this->notifications[$type])) {
+            $this->notifications[$type] = array();
+        }
+
         $notification = NotificationFactory::create($type, $parameters);
         $errorList = $this->getValidator()->validate($notification);
         if(count($errorList) > 0) {
             throw new UnavailableNotificationDataException($errorList);
         }
-        $this->notifications[] = $notification;
+        $this->notifications[$type][] = $notification;
 
         return $this;
     }
@@ -109,11 +117,31 @@ class Notifier
     public function buildNotificationQuery()
     {
         $queryString = '';
-        foreach($this->getNotifications() as $notification) {
-            $queryString .= $notification->getQueryString();
+        foreach($this->getNotifications() as $type => $notifications) {
+            $queryString .= sprintf('%s=%s',
+                $type,
+                self::queryStringify($notifications)
+            );
         }
 
         return $queryString;
+    }
+
+    /**
+     * Query stringify notifications
+     *
+     * @param array $notifications
+     * @return string
+     */
+    public static function queryStringify($notifications)
+    {
+        $stringify = '[';
+        foreach($notifications as $notification) {
+            $stringify .= $notification->toQueryString();
+        }
+        $stringify .= ']';
+
+        return $stringify;
     }
 
     /**
