@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * 
+ * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
+ * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
+ * @license: GPL
+ *
+ */
+
 namespace IDCI\Bundle\NotificationApiClientBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -18,9 +26,17 @@ class NotifyCommand extends ContainerAwareCommand
     {
         $this
             ->setName('tms:notification:notify')
-            ->setDescription('Sends different type of notifications')
+            ->setDescription('Sends notifications from command line')
             ->setHelp(<<<EOT
-                The <info>%command.name%</info> command can send different type of notification according to a specific type
+The <info>%command.name%</info> command can send different type of notifications such as Email, Mail, SMS, Twitter or Facebook.
+Here is an example of usage of this command <info>php app/console tms:notification:notify</info>, you juste have to specify a type and the parameters.
+The parameters are mandatory, see below for example of usage.
+
+Example of Email notification.
+
+<info>php app/console tms:notification:notify --type=email '{"to":"test@email.fr","subject":"notification via command line","message":"message a envoyer"}'
+</info>
+
 EOT
             )
             ->addOption(
