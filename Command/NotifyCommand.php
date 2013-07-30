@@ -43,7 +43,7 @@ EOT
                 'type',
                 null,
                 InputOption::VALUE_REQUIRED,
-                'Specify the type of notification'
+                'Specify the type of notification (email, mail, facebook, twitter, sms)'
             )
             ->addArgument(
                 'parameters',
