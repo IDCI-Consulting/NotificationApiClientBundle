@@ -135,7 +135,7 @@ class RestHttpApiClient implements RestHttpApiClientInterface
     protected static function execute($cUrl)
     {
         $data = curl_exec($cUrl);
-        $path = $httpCode = curl_getinfo($cUrl, CURLINFO_EFFECTIVE_URL);
+        $path = curl_getinfo($cUrl, CURLINFO_EFFECTIVE_URL);
         $httpCode = curl_getinfo($cUrl, CURLINFO_HTTP_CODE);
         curl_close($cUrl);
 

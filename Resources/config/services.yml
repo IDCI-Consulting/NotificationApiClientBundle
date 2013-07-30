@@ -5,7 +5,7 @@ services:
 
     notification_api_client.http_client.default:
         class:     IDCI\Bundle\NotificationApiClientBundle\HttpClient\RestHttpApiClient
-        arguments: [%defaultHttpClientParameters%]
+        arguments: [%notification_api_client.default_http_client_parameters%]
 
     notification_api_client.http_client.da:
         class:     IDCI\Bundle\NotificationApiClientBundle\HttpClient\DaApiClient\RestHttpApiClient

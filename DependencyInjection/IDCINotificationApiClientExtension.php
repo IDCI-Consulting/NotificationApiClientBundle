@@ -34,6 +34,9 @@ class IDCINotificationApiClientExtension extends Extension
         $loader->load('services.yml');
 
         $container->setAlias('notification_api_client.http_client', $config['http_client']);
-        $container->setParameter('defaultHttpClientParameters', $config['default_http_client_parameters']);
+        $container->setParameter(
+            'notification_api_client.default_http_client_parameters',
+            $config['default_http_client_parameters']
+        );
     }
 }
