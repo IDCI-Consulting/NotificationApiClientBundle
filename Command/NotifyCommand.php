@@ -18,11 +18,22 @@ class NotifyCommand extends ContainerAwareCommand
     {
         $this
             ->setName('tms:notification:notify')
-            ->setDescription('Allow to notify')
+            ->setDescription('Sends different type of notifications')
             ->setHelp(<<<EOT
-                The <info>%command.name%</info> command allows to notify.
+                The <info>%command.name%</info> command can send different type of notification according to a specific type
 EOT
             )
+            ->addOption(
+                'type',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Specify the type of notification'
+            )
+            ->addArgument(
+                'parameters',
+                InputArgument::IS_ARRAY,
+                'Enter your parameters (separated by a space)'
+)
         ;
     }
 
@@ -34,9 +45,16 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $params = $this->getParams($input);
+        $type = $input->getOption('type');
+        $params = $input->getArgument('parameters');
 
-        $output->writeln($this->get('notification_api_client.notifier')->notify($params));
+        foreach($params as $notificationParameters){
+            $this
+                ->getContainer()
+                ->get('notification_api_client.notifier')
+                ->addNotification($type, $notificationParameters)
+                ->notify();
+        }
     }
 }
 
