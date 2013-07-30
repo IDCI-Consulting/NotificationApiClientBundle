@@ -37,22 +37,34 @@ public function registerBundles()
     );
 }
 ```
+
 Now the Bundle is installed.
+
+
+Configure HTTP Client
+=====================
+
+By default this bundle provide a simple HTTP Api Client, so you have to configure it.
+So you just have to define the `endpoint_root` parameter in your `app/config/config.yml`.
+
+```yml
+idci_notification_api_client:
+    default_http_client_parameters:
+        endpoint_root: http|s://you.api.endpoint.root
+```
+
+If you wish to use an advanced HTTP Api Client, we suggest the (DaApiClientBundle)[https://github.com/Gnuckorg/DaApiClientBundle].
+
+// TODO
+
 
 How to use it
 =============
 
-The gold of this bundle is to call services of the NotificationBundle, see the link below :
+This bundle is just an Api Client of the (NotificationBundle)[https://github.com/IDCI-Consulting/NotificationBundle].
+It simplify the webservice call.
 
-https://github.com/IDCI-Consulting/NotificationBundle
-
-Send notifications:
--------------------
-
-To send notification see the below example
-
-Example of usage
-----------------
+To **send notification** you have to use the `notification_api_client.notifier` service.
 
 ```php
 <?php
