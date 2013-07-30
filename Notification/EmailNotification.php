@@ -13,7 +13,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-class EmailNotification implements NotificationInterface
+class EmailNotification implements QueryStringableInterface
 {
     /**
      * @Assert\NotBlank()
@@ -52,21 +52,18 @@ class EmailNotification implements NotificationInterface
     }
 
     /**
-     * @see NotificationInterface
+     * @see QueryStringableInterface
      */
-    public function getQueryString()
+    public function toQueryString()
     {
-        return sprintf('%s=%s',
-            $this->getType(),
-            json_encode(array(
-                'to' => $this->getTo(),
-                'cc' => $this->getCc(),
-                'bcc' => $this->getBcc(),
-                'subject' => $this->getSubject(),
-                'message' => $this->getMessage(),
-                'attachements' => $this->getAttachements()
-            ))
-        );
+        return json_encode(array(
+            'to' => $this->getTo(),
+            'cc' => $this->getCc(),
+            'bcc' => $this->getBcc(),
+            'subject' => $this->getSubject(),
+            'message' => $this->getMessage(),
+            'attachements' => $this->getAttachements()
+        ));
     }
 
     /**

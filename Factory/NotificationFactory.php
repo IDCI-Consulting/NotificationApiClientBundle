@@ -11,6 +11,7 @@
 namespace IDCI\Bundle\NotificationApiClientBundle\Factory;
 
 use IDCI\Bundle\NotificationApiClientBundle\Util\Inflector;
+use IDCI\Bundle\NotificationApiClientBundle\Exception\UnavailableNotificationDataException;
 
 abstract class NotificationFactory
 {

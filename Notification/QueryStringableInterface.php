@@ -10,19 +10,12 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-interface NotificationInterface
+interface QueryStringableInterface
 {
-    /**
-     * getType
-     *
-     * return string
-     */
-    public function getType();
-
     /**
      * getQueryString
      *
      * return string
      */
-    public function getQueryString();
+    public function toQueryString();
 }
