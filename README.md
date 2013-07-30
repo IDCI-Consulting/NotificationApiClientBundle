@@ -53,7 +53,7 @@ idci_notification_api_client:
         endpoint_root: http|s://you.api.endpoint.root
 ```
 
-If you wish to use an advanced HTTP Api Client, we suggest the (DaApiClientBundle)[https://github.com/Gnuckorg/DaApiClientBundle].
+If you wish to use an advanced HTTP Api Client, we suggest the [DaApiClientBundle](https://github.com/Gnuckorg/DaApiClientBundle).
 
 // TODO
 
@@ -61,7 +61,7 @@ If you wish to use an advanced HTTP Api Client, we suggest the (DaApiClientBundl
 How to use it
 =============
 
-This bundle is just an Api Client of the (NotificationBundle)[https://github.com/IDCI-Consulting/NotificationBundle].
+This bundle is just an Api Client of the [NotificationBundle](https://github.com/IDCI-Consulting/NotificationBundle).
 It simplify the webservice call.
 
 To **send notification** you have to use the `notification_api_client.notifier` service.
