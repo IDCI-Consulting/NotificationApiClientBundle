@@ -35,27 +35,6 @@ class Notifier
     }
 
     /**
-     * Get Validator
-     *
-     * @return Symfony\Component\Validator\Validator
-     */
-    protected function getValidator()
-    {
-        return $this->validator;
-    }
-
-
-    /**
-     * Get ApiClient
-     *
-     * @return RestHttpApiClientInterface
-     */
-    protected function getApiClient()
-    {
-        return $this->apiClient;
-    }
-
-    /**
      * Get Notifications
      *
      * @return array
@@ -150,6 +129,26 @@ class Notifier
     public function purgeNotifications()
     {
         $this->notifications = array();
+    }
+
+    /**
+     * Get Validator
+     *
+     * @return Symfony\Component\Validator\Validator
+     */
+    protected function getValidator()
+    {
+        return $this->validator;
+    }
+
+    /**
+     * Get ApiClient
+     *
+     * @return RestHttpApiClientInterface
+     */
+    protected function getApiClient()
+    {
+        return $this->apiClient;
     }
 }
 

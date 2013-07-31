@@ -44,14 +44,6 @@ class EmailNotification implements QueryStringableInterface
     protected $attachements;
 
     /**
-     * @see NotificationInterface
-     */
-    public function getType()
-    {
-        return 'email';
-    }
-
-    /**
      * @see QueryStringableInterface
      */
     public function toQueryString()
