@@ -21,6 +21,9 @@
         "symfony/framework-bundle":         ">=2.1",
         "twig/twig":                        "*"
     },
+    "suggest": {
+        "da/api-client-bundle": "Allows more advanced api control"
+    },
     "autoload": {
         "psr-0": { "IDCI\\Bundle\\NotificationApiClientBundle": "" }
     },
