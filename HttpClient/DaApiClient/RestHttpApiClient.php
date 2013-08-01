@@ -15,15 +15,6 @@ use IDCI\Bundle\NotificationApiClientBundle\HttpClient\RestHttpApiClientInterfac
 
 class RestHttpApiClient extends RestApiClientBridge implements RestHttpApiClientInterface
 {
-    public function getNotif($offset, $limit)
-    {
-        $parameters = array('offset' => $offset, 'limit' => $limit);
-
-        $this->get('/friends', $parameters);
-
-        return 'It works!';
-    }
-
     /**
      * @see RestHttpClientApiInterface
      */
