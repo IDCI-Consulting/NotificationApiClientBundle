@@ -60,22 +60,9 @@ Advanced Client
 ---------------
 
 If you wish to use an advanced HTTP Api Client, we suggest the [DaApiClientBundle](https://github.com/Gnuckorg/DaApiClientBundle).
+Follow the documentation to install it.
 
-To use it, first add it to your application `composer.json`
-
-```json
-"require": {
-    ...
-    "da/api-client-bundle": "dev-master"
-},
-```
-
-Then install the bundle with the command:
-
-```sh
-php composer update
-```
-
+Once done, configure your application in order to tell notification bundle to use it.
 
 // TODO
 
