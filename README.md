@@ -3,6 +3,7 @@ NotificationApiClientBundle
 
 Symfony2 notification api client bundle
 
+
 Installation
 ============
 
@@ -63,8 +64,48 @@ If you wish to use an advanced HTTP Api Client, we suggest the [DaApiClientBundl
 Follow the documentation to install it.
 
 Once done, configure your application in order to tell notification bundle to use it.
+You must have at least one da_api_client_api defined:
 
-// TODO
+```yml
+# Da Api Client
+da_api_client:
+    api:
+        notification:
+            base_url:      %default_http_client_endpoint_root%
+            cache_enabled: true
+```
+
+Here we have defined `da_api_client_api_notification` service.
+To use this service with notification instead of the default one, change the 
+`idci_notification_api_client_http_client` value as follow:
+
+```yml
+# Notification Api Client
+idci_notification_api_client:
+    http_client: da_api_client.api.notification
+```
+
+to check if every thing seem to be ok, you can execute this command:
+
+```sh
+php app/console container:debug
+```
+
+You'll get this result:
+
+```sh
+...
+notification_api_client.http_client             n/a       alias for da_api_client.api.notification
+...
+```
+
+instead of the default:
+
+```sh
+...
+notification_api_client.http_client             n/a       alias for notification_api_client.http_client.default
+...
+```
 
 
 How to use it
@@ -73,12 +114,12 @@ How to use it
 This bundle is just an Api Client for the [NotificationBundle](https://github.com/IDCI-Consulting/NotificationBundle).
 It simplify the webservice call.
 
+Using the service
+-----------------
+
 To **send notification** you have to use the `notification_api_client.notifier` service.
 
 ```php
-<?php
-// Inside your controller
-
 $this->get('notification_api_client.notifier')
     /**
      * case 1 : email notification
@@ -129,4 +170,9 @@ $this->get('notification_api_client.notifier')
     ->notify()
 ));
 ```
+
+Using the command line
+----------------------
+
+// TODO
 
