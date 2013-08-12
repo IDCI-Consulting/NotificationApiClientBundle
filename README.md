@@ -175,7 +175,7 @@ Using the command line
 ----------------------
 
 The **tms:notification:notify type parameters** command can send different type of notifications such as Email, Mail, SMS, Twitter or Facebook.
-You just have to specify the arguments which are mandory.
+You just have to specify the arguments which are mandatory.
 
 Below an example of usage
 
