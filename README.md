@@ -73,6 +73,8 @@ da_api_client:
         notification:
             base_url:      %default_http_client_endpoint_root%
             cache_enabled: true
+            client:
+                service: notification_api_client.http_client.da
 ```
 
 Here we have defined `da_api_client_api_notification` service.

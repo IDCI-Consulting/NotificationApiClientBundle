@@ -15,11 +15,4 @@ use IDCI\Bundle\NotificationApiClientBundle\HttpClient\RestHttpApiClientInterfac
 
 class RestHttpApiClient extends RestApiClientBridge implements RestHttpApiClientInterface
 {
-    /**
-     * @see RestHttpClientApiInterface
-     */
-    public function post($path, $queryString = null)
-    {
-        echo 'test thomas';
-    }
 }
