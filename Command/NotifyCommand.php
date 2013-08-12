@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use IDCI\Bundle\NotificationApiClientBundle\Exception\ApiResponseException;
 
 class NotifyCommand extends ContainerAwareCommand
 {
@@ -34,7 +35,7 @@ The parameters are mandatory, see below for example of usage.
 
 Example of Email notification.
 
-<info>php app/console tms:notification:notify --type=email '{"to":"test@email.fr","subject":"notification via command line","message":"message a envoyer"}'
+<info>php app/console tms:notification:notify --type=email --parameters='{"to":"test@email.fr","subject":"notification via command line","message":"message a envoyer"}'
 </info>
 
 EOT
@@ -45,11 +46,12 @@ EOT
                 InputOption::VALUE_REQUIRED,
                 'Specify the type of notification (email, mail, facebook, twitter, sms)'
             )
-            ->addArgument(
+            ->addOption(
                 'parameters',
-                InputArgument::IS_ARRAY,
-                'Enter your parameters (separated by a space)'
-)
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Enter your notification parameters in json format'
+            )
         ;
     }
 
@@ -62,14 +64,18 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $type = $input->getOption('type');
-        $params = $input->getArgument('parameters');
+        $parameters = $input->getOption('parameters');
 
-        foreach($params as $notificationParameters){
+        try {
             $this
                 ->getContainer()
                 ->get('notification_api_client.notifier')
-                ->addNotification($type, $notificationParameters)
-                ->notify();
+                ->addNotification($type, $parameters)
+                ->notify()
+            ;
+            $output->writeln('<info>Notification sent</info>');
+        } catch(ApiResponseException $are) {
+            $output->writeln(sprintf('<error>%s</error>', $are->getMessage()));
         }
     }
 }

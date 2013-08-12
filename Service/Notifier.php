@@ -19,19 +19,42 @@ class Notifier
 {
     protected $validator;
     protected $apiClient;
+    protected $sourceName;
     protected $notifications;
 
     /**
      * Constructor
      *
-     * @params ValidatorInterface $validator
-     * @params RestHttpApiClientInterface $apiClient
+     * @param ValidatorInterface $validator
+     * @param RestHttpApiClientInterface $apiClient
+     * @param string $sourceName
      */
-    public function __construct(ValidatorInterface $validator, RestHttpApiClientInterface $apiClient)
+    public function __construct(ValidatorInterface $validator, RestHttpApiClientInterface $apiClient, $sourceName)
     {
         $this->validator = $validator;
         $this->apiClient = $apiClient;
+        $this->sourceName = $sourceName;
         $this->notifications = array();
+    }
+
+    /**
+     * Get the notifier source name
+     *
+     * @return string
+     */
+    public function getSourceName()
+    {
+        return $this->sourceName;
+    }
+
+    /**
+     * Has source name
+     *
+     * @return boolean
+     */
+    public function hasSourceName()
+    {
+        return null !== $this->getSourceName();
     }
 
     /**
@@ -91,19 +114,19 @@ class Notifier
     /**
      * Build Notification Query
      *
-     * @return string
+     * @return array
      */
     public function buildNotificationQuery()
     {
-        $queryString = '';
+        $query = array();
         foreach($this->getNotifications() as $type => $notifications) {
-            $queryString .= sprintf('%s=%s',
-                $type,
-                self::queryStringify($notifications)
-            );
+            $query[$type] = self::queryStringify($notifications);
+        }
+        if($this->hasSourceName()) {
+            $query['source_name'] = $this->getSourceName();
         }
 
-        return $queryString;
+        return $query;
     }
 
     /**

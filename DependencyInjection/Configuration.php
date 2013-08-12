@@ -30,6 +30,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('source_name')->defaultNull()->end()
                 ->scalarNode('http_client')
                     ->defaultValue('notification_api_client.http_client.default')
                 ->end()

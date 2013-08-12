@@ -17,6 +17,8 @@ interface RestHttpApiClientInterface
      *
      * @param string $path
      * @param string $queryString
+     * @return string
+     * @throw ApiResponseException
      */
     public function get($path, $queryString = null);
 
@@ -25,6 +27,8 @@ interface RestHttpApiClientInterface
      *
      * @param string $path
      * @param string $queryString
+     * @return string
+     * @throw ApiResponseException
      */
     public function post($path, $queryString = null);
 
@@ -33,6 +37,8 @@ interface RestHttpApiClientInterface
      *
      * @param string $path
      * @param string $queryString
+     * @return string
+     * @throw ApiResponseException
      */
     public function put($path, $queryString = null);
 
@@ -41,6 +47,8 @@ interface RestHttpApiClientInterface
      *
      * @param string $path
      * @param string $queryString
+     * @return string
+     * @throw ApiResponseException
      */
     public function delete($path, $queryString = null);
 }

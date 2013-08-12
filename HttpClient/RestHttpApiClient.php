@@ -130,7 +130,7 @@ class RestHttpApiClient implements RestHttpApiClientInterface
      *
      * @param cUrl $cUrl
      * @return string
-     * @throw Exception
+     * @throw ApiResponseException
      */
     protected static function execute($cUrl)
     {
