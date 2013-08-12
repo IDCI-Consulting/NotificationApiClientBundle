@@ -35,7 +35,7 @@ The parameters are mandatory, see below for example of usage.
 
 Example of Email notification.
 
-<info>php app/console tms:notification:notify email '{"to":"test@email.fr","subject":"notification via command line","message":"message a envoyer"}'
+<info>php app/console tms:notification:notify email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send"}'
 </info>
 
 EOT
