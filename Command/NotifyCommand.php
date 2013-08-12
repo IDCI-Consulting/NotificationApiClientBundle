@@ -35,21 +35,19 @@ The parameters are mandatory, see below for example of usage.
 
 Example of Email notification.
 
-<info>php app/console tms:notification:notify --type=email --parameters='{"to":"test@email.fr","subject":"notification via command line","message":"message a envoyer"}'
+<info>php app/console tms:notification:notify email '{"to":"test@email.fr","subject":"notification via command line","message":"message a envoyer"}'
 </info>
 
 EOT
             )
-            ->addOption(
+            ->addArgument(
                 'type',
-                null,
-                InputOption::VALUE_REQUIRED,
+                InputArgument::REQUIRED,
                 'Specify the type of notification (email, mail, facebook, twitter, sms)'
             )
-            ->addOption(
+            ->addArgument(
                 'parameters',
-                null,
-                InputOption::VALUE_REQUIRED,
+                InputArgument::REQUIRED,
                 'Enter your notification parameters in json format'
             )
         ;
@@ -63,8 +61,8 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $type = $input->getOption('type');
-        $parameters = $input->getOption('parameters');
+        $type = $input->getArgument('type');
+        $parameters = $input->getArgument('parameters');
 
         try {
             $this
