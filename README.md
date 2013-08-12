@@ -174,5 +174,13 @@ $this->get('notification_api_client.notifier')
 Using the command line
 ----------------------
 
-// TODO
+The **tms:notification:notify type parameters** command can send different type of notifications such as Email, Mail, SMS, Twitter or Facebook.
+You just have to specify the arguments which are mandory.
+
+Below an example of usage
+
+```sh
+php app/console tms:notification:notify email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send"}'
+```
+
 
