@@ -158,14 +158,14 @@ $this->get('notification_api_client.notifier')
     /**
      * case 4 : facebook notification
      */
-    ->addNotification("facebook" => array(
+    ->addNotification("facebook", array(
         "to" => array("user1@facebook.com", "user2@facebook.com", "user3@facebook.com", "..."),
         "message" => "Notification Message"
     ))
     /**
      * case 5 : twitter notification
      */
-    ->addNotification("twitter" => array(
+    ->addNotification("twitter", array(
         "to" => array("user1@twitter.com", "user2@twitter.com", "user3@twitter.com", "..."),
         "message" => "Notification Message"
     ))
