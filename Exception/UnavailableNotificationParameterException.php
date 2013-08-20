@@ -10,7 +10,7 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Exception;
 
-class UnavailableNotificationDataException extends \Exception
+class UnavailableNotificationParameterException extends \Exception
 {
     /**
      * Constructor
@@ -20,11 +20,15 @@ class UnavailableNotificationDataException extends \Exception
      */
     public function __construct($className, $field)
     {
-        parent::__construct(sprintf(
-            'Unknown field %s for %s object',
-            $field,
-            $className
-        ), 0, null);
+        parent::__construct(
+            sprintf(
+                'Unknown field %s for %s object',
+                $field,
+                $className
+            ),
+            0,
+            null
+        );
     }
 }
 

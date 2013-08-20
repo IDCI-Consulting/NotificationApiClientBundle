@@ -11,7 +11,7 @@
 namespace IDCI\Bundle\NotificationApiClientBundle\Factory;
 
 use IDCI\Bundle\NotificationApiClientBundle\Util\Inflector;
-use IDCI\Bundle\NotificationApiClientBundle\Exception\UnavailableNotificationDataException;
+use IDCI\Bundle\NotificationApiClientBundle\Exception\UnavailableNotificationParameterException;
 
 abstract class NotificationFactory
 {
@@ -35,7 +35,7 @@ abstract class NotificationFactory
         foreach($parameters as $field => $value) {
             $setter = sprintf('set%s', Inflector::camelize($field));
             if (!$rc->hasMethod($setter)) {
-                throw new UnavailableNotificationDataException($className, $field);
+                throw new UnavailableNotificationParameterException($className, $field);
             }
             $notification->$setter($value);
         }
