@@ -69,7 +69,7 @@ class RestHttpApiClient implements RestHttpApiClientInterface
     /**
      * @see RestHttpClientApiInterface
      */
-    public function get($path, $queryString = null)
+    public function get($path, array $queryString = array())
     {
         $cUrl = self::initCurl($this->getFullEndpointPath($path));
 
@@ -79,7 +79,7 @@ class RestHttpApiClient implements RestHttpApiClientInterface
     /**
      * @see RestHttpClientApiInterface
      */
-    public function post($path, $queryString = null)
+    public function post($path, array $queryString = array())
     {
         $cUrl = self::initCurl($this->getFullEndpointPath($path));
         curl_setopt($cUrl, CURLOPT_POST, true);
@@ -91,7 +91,7 @@ class RestHttpApiClient implements RestHttpApiClientInterface
     /**
      * @see RestHttpClientApiInterface
      */
-    public function put($path, $queryString = null)
+    public function put($path, array $queryString = array())
     {
         $cUrl = self::initCurl($this->getFullEndpointPath($path));
         curl_setopt($cUrl, CURLOPT_PUT, true);
@@ -102,7 +102,7 @@ class RestHttpApiClient implements RestHttpApiClientInterface
     /**
      * @see RestHttpClientApiInterface
      */
-    public function delete($path, $queryString = null)
+    public function delete($path, array $queryString = array())
     {
         $cUrl = self::initCurl($this->getFullEndpointPath($path));
 
