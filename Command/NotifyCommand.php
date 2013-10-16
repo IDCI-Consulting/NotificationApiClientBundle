@@ -30,12 +30,13 @@ class NotifyCommand extends ContainerAwareCommand
             ->setDescription('Sends notifications from command line')
             ->setHelp(<<<EOT
 The <info>%command.name%</info> command can send different type of notifications such as Email, Mail, SMS, Twitter or Facebook.
-Here is an example of usage of this command <info>php app/console tms:notification:notify</info>, you juste have to specify a type and the parameters.
+Here is an example of usage of this command <info>php app/console %command.name%</info>, you juste have to specify a type and the parameters.
 The parameters are mandatory, see below for example of usage.
 
-Example of Email notification.
+Example with an Email notification.
 
-<info>php app/console tms:notification:notify email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send"}'
+<info>
+php app/console %command.name% email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send"}'
 </info>
 
 EOT
