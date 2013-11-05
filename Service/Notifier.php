@@ -37,6 +37,27 @@ class Notifier
         $this->notifications = array();
     }
 
+
+    /**
+     * Get Validator
+     *
+     * @return Symfony\Component\Validator\Validator
+     */
+    protected function getValidator()
+    {
+        return $this->validator;
+    }
+
+    /**
+     * Get ApiClient
+     *
+     * @return RestHttpApiClientInterface
+     */
+    protected function getApiClient()
+    {
+        return $this->apiClient;
+    }
+
     /**
      * Get the notifier source name
      *
@@ -103,7 +124,7 @@ class Notifier
     public function notify()
     {
         $response = $this->getApiClient()->post(
-            '/notifications/add',
+            '/notifications',
             $this->buildNotificationQuery()
         );
         $this->purgeNotifications();
@@ -152,26 +173,6 @@ class Notifier
     public function purgeNotifications()
     {
         $this->notifications = array();
-    }
-
-    /**
-     * Get Validator
-     *
-     * @return Symfony\Component\Validator\Validator
-     */
-    protected function getValidator()
-    {
-        return $this->validator;
-    }
-
-    /**
-     * Get ApiClient
-     *
-     * @return RestHttpApiClientInterface
-     */
-    protected function getApiClient()
-    {
-        return $this->apiClient;
     }
 }
 

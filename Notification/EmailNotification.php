@@ -49,21 +49,20 @@ class EmailNotification implements QueryStringableInterface
     public function toQueryString()
     {
         return json_encode(array(
-            'to' => $this->getTo(),
-            'cc' => $this->getCc(),
-            'bcc' => $this->getBcc(),
-            'subject' => $this->getSubject(),
-            'message' => $this->getMessage(),
-            'attachements' => $this->getAttachements()
+            'to' => array(
+                'to' => $this->getTo(),
+                'cc' => $this->getCc(),
+                'bcc' => $this->getBcc()
+            ),
+            'content' => array(
+                'subject' => $this->getSubject(),
+                'message' => $this->getMessage(),
+                'attachements' => $this->getAttachements()
+            )
         ));
     }
 
-    /**
-     * SetTo
-     *
-     * @param string $to
-     * @return EmailNotification
-     */
+
     public function setTo($to)
     {
         $this->to = $to;
@@ -71,22 +70,12 @@ class EmailNotification implements QueryStringableInterface
         return $this;
     }
 
-    /**
-     * Get to
-     *
-     * @return string
-     */
+
     public function getTo()
     {
         return $this->to;
     }
 
-    /**
-     * Set cc
-     *
-     * @param string $cc
-     * @return EmailNotification
-     */
     public function setCc($cc)
     {
         $this->cc = $cc;
@@ -94,22 +83,11 @@ class EmailNotification implements QueryStringableInterface
         return $this;
     }
 
-    /**
-     * Get cc
-     *
-     * @return string
-     */
     public function getCc()
     {
         return $this->cc;
     }
 
-    /**
-     * Set bcc
-     *
-     * @param string $bcc
-     * @return EmailNotification
-     */
     public function setBcc($bcc)
     {
         $this->bcc = $bcc;
@@ -117,22 +95,11 @@ class EmailNotification implements QueryStringableInterface
         return $this;
     }
 
-    /**
-     * Get bccProxy
-     *
-     * @return string
-     */
     public function getBcc()
     {
         return $this->bcc;
     }
 
-    /**
-     * Set subject
-     *
-     * @param string $subject
-     * @return EmailNotification
-     */
     public function setSubject($subject)
     {
         $this->subject = $subject;
@@ -140,22 +107,11 @@ class EmailNotification implements QueryStringableInterface
         return $this;
     }
 
-    /**
-     * Get subject
-     *
-     * @return string
-     */
     public function getSubject()
     {
         return $this->subject;
     }
 
-    /**
-     * Set message
-     *
-     * @param string $message
-     * @return EmailNotification
-     */
     public function setMessage($message)
     {
         $this->message = $message;
@@ -163,22 +119,11 @@ class EmailNotification implements QueryStringableInterface
         return $this;
     }
 
-    /**
-     * Get message
-     *
-     * @return string
-     */
     public function getMessage()
     {
         return $this->message;
     }
 
-    /**
-     * Set attachements
-     *
-     * @param string $attachements
-     * @return EmailNotification
-     */
     public function setAttachements($attachements)
     {
         $this->attachements = $attachements;
@@ -186,11 +131,6 @@ class EmailNotification implements QueryStringableInterface
         return $this;
     }
 
-    /**
-     * Get attachements
-     *
-     * @return string
-     */
     public function getAttachements()
     {
         return $this->attachements;

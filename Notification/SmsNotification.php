@@ -32,16 +32,10 @@ class SmsNotification implements QueryStringableInterface
     {
         return json_encode(array(
             'to' => $this->getTo(),
-            'message' => $this->getMessage(),
+            'content' => $this->getMessage(),
         ));
     }
 
-    /**
-     * Set To
-     *
-     * @param string $to
-     * @return SmsNotification
-     */
     public function setTo($to)
     {
         $this->to = $to;
@@ -49,22 +43,11 @@ class SmsNotification implements QueryStringableInterface
         return $this;
     }
 
-    /**
-     * Get to
-     *
-     * @return string
-     */
     public function getTo()
     {
         return $this->to;
     }
 
-    /**
-     * Set message
-     *
-     * @param string $message
-     * @return SmsNotification
-     */
     public function setMessage($message)
     {
         $this->message = $message;
@@ -72,11 +55,6 @@ class SmsNotification implements QueryStringableInterface
         return $this;
     }
 
-    /**
-     * Get message
-     *
-     * @return string
-     */
     public function getMessage()
     {
         return $this->message;

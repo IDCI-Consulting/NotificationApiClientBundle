@@ -21,7 +21,7 @@ use IDCI\Bundle\NotificationApiClientBundle\Exception\ApiResponseException;
 class NotifyCommand extends ContainerAwareCommand
 {
     /**
-     * Configure
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -55,10 +55,7 @@ EOT
     }
 
     /**
-     * Execute
-     *
-     * @param sInputInterface $input
-     * @param OutputInterface $output
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
