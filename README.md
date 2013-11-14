@@ -132,6 +132,7 @@ $this->get('notification_api_client.notifier')
         "subject" => "Notification subject",
         "bcc" => array("bcc1@mail.com", "bcc2@mail.com", "bcc3@mail.com", "..."),
         "message" => "Notification Message",
+        "htmlMessage" => "<h1>Titre</h1><p>message</p>",
         "attachements" => array()
     ))
     /**
@@ -187,6 +188,5 @@ The second one are the parameters (in json format) according to the given type.
 Below an example of usage
 
 ```sh
-php app/console tms:notification:notify email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send"}'
+php app/console tms:notification:notify email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send","htmlMessage":"<h1>Titre</h1><p>message</p>"}'
 ```
-

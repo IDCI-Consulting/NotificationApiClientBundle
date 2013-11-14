@@ -39,6 +39,10 @@ class EmailNotification implements QueryStringableInterface
     protected $message;
 
     /**
+     */
+    protected $htmlMessage;
+
+    /**
      *
      */
     protected $attachements;
@@ -50,13 +54,14 @@ class EmailNotification implements QueryStringableInterface
     {
         return json_encode(array(
             'to' => array(
-                'to' => $this->getTo(),
-                'cc' => $this->getCc(),
+                'to'  => $this->getTo(),
+                'cc'  => $this->getCc(),
                 'bcc' => $this->getBcc()
             ),
             'content' => array(
-                'subject' => $this->getSubject(),
-                'message' => $this->getMessage(),
+                'subject'      => $this->getSubject(),
+                'message'      => $this->getMessage(),
+                'htmlMessage'  => $this->getHtmlMessage(),
                 'attachements' => $this->getAttachements()
             )
         ));
@@ -122,6 +127,18 @@ class EmailNotification implements QueryStringableInterface
     public function getMessage()
     {
         return $this->message;
+    }
+
+    public function setHtmlMessage($html_message)
+    {
+        $this->htmlMessage = $html_message;
+
+        return $this;
+    }
+
+    public function getHtmlMessage()
+    {
+        return $this->htmlMessage;
     }
 
     public function setAttachements($attachements)

@@ -36,7 +36,7 @@ The parameters are mandatory, see below for example of usage.
 Example with an Email notification.
 
 <info>
-php app/console %command.name% email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send"}'
+php app/console %command.name% email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send","htmlMessage":"<h1>Titre</h1><p>message</p>"}'
 </info>
 
 EOT
@@ -75,4 +75,3 @@ EOT
         }
     }
 }
-
