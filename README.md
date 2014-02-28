@@ -127,48 +127,93 @@ $this->get('notification_api_client.notifier')
      * case 1 : email notification
      */
     ->addNotification("email", array(
-        "to" => array("to1@mail.com", "to2@mail.com", "to3@mail.com", "..."),
-        "cc" => array("cc1@mail.com", "cc2@mail.com", "cc3@mail.com", "..."),
-        "subject" => "Notification subject",
-        "bcc" => array("bcc1@mail.com", "bcc2@mail.com", "bcc3@mail.com", "..."),
-        "message" => "Notification Message",
-        "htmlMessage" => "<h1>Titre</h1><p>message</p>",
-        "attachements" => array()
+        'to' => array(
+                'to'  => array("to1@mail.com", "to2@mail.com", "to3@mail.com", "..."),
+                'cc'  => array("cc1@mail.com", "cc2@mail.com", "cc3@mail.com", "..."),
+                'bcc' => array("bcc1@mail.com", "bcc2@mail.com", "bcc3@mail.com", "...")
+            ),
+        'from' => array(
+                'login'      => "login@tessi.com",
+                'password'   => "titi",
+                'server'     => "smtp.tessi.fr",
+                'port'       => "465",
+                'encryption' => "ssl",
+                'isSecured'  => "yes"
+            ),
+        'content' => array(
+                'subject'     => "Notification subject",
+                'message'     => "Notification Message",
+                'htmlMessage' => "<h1>Titre</h1><p>message</p>",
+                'attachments' => array()
+            )
     ))
     /**
      * case 2 : sms notification
      */
     ->addNotification("sms", array(
-        "to" => array("0612345678", "0610111213", "0610112214", "..."),
-        "message" => "Notification Message"
+        'to' => array(
+            'to' => array("0612345678", "0610111213", "0610112214", "...")
+        ),
+        'from' => array(
+            'from' => "0653214862"
+        ),
+        'content' array(
+            'message' => "Notification Message")
+        )
     ))
     /**
      * case 3 : mail notification
      */
     ->addNotification("mail", array(
-        "to" => array(
-            "firstName" => '',
-            "lastName" => '',
-            "address" => '',
-            "postalCode" =>'',
-            "city" => '',
-            "country" => ''
+        'to' => array(
+            'firstName'  => "Titi",
+            'lastName'   => "Tutu",
+            'address'    => "Titis adresse",
+            'postalCode' =>"75002",
+            'city'       => "Paris",
+            'country'    => "FR"
         ),
-        "message" => "Notification Message",
+        'from' => array(
+            'senderFirstName'  => "sender's first name",
+            'senderLastName'   => "sender's last name",
+            'senderAddress'    => "sender's adresse",
+            'senderPostalCode' => "75001",
+            'senderCity'       => "Paris",
+            'senderCountry'    => "FR"
+        ),
+        'content' => array(
+            'message' => "Message to send"
+        )
     ))
     /**
      * case 4 : facebook notification
      */
     ->addNotification("facebook", array(
-        "to" => array("user1@facebook.com", "user2@facebook.com", "user3@facebook.com", "..."),
-        "message" => "Notification Message"
+        'to' => array(
+            'to' => "henri@facebook.com"
+        ),
+        'from' => array(
+            'senderLogin'    => "Titi22",
+            'senderPassword' => "password"
+        ),
+        'content' => array(
+            'message' => "Notification message"
+        )
     ))
     /**
      * case 5 : twitter notification
      */
     ->addNotification("twitter", array(
-        "to" => array("user1@twitter.com", "user2@twitter.com", "user3@twitter.com", "..."),
-        "message" => "Notification Message"
+        'to' => array(
+            'to' => array("user1@twitter.com", "user2@twitter.com", "user3@twitter.com", "...")
+        ),
+        'from' => array(
+            'senderLogin'    => "userx@twitter.com",
+            'senderPassword' => "password"
+        ),
+        'content' => array(
+            'message' => "Notification message"
+        )
     ))
     ->notify()
 ));
@@ -188,5 +233,5 @@ The second one are the parameters (in json format) according to the given type.
 Below an example of usage
 
 ```sh
-php app/console tms:notification:notify email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send","htmlMessage":"<h1>Titre</h1><p>message</p>"}'
+php app/console tms:notification:notify email '{"to": {"to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null}, "from": {"login":"sender@tessi.com", "password": "password", "server": "smtp.tessi.fr", "port": "465", "encryption": "ssl", "isSecured": "yes"},"content": {"subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}}'
 ```

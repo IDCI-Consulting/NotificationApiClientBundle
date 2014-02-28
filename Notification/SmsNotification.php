@@ -4,6 +4,7 @@
  * 
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
  * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
+ * @author:  Pichet PUTH <pichet.puth@utt.fr>
  * @license: GPL
  *
  */
@@ -23,6 +24,11 @@ class SmsNotification implements QueryStringableInterface
     /**
      * @Assert\NotBlank()
      */
+    protected $from;
+
+    /**
+     * @Assert\NotBlank()
+     */
     protected $message;
 
     /**
@@ -31,8 +37,15 @@ class SmsNotification implements QueryStringableInterface
     public function toQueryString()
     {
         return json_encode(array(
-            'to' => $this->getTo(),
-            'content' => $this->getMessage(),
+            'to' => array(
+                'to' => $this->getTo()
+            ),
+            'from' => array(
+                'from' => $this->getFrom()
+            ),
+            'content' => array(
+                'message' => $this->getMessage()
+            )
         ));
     }
 
@@ -58,5 +71,17 @@ class SmsNotification implements QueryStringableInterface
     public function getMessage()
     {
         return $this->message;
+    }
+
+    public function setFrom($from)
+    {
+        $this->from = $from;
+
+        return $this;
+    }
+
+    public function getFrom()
+    {
+        return $this->from;
     }
 }

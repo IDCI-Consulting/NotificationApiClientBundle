@@ -4,6 +4,7 @@
  * 
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
  * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
+ * @author:  Pichet PUTH <pichet.puth@utt.fr>
  * @license: GPL
  *
  */
@@ -55,20 +56,64 @@ class MailNotification implements QueryStringableInterface
     protected $message;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^\w+/")
+     */
+    protected $senderFirstName;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^\w+/")
+     */
+    protected $senderLastName;
+
+    /**
+     * @Assert\NotBlank()
+     */
+    protected $senderAddress;
+
+    /**
+     * @Assert\NotBlank()
+     */
+    protected $senderPostalCode;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^\w+/")
+     */
+    protected $senderCity;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Country
+     */
+    protected $senderCountry;
+
+    /**
      * @see QueryStringableInterface
      */
     public function toQueryString()
     {
         return json_encode(array(
             'to' => array(
-                'firstName' => $this->getFirstName(),
-                'lastName' => $this->getLastName(),
-                'address' => $this->getAddress(),
+                'firstName'  => $this->getFirstName(),
+                'lastName'   => $this->getLastName(),
+                'address'    => $this->getAddress(),
                 'postalCode' => $this->getPostalCode(),
-                'city' => $this->getCity(),
-                'country' => $this->getCountry()
+                'city'       => $this->getCity(),
+                'country'    => $this->getCountry()
             ),
-            'content' => $this->getMessage()
+            'from' => array(
+                'senderFirstName'  => $this->getSenderFirstName(),
+                'senderLastName'   => $this->getSenderLastName(),
+                'senderAddress'    => $this->getSenderAddress(),
+                'senderPostalCode' => $this->getSenderPostalCode(),
+                'senderCity'       => $this->getSenderCity(),
+                'senderCountry'    => $this->getSenderCountry()
+            ),
+            'content' => array(
+                'message' => $this->getMessage()
+            )
         ));
     }
 
@@ -154,5 +199,77 @@ class MailNotification implements QueryStringableInterface
     public function getMessage()
     {
         return $this->message;
+    }
+
+    public function setSenderFirstName($senderFirstName)
+    {
+        $this->senderFirstName = $senderFirstName;
+
+        return $this;
+    }
+
+    public function getSenderFirstName()
+    {
+        return $this->senderFirstName;
+    }
+
+    public function setSenderLastName($senderLastName)
+    {
+        $this->senderLastName = $senderLastName;
+
+        return $this;
+    }
+
+    public function getSenderLastName()
+    {
+        return $this->senderLastName;
+    }
+
+    public function setSenderAddress($senderAddress)
+    {
+        $this->senderAddress = $senderAddress;
+
+        return $this;
+    }
+
+    public function getSenderAddress()
+    {
+        return $this->senderAddress;
+    }
+
+    public function setSenderPostalCode($senderPostalCode)
+    {
+        $this->senderPostalCode = $senderPostalCode;
+
+        return $this;
+    }
+
+    public function getSenderPostalCode()
+    {
+        return $this->senderPostalCode;
+    }
+
+    public function setSenderCity($senderCity)
+    {
+        $this->senderCity = $senderCity;
+
+        return $this;
+    }
+
+    public function getSenderCity()
+    {
+        return $this->senderCity;
+    }
+
+    public function setSenderCountry($senderCountry)
+    {
+        $this->senderCountry = $senderCountry;
+
+        return $this;
+    }
+
+    public function getSenderCountry()
+    {
+        return $this->senderCountry;
     }
 }

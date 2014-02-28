@@ -36,7 +36,9 @@ The parameters are mandatory, see below for example of usage.
 Example with an Email notification.
 
 <info>
-php app/console %command.name% email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send","htmlMessage":"<h1>Titre</h1><p>message</p>"}'
+php app/console %command.name% email '{"to": {"to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null},
+"from": {"login":"sender@tessi.com", "password": "password", "server": "smtp.tessi.fr", "port": "465", "encryption": "ssl", "isSecured": "yes"},
+"content": {"subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}}'
 </info>
 
 EOT

@@ -4,6 +4,7 @@
  * 
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
  * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
+ * @author:  Pichet PUTH <pichet.puth@utt.fr>
  * @license: GPL
  *
  */
@@ -31,6 +32,44 @@ class EmailNotification implements QueryStringableInterface
     /**
      * @Assert\NotBlank()
      */
+    protected $login;
+
+    /**
+     * @Assert\NotBlank()
+     */
+    protected $password;
+
+
+    /**
+     * @Assert\NotBlank()
+     */
+    protected $server;
+
+    /**
+     * @Assert\NotBlank()
+     */
+    protected $port;
+
+    /**
+     * @Assert\Choice(
+     *      choices = {"ssl", "tsl"},
+     *      message = "Choose a valid type of encryption"
+     * )
+     */
+    protected $encryption;
+
+    /**
+     * @Assert\Choice(
+     *      choices = {"yes", "no"},
+     *      message = "Choose a valid option [yes/no]"
+     * )
+     */
+    protected $isSecured;
+
+
+    /**
+     * @Assert\NotBlank()
+     */
     protected $subject;
 
     /**
@@ -45,7 +84,7 @@ class EmailNotification implements QueryStringableInterface
     /**
      *
      */
-    protected $attachements;
+    protected $attachments;
 
     /**
      * @see QueryStringableInterface
@@ -58,15 +97,94 @@ class EmailNotification implements QueryStringableInterface
                 'cc'  => $this->getCc(),
                 'bcc' => $this->getBcc()
             ),
+            'from' => array(
+                'login'      => $this->getLogin(),
+                'password'   => $this->getPassword(),
+                'server'     => $this->getServer(),
+                'port'       => $this->getPort(),
+                'encryption' => $this->hasEncryption(),
+                'isSecured'  => $this->hasIsSecured()
+            ),
             'content' => array(
-                'subject'      => $this->getSubject(),
-                'message'      => $this->getMessage(),
-                'htmlMessage'  => $this->getHtmlMessage(),
-                'attachements' => $this->getAttachements()
+                'subject'     => $this->getSubject(),
+                'message'     => $this->getMessage(),
+                'htmlMessage' => $this->getHtmlMessage(),
+                'attachments' => $this->getAttachments()
             )
         ));
     }
 
+    public function setLogin($login)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setServer($server)
+    {
+        $this->server = $server;
+
+        return $this;
+    }
+
+    public function getServer()
+    {
+        return $this->server;
+    }
+
+    public function setPort($port)
+    {
+        $this->port = $port;
+
+        return $this;
+    }
+
+    public function getPort()
+    {
+        return $this->port;
+    }
+
+    public function setEncryption($encryption)
+    {
+        $this->encryption = $encryption;
+
+        return $this;
+    }
+
+    public function hasEncryption()
+    {
+        return $this->encryption;
+    }
+
+    public function setIsSecured($isSecured)
+    {
+        $this->isSecured = $isSecured;
+
+        return $this;
+    }
+
+    public function hasIsSecured()
+    {
+        return $this->isSecured;
+    }
 
     public function setTo($to)
     {
@@ -74,7 +192,6 @@ class EmailNotification implements QueryStringableInterface
 
         return $this;
     }
-
 
     public function getTo()
     {
@@ -141,15 +258,15 @@ class EmailNotification implements QueryStringableInterface
         return $this->htmlMessage;
     }
 
-    public function setAttachements($attachements)
+    public function setAttachments($attachments)
     {
-        $this->attachements = $attachements;
+        $this->attachments = $attachments;
 
         return $this;
     }
 
-    public function getAttachements()
+    public function getAttachments()
     {
-        return $this->attachements;
+        return $this->attachments;
     }
 }
