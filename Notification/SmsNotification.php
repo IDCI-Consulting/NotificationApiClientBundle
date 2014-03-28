@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
  * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
  * @author:  Pichet PUTH <pichet.puth@utt.fr>
@@ -14,8 +14,12 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-class SmsNotification implements QueryStringableInterface
+class SmsNotification extends AbstractNotification
 {
+    /**
+     */
+    protected $phoneNumber;
+
     /**
      * @Assert\NotBlank()
      */
@@ -24,31 +28,37 @@ class SmsNotification implements QueryStringableInterface
     /**
      * @Assert\NotBlank()
      */
-    protected $from;
-
-    /**
-     * @Assert\NotBlank()
-     */
     protected $message;
 
     /**
-     * @see QueryStringableInterface
+     * Set phoneNumber
+     *
+     * @param  int $phoneNumber
+     * @return SmsNotification
      */
-    public function toQueryString()
+    public function setPhoneNumber($phoneNumber)
     {
-        return json_encode(array(
-            'to' => array(
-                'to' => $this->getTo()
-            ),
-            'from' => array(
-                'from' => $this->getFrom()
-            ),
-            'content' => array(
-                'message' => $this->getMessage()
-            )
-        ));
+        $this->phone_number = $phone_number;
+
+        return $this;
     }
 
+    /**
+     * Get phone number
+     *
+     * @return  int
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
+     * Set to
+     *
+     * @param  string $to
+     * @return SmsNotification
+     */
     public function setTo($to)
     {
         $this->to = $to;
@@ -56,11 +66,22 @@ class SmsNotification implements QueryStringableInterface
         return $this;
     }
 
+    /**
+     * Get to
+     *
+     * @return  string
+     */
     public function getTo()
     {
         return $this->to;
     }
 
+    /**
+     * Set message
+     *
+     * @param  string $message
+     * @return SmsNotification
+     */
     public function setMessage($message)
     {
         $this->message = $message;
@@ -68,20 +89,34 @@ class SmsNotification implements QueryStringableInterface
         return $this;
     }
 
+    /**
+     * Get message
+     *
+     * @return  string
+     */
     public function getMessage()
     {
         return $this->message;
     }
 
-    public function setFrom($from)
+    /**
+     * {@inheritdoc}
+     */
+    public function getJsonData()
     {
-        $this->from = $from;
-
-        return $this;
-    }
-
-    public function getFrom()
-    {
-        return $this->from;
+        return array(
+            'notifierAlias' => array(
+                'notifierAlias' => $this->getNotifierAlias()
+            ),
+            'phone_number' => array(
+                'phone_number'  => $this->getPhoneNumber()
+            ),
+            'to' => array(
+                'to' => $this->getTo()
+            ),
+            'content' => array(
+                'message' => $this->getMessage()
+            )
+        );
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
  * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
  * @license: GPL
@@ -36,8 +36,9 @@ The parameters are mandatory, see below for example of usage.
 Example with an Email notification.
 
 <info>
-php app/console %command.name% email '{"to": {"to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null},
-"from": {"login":"sender@tessi.com", "password": "password", "server": "smtp.tessi.fr", "port": "465", "encryption": "ssl", "isSecured": "yes"},
+php app/console %command.name% email '{"notifierAlias":{"notifierAlias":"sfr"},
+"from": {"transport": "smtp", "from":"","server": "smtp.tessi.fr",login":"sender@tessi.com", "password": "password", "port": "465", "encryption": "ssl", "isSecured": "true"},
+to": {"to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null},
 "content": {"subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}}'
 </info>
 

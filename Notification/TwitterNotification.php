@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
  * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
  * @author:  Pichet PUTH <pichet.puth@utt.fr>
@@ -14,8 +14,16 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-class TwitterNotification implements QueryStringableInterface
+class TwitterNotification extends AbstractNotification
 {
+    /**
+     */
+    protected $login;
+
+    /**
+     */
+    protected $password;
+
     /**
      * @Assert\NotBlank()
      */
@@ -27,34 +35,57 @@ class TwitterNotification implements QueryStringableInterface
     protected $message;
 
     /**
-     * @Assert\NotBlank()
+     * Set login
+     *
+     * @param  string $login
+     * @return TwitterNotification
      */
-    protected $senderLogin;
-
-    /**
-     * @Assert\NotBlank()
-     */
-    protected $senderPassword;
-
-    /**
-     * @see QueryStringableInterface
-     */
-    public function toQueryString()
+    public function setLogin($login)
     {
-        return json_encode(array(
-            'to' => array(
-                'to' => $this->getTo()
-            ),
-            'from' => array(
-                'senderLogin'    => $this->getSenderLogin(),
-                'senderPassword' => $this->getSenderPassword()
-            ),
-            'content' => array(
-                'message'  => $this->getMessage()
-            )
-        ));
+        $this->login = $login;
+
+        return $this;
     }
 
+    /**
+     * Get login
+     *
+     * @return  string
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * Set password
+     *
+     * @param  string $password
+     * @return TwitterNotification
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return  string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set to
+     *
+     * @param  string $to
+     * @return TwitterNotification
+     */
     public function setTo($to)
     {
         $this->to = $to;
@@ -62,11 +93,22 @@ class TwitterNotification implements QueryStringableInterface
         return $this;
     }
 
+    /**
+     * Get to
+     *
+     * @return  string
+     */
     public function getTo()
     {
         return $this->to;
     }
 
+    /**
+     * Set message
+     *
+     * @param  string $message
+     * @return TwitterNotification
+     */
     public function setMessage($message)
     {
         $this->message = $message;
@@ -74,32 +116,35 @@ class TwitterNotification implements QueryStringableInterface
         return $this;
     }
 
+    /**
+     * Get message
+     *
+     * @return  string
+     */
     public function getMessage()
     {
         return $this->message;
     }
 
-    public function setSenderLogin($senderLogin)
+    /**
+     * {@inheritdoc}
+     */
+    public function getJsonData()
     {
-        $this->senderLogin = $senderLogin;
-
-        return $this;
-    }
-
-    public function getSenderLogin()
-    {
-        return $this->senderLogin;;
-    }
-
-    public function setSenderPassword($senderPassword)
-    {
-        $this->senderPassword = $senderPassword;
-
-        return $this;
-    }
-
-    public function getSenderPassword()
-    {
-        return $this->senderPassword;
+        return array(
+            'notifierAlias' => array(
+                'notifierAlias' => $this->getNotifierAlias()
+            ),
+            'from' => array(
+                'login'    => $this->getLogin(),
+                'password' => $this->getPassword()
+            ),
+            'to' => array(
+                'to' => $this->getTo()
+            ),
+            'content' => array(
+                'message'  => $this->getMessage()
+            )
+        );
     }
 }
