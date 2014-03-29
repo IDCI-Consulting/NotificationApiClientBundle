@@ -5,27 +5,23 @@ Symfony2 notification api client bundle
 
 
 Installation
-============
+------------
 
-To install this bundle please follow the next steps:
-
-First add the dependency in your `composer.json` file:
-
+Add dependencies in your `composer.json` file:
 ```json
 "require": {
     ...
+    "da/api-client-bundle": "dev-master",
     "idci/notification-api-client-bundle": "dev-master"
 },
 ```
 
-Then install the bundle with the command:
-
+Install these new dependencies of your application:
 ```sh
-php composer update
+$ php composer update
 ```
 
 Enable the bundle in your application kernel:
-
 ```php
 <?php
 // app/AppKernel.php
@@ -33,160 +29,49 @@ Enable the bundle in your application kernel:
 public function registerBundles()
 {
     $bundles = array(
-        //
+        // ...
+        new Da\ApiClientBundle\DaApiClientBundle(),
         new IDCI\Bundle\NotificationApiClientBundle\IDCINotificationApiClientBundle(),
     );
 }
 ```
 
-Now the Bundle is installed.
-
-
-Configure HTTP Client
-=====================
-
-The default Client
-------------------
-
-By default this bundle provide a simple HTTP Api Client, so you have to configure it.
-So you just have to define the `endpoint_root` parameter in your `app/config/config.yml`.
-
+Import the bundle configuration:
 ```yml
-idci_notification_api_client:
-    default_http_client_parameters:
-        endpoint_root: http|s://you.api.endpoint.root
+# app/config/config.yml
+
+imports:
+    - { resource: @IDCINotificationApiClientBundle/Resources/config/config.yml }
 ```
 
-Advanced Client
----------------
-
-If you wish to use an advanced HTTP Api Client, we suggest the [DaApiClientBundle](https://github.com/Gnuckorg/DaApiClientBundle).
-Follow the documentation to install it.
-
-Once done, configure your application in order to tell notification bundle to use it.
-You must have at least one da_api_client_api defined:
-
-```yml
-# Da Api Client
-da_api_client:
-    api:
-        notification:
-            base_url:      %default_http_client_endpoint_root%
-            cache_enabled: true
-            client:
-                service: notification_api_client.http_client.da
-```
-
-Here we have defined `da_api_client_api_notification` service.
-To use this service with notification instead of the default one, change the 
-`idci_notification_api_client_http_client` value as follow:
-
-```yml
-# Notification Api Client
-idci_notification_api_client:
-    http_client: da_api_client.api.notification
-```
-
-to check if every thing seem to be ok, you can execute this command:
-
+To check if every thing seem to be ok, you can execute this command:
 ```sh
-php app/console container:debug
+$ php app/console container:debug
 ```
 
 You'll get this result:
-
 ```sh
 ...
-notification_api_client.http_client             n/a       alias for da_api_client.api.notification
-...
-```
-
-instead of the default:
-
-```sh
-...
-notification_api_client.http_client             n/a       alias for notification_api_client.http_client.default
+da_api_client.api.notification    container Da\ApiClientBundle\Http\Rest\RestApiClientBridge
 ...
 ```
 
 
-How to use it
-=============
+Documentation
+-------------
 
-This bundle is just an Api Client for the [NotificationBundle](https://github.com/IDCI-Consulting/NotificationBundle).
-It simplify the webservice call.
+[Read the Documentation](Resources/doc/index.md)
 
-Using the service
------------------
 
-To **send notification** you have to use the `notification_api_client.notifier` service.
+Tests
+-----
 
-```php
-$this->get('notification_api_client.notifier')
-    /**
-     * case 1 : email notification
-     */
-    ->addNotification("email", array(
-        "to" => array("to1@mail.com", "to2@mail.com", "to3@mail.com", "..."),
-        "cc" => array("cc1@mail.com", "cc2@mail.com", "cc3@mail.com", "..."),
-        "subject" => "Notification subject",
-        "bcc" => array("bcc1@mail.com", "bcc2@mail.com", "bcc3@mail.com", "..."),
-        "message" => "Notification Message",
-        "htmlMessage" => "<h1>Titre</h1><p>message</p>",
-        "attachements" => array()
-    ))
-    /**
-     * case 2 : sms notification
-     */
-    ->addNotification("sms", array(
-        "to" => array("0612345678", "0610111213", "0610112214", "..."),
-        "message" => "Notification Message"
-    ))
-    /**
-     * case 3 : mail notification
-     */
-    ->addNotification("mail", array(
-        "to" => array(
-            "firstName" => '',
-            "lastName" => '',
-            "address" => '',
-            "postalCode" =>'',
-            "city" => '',
-            "country" => ''
-        ),
-        "message" => "Notification Message",
-    ))
-    /**
-     * case 4 : facebook notification
-     */
-    ->addNotification("facebook", array(
-        "to" => array("user1@facebook.com", "user2@facebook.com", "user3@facebook.com", "..."),
-        "message" => "Notification Message"
-    ))
-    /**
-     * case 5 : twitter notification
-     */
-    ->addNotification("twitter", array(
-        "to" => array("user1@twitter.com", "user2@twitter.com", "user3@twitter.com", "..."),
-        "message" => "Notification Message"
-    ))
-    ->notify()
-));
+Install bundle dependencies:
+```sh
+$ php composer.phar update
 ```
 
-Using the command line
-----------------------
-
-You can use directly the command if you wish to send notification with a cron for example.
-To do that use the **tms:notification:notify type parameters** command.
-You just have to specify the mandatory arguments.
-
-The first one is the type such as email, mail, sms, twitter or facebook.
-
-The second one are the parameters (in json format) according to the given type.
-
-Below an example of usage
-
+To execute unit tests:
 ```sh
-php app/console tms:notification:notify email '{"to":"test@email.fr","subject":"notification via command line","message":"message to send","htmlMessage":"<h1>Titre</h1><p>message</p>"}'
+$ phpunit --coverage-text
 ```

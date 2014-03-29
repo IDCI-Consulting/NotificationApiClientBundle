@@ -1,13 +1,4 @@
 services:
     notification_api_client.notifier:
         class: IDCI\Bundle\NotificationApiClientBundle\Service\Notifier
-        arguments: [@validator, @notification_api_client.http_client, %notification_api_client.source_name%]
-
-    notification_api_client.http_client.default:
-        class:     IDCI\Bundle\NotificationApiClientBundle\HttpClient\RestHttpApiClient
-        arguments: [%notification_api_client.default_http_client_parameters%]
-
-    notification_api_client.http_client.da:
-        class:     IDCI\Bundle\NotificationApiClientBundle\HttpClient\DaApiClient\RestHttpApiClient
-        arguments: [null, null]
-        abstract:  true
+        arguments: [@validator, null, %notification_api_client.source_name%]
