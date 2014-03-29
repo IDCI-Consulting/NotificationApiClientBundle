@@ -13,6 +13,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Service;
 use Symfony\Component\Validator\ValidatorInterface;
 use IDCI\Bundle\NotificationApiClientBundle\Exception\UnavailableNotificationDataException;
 use IDCI\Bundle\NotificationApiClientBundle\Factory\NotificationFactory;
+use Da\ApiClientBundle\Http\Rest\RestApiClientInterface;
 
 class Notifier
 {
@@ -25,10 +26,10 @@ class Notifier
      * Constructor
      *
      * @param ValidatorInterface $validator
-     * @param RestHttpApiClientInterface $apiClient
+     * @param RestApiClientInterface $apiClient
      * @param string $sourceName
      */
-    public function __construct(ValidatorInterface $validator, RestHttpApiClientInterface $apiClient = null, $sourceName)
+    public function __construct(ValidatorInterface $validator, RestApiClientInterface $apiClient, $sourceName)
     {
         $this->validator = $validator;
         $this->apiClient = $apiClient;
@@ -50,7 +51,7 @@ class Notifier
     /**
      * Get ApiClient
      *
-     * @return RestHttpApiClientInterface
+     * @return RestApiClientInterface
      */
     protected function getApiClient()
     {
