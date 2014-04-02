@@ -45,14 +45,14 @@ abstract class AbstractNotification implements QueryStringableInterface
     {
         return json_encode(array_merge(
             array('notifierAlias' => $this->getNotifierAlias()),
-            $this->getJsonData()
+            $this->getData()
         ));
     }
 
     /**
-     * Get json data
+     * Get data
      *
      * @return array
      */
-    abstract public function getJsonData();
+    abstract public function getData();
 }

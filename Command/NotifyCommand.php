@@ -36,10 +36,7 @@ The parameters are mandatory, see below for example of usage.
 Example with an Email notification.
 
 <info>
-php app/console %command.name% email '{"notifierAlias":{"notifierAlias":"sfr"},
-"from": {"transport": "smtp", "from":"","server": "smtp.tessi.fr",login":"sender@tessi.com", "password": "password", "port": "465", "encryption": "ssl", "isSecured": "true"},
-to": {"to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null},
-"content": {"subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}}'
+php app/console %command.name% email '{"notifierAlias": "alias", "to": {"to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null}, "content": {"subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}}'
 </info>
 
 EOT
@@ -73,8 +70,8 @@ EOT
                 ->notify()
             ;
             $output->writeln('<info>Notification sent</info>');
-        } catch(ApiResponseException $are) {
-            $output->writeln(sprintf('<error>%s</error>', $are->getMessage()));
+        } catch(\Exception $e) {
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
         }
     }
 }

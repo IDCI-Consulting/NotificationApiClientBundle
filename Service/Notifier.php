@@ -144,7 +144,7 @@ class Notifier
             $query[$type] = self::queryStringify($notifications);
         }
         if($this->hasSourceName()) {
-            $query['source_name'] = $this->getSourceName();
+            $query['sourceName'] = $this->getSourceName();
         }
 
         return $query;

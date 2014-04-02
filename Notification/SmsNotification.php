@@ -102,7 +102,7 @@ class SmsNotification extends AbstractNotification
     /**
      * {@inheritdoc}
      */
-    public function getJsonData()
+    public function getData()
     {
         return array(
             'notifierAlias' => array(

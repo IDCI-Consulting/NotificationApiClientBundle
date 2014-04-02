@@ -284,7 +284,7 @@ class MailNotification extends AbstractNotification
     /**
      * {@inheritdoc}
      */
-    public function getJsonData()
+    public function getData()
     {
         return array(
             'from' => array(

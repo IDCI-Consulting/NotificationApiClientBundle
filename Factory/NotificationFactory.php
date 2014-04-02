@@ -32,8 +32,14 @@ abstract class NotificationFactory
         $notification = new $className();
 
         $rc = new \ReflectionClass($className);
+
+        if (isset($parameters['notifierAlias'])) {
+            $notification->setNotifierAlias($parameters['notifierAlias']);
+            unset($parameters['notifierAlias']);
+        }
+
         foreach($parameters as $field => $values) {
-            foreach ($values as $key => $value){       
+            foreach ($values as $key => $value){
                 $setter = sprintf('set%s', Inflector::camelize($key));
                 if (!$rc->hasMethod($setter)) {
                     throw new UnavailableNotificationParameterException($className, $field);
