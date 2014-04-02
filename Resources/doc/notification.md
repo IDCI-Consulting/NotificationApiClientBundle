@@ -505,7 +505,7 @@ The first one is the type such as email, mail, sms, twitter or facebook.
 
 The second one are the parameters (in json format) according to the given type.
 
-Below an example of usage
+Below an example of usage  
 Case 1 : notification with notifier parameters
 ```sh
 php app/console tms:notification:notify email '{"to":{"to":"to1@mail.com, to2@mail.com","cc":"cc1@mail.com, cc2@mail.com","bcc":"bcc1@mail.com, bcc2@mail.com"},"from":{"transport":"smtp","from":"test@test.fr","login":"mail@mxserver.com","password":"password","server":"smtp.mxserver.fr","port":"465","encryption":"ssl"},"content":{"subject":"Notification subject","message":"Notification Message","htmlMessage":"<h1>Titre<\/h1><p>message<\/p>","attachments":[]}}'
