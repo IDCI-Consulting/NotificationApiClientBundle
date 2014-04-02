@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
  * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
  * @license: GPL
@@ -20,6 +20,7 @@ abstract class NotificationFactory
      *
      * @param string $type
      * @param array $parameters
+     * @return AbstractNotification $notification
      */
     static public function create($type, $parameters)
     {
