@@ -18,12 +18,12 @@ class SmsNotification extends AbstractNotification
 {
     /**
      */
-    protected $phoneNumber;
+    protected $fromPhoneNumber;
 
     /**
      * @Assert\NotBlank()
      */
-    protected $to;
+    protected $toPhoneNumber;
 
     /**
      * @Assert\NotBlank()
@@ -31,49 +31,49 @@ class SmsNotification extends AbstractNotification
     protected $message;
 
     /**
-     * Set phoneNumber
+     * SetFromPhoneNumber
      *
-     * @param  int $phoneNumber
+     * @param  integer $phoneNumber
      * @return SmsNotification
      */
-    public function setPhoneNumber($phoneNumber)
+    public function setFromPhoneNumber($phoneNumber)
     {
-        $this->phone_number = $phone_number;
+        $this->fromPhoneNumber = $phoneNumber;
 
         return $this;
     }
 
     /**
-     * Get phone number
+     * GetFromPhoneNumber
      *
-     * @return  int
+     * @return integer
      */
-    public function getPhoneNumber()
+    public function getFromPhoneNumber()
     {
-        return $this->phoneNumber;
+        return $this->fromPhoneNumber;
     }
 
     /**
-     * Set to
+     * SetToPhoneNumber
      *
-     * @param  string $to
+     * @param  integer $phoneNumber
      * @return SmsNotification
      */
-    public function setTo($to)
+    public function setToPhoneNumber($phoneNumber)
     {
-        $this->to = $to;
+        $this->toPhoneNumber = $phoneNumber;
 
         return $this;
     }
 
     /**
-     * Get to
+     * GetToPhoneNumber
      *
-     * @return  string
+     * @return integer
      */
-    public function getTo()
+    public function getToPhoneNumber()
     {
-        return $this->to;
+        return $this->toPhoneNumber;
     }
 
     /**
@@ -105,14 +105,11 @@ class SmsNotification extends AbstractNotification
     public function getData()
     {
         return array(
-            'notifierAlias' => array(
-                'notifierAlias' => $this->getNotifierAlias()
-            ),
-            'phone_number' => array(
-                'phone_number'  => $this->getPhoneNumber()
+            'from' => array(
+                'phoneNumber' => $this->getFromPhoneNumber()
             ),
             'to' => array(
-                'to' => $this->getTo()
+                'phoneNumber' => $this->getToPhoneNumber()
             ),
             'content' => array(
                 'message' => $this->getMessage()

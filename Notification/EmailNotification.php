@@ -103,7 +103,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get transport
      *
-     * @return  string
+     * @return string
      */
     public function getTransport()
     {
@@ -126,7 +126,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get from
      *
-     * @return  string
+     * @return string
      */
     public function getFrom()
     {
@@ -149,7 +149,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get server
      *
-     * @return  string
+     * @return string
      */
     public function getServer()
     {
@@ -172,7 +172,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get login
      *
-     * @return  string
+     * @return string
      */
     public function getLogin()
     {
@@ -195,7 +195,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get password
      *
-     * @return  string
+     * @return string
      */
     public function getPassword()
     {
@@ -241,9 +241,9 @@ class EmailNotification extends AbstractNotification
     /**
      * Has encryption
      *
-     * @return  string
+     * @return string
      */
-    public function hasEncryption()
+    public function getEncryption()
     {
         return $this->encryption;
     }
@@ -264,7 +264,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get to
      *
-     * @return  string
+     * @return string
      */
     public function getTo()
     {
@@ -287,7 +287,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get cc
      *
-     * @return  string
+     * @return string
      */
     public function getCc()
     {
@@ -310,7 +310,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get bcc
      *
-     * @return  string
+     * @return string
      */
     public function getBcc()
     {
@@ -333,7 +333,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get subject
      *
-     * @return  string
+     * @return string
      */
     public function getSubject()
     {
@@ -356,7 +356,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get message
      *
-     * @return  string
+     * @return string
      */
     public function getMessage()
     {
@@ -379,7 +379,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get html message
      *
-     * @return  string
+     * @return string
      */
     public function getHtmlMessage()
     {
@@ -402,7 +402,7 @@ class EmailNotification extends AbstractNotification
     /**
      * Get attachments
      *
-     * @return  string
+     * @return string
      */
     public function getAttachments()
     {

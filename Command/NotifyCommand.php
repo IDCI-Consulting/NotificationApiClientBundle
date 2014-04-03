@@ -35,27 +35,27 @@ The parameters are mandatory, see below for example of usage.
 
 Example with an Email notification:
 <info>
-php app/console %command.name% email '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+php app/console %command.name% email '{"notifierAlias": "alias", "to": "me@mymail.com", "cc": "cc1@mymail.com, cc2@mymail.com", "bcc": "bcc@mymail.com", "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
 </info>
 
-Example with an Sms notification:
+Example with a Facebook notification:
 <info>
-php app/console %command.name% sms '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+php app/console %command.name% facebook '{"notifierAlias": "alias", "to": "myfacebookaccount", "message": "the message to be send"}'
 </info>
 
-Example with an Facebook notification:
+Example with a Mail notification:
 <info>
-php app/console %command.name% facebook '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+php app/console %command.name% mail '{"notifierAlias": "alias", "toFirstName": "myFirstName", "toLastName": "myLastName", "toAddress": "myAddress", "toPostalCode": "myPostalCode", "toCity": "myCity", "toCountry": "myCountry", "message": "the message to be send"}'
 </info>
 
-Example with an Mail notification:
+Example with a Sms notification:
 <info>
-php app/console %command.name% mail '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+php app/console %command.name% sms '{"notifierAlias": "alias", "toPhoneNumber": "0678787878", "message": "the message to be send"}'
 </info>
 
-Example with an Twitter notification:
+Example with a Twitter notification:
 <info>
-php app/console %command.name% twitter '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+php app/console %command.name% twitter '{"notifierAlias": "alias", "to": "mytwitteraccount", "message": "the message to be send"}'
 </info>
 
 EOT

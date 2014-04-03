@@ -50,11 +50,11 @@ class FacebookNotification extends AbstractNotification
     /**
      * Get login
      *
-     * @return  string
+     * @return string
      */
     public function getLogin()
     {
-        return $this->login;;
+        return $this->login;
     }
 
     /**
@@ -73,7 +73,7 @@ class FacebookNotification extends AbstractNotification
     /**
      * Get password
      *
-     * @return  string
+     * @return string
      */
     public function getPassword()
     {
@@ -96,7 +96,7 @@ class FacebookNotification extends AbstractNotification
     /**
      * Get to
      *
-     * @return  string
+     * @return string
      */
     public function getTo()
     {
@@ -119,7 +119,7 @@ class FacebookNotification extends AbstractNotification
     /**
      * Get message
      *
-     * @return  string
+     * @return string
      */
     public function getMessage()
     {
@@ -140,7 +140,7 @@ class FacebookNotification extends AbstractNotification
                 'to' => $this->getTo()
             ),
             'content' => array(
-                'message'  => $this->getMessage()
+                'message' => $this->getMessage()
             )
         );
     }

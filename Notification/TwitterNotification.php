@@ -132,9 +132,6 @@ class TwitterNotification extends AbstractNotification
     public function getData()
     {
         return array(
-            'notifierAlias' => array(
-                'notifierAlias' => $this->getNotifierAlias()
-            ),
             'from' => array(
                 'login'    => $this->getLogin(),
                 'password' => $this->getPassword()

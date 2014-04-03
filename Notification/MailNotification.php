@@ -19,64 +19,64 @@ class MailNotification extends AbstractNotification
     /**
      * @Assert\Regex("/^\w+/")
      */
-    protected $senderFirstName;
+    protected $fromFirstName;
 
     /**
      * @Assert\Regex("/^\w+/")
      */
-    protected $senderLastName;
+    protected $fromLastName;
 
     /**
      */
-    protected $senderAddress;
+    protected $fromAddress;
 
     /**
      */
-    protected $senderPostalCode;
+    protected $fromPostalCode;
 
     /**
      * @Assert\Regex("/^\w+/")
      */
-    protected $senderCity;
+    protected $fromCity;
 
     /**
      * @Assert\Country
      */
-    protected $senderCountry;
+    protected $fromCountry;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Regex("/^\w+/")
      */
-    protected $firstName;
+    protected $toFirstName;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Regex("/^\w+/")
      */
-    protected $lastName;
+    protected $toLastName;
 
     /**
      * @Assert\NotBlank()
      */
-    protected $address;
+    protected $toAddress;
 
     /**
      * @Assert\NotBlank()
      */
-    protected $postalCode;
+    protected $toPostalCode;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Regex("/^\w+/")
      */
-    protected $city;
+    protected $toCity;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Country
      */
-    protected $country;
+    protected $toCountry;
 
     /**
      * @Assert\NotBlank()
@@ -84,191 +84,287 @@ class MailNotification extends AbstractNotification
     protected $message;
 
     /**
-     * Set senderFirstName
-     *
-     * @param  string $senderFirstName
-     * @return MailNotification
-     */
-    public function setSenderFirstName($senderFirstName)
-    {
-        $this->senderFirstName = $senderFirstName;
-
-        return $this;
-    }
-
-    public function getSenderFirstName()
-    {
-        return $this->senderFirstName;
-    }
-
-    /**
-     * Set senderLastName
-     *
-     * @param  string $senderLastName
-     * @return MailNotification
-     */
-    public function setSenderLastName($senderLastName)
-    {
-        $this->senderLastName = $senderLastName;
-
-        return $this;
-    }
-
-    public function getSenderLastName()
-    {
-        return $this->senderLastName;
-    }
-
-    /**
-     * Set senderAddress
-     *
-     * @param  string $senderAddress
-     * @return MailNotification
-     */
-    public function setSenderAddress($senderAddress)
-    {
-        $this->senderAddress = $senderAddress;
-
-        return $this;
-    }
-
-    public function getSenderAddress()
-    {
-        return $this->senderAddress;
-    }
-
-    /**
-     * Set senderPostalCode
-     *
-     * @param  string $senderPostalCode
-     * @return MailNotification
-     */
-    public function setSenderPostalCode($senderPostalCode)
-    {
-        $this->senderPostalCode = $senderPostalCode;
-
-        return $this;
-    }
-
-    public function getSenderPostalCode()
-    {
-        return $this->senderPostalCode;
-    }
-
-    /**
-     * Set senderCity
-     *
-     * @param  string $senderCity
-     * @return MailNotification
-     */
-    public function setSenderCity($senderCity)
-    {
-        $this->senderCity = $senderCity;
-
-        return $this;
-    }
-
-    public function getSenderCity()
-    {
-        return $this->senderCity;
-    }
-
-    /**
-     * Set senderCountry
-     *
-     * @param  string $senderCountry
-     * @return MailNotification
-     */
-    public function setSenderCountry($senderCountry)
-    {
-        $this->senderCountry = $senderCountry;
-
-        return $this;
-    }
-
-    public function getSenderCountry()
-    {
-        return $this->senderCountry;
-    }
-
-    /**
-     * Set firstName
+     * SetFromFirstName
      *
      * @param  string $firstName
      * @return MailNotification
      */
-    public function setFirstName($firstName)
+    public function setFromFirstName($firstName)
     {
-        $this->firstName = $firstName;
+        $this->fromFirstName = $firstName;
 
         return $this;
     }
 
-    public function getFirstName()
+    /**
+     * GetFromFirstName
+     *
+     * @return string
+     */
+    public function getFromFirstName()
     {
-        return $this->firstName;
+        return $this->fromFirstName;
     }
 
-    public function setLastName($lastName)
+    /**
+     * SetFromLastName
+     *
+     * @param  string $lastName
+     * @return MailNotification
+     */
+    public function setFromLastName($lastName)
     {
-        $this->lastName = $lastName;
+        $this->fromLastName = $lastName;
 
         return $this;
     }
 
-    public function getLastName()
+    /**
+     * GetFromLastName
+     *
+     * @return string
+     */
+    public function getFromLastName()
     {
-        return $this->lastName;
+        return $this->fromLastName;
     }
 
-    public function setAddress($address)
+    /**
+     * SetFromAddress
+     *
+     * @param  string $address
+     * @return MailNotification
+     */
+    public function setFromAddress($address)
     {
-        $this->address = $address;
+        $this->fromAddress = $address;
 
         return $this;
     }
 
-    public function getAddress()
+    /**
+     * GetFromAddress
+     *
+     * @return string
+     */
+    public function getFromAddress()
     {
-        return $this->address;
+        return $this->fromAddress;
     }
 
-    public function setPostalCode($postalCode)
+    /**
+     * SetFromPostalCode
+     *
+     * @param  string $postalCode
+     * @return MailNotification
+     */
+    public function setFromPostalCode($postalCode)
     {
-        $this->postalCode = $postalCode;
+        $this->fromPostalCode = $postalCode;
 
         return $this;
     }
 
-    public function getPostalCode()
+    /**
+     * SetFromPostalCode
+     *
+     * @return string
+     */
+    public function getFromPostalCode()
     {
-        return $this->postalCode;
+        return $this->fromPostalCode;
     }
 
-    public function setCity($city)
+    /**
+     * SetFromCity
+     *
+     * @param  string $city
+     * @return MailNotification
+     */
+    public function setFromCity($city)
     {
-        $this->city = $city;
+        $this->fromCity = $city;
 
         return $this;
     }
 
-    public function getCity()
+    /**
+     * GetFromCity
+     *
+     * @return string
+     */
+    public function getFromCity()
     {
-        return $this->city;
+        return $this->fromCity;
     }
 
-    public function setCountry($country)
+    /**
+     * SetFromCountry
+     *
+     * @param  string $country
+     * @return MailNotification
+     */
+    public function setFromCountry($country)
     {
-        $this->country = $country;
+        $this->fromCountry = $country;
 
         return $this;
     }
 
-    public function getCountry()
+    /**
+     * GetFromCountry
+     *
+     * @return string
+     */
+    public function getFromCountry()
     {
-        return $this->country;
+        return $this->fromCountry;
     }
 
+    /**
+     * SetToFirstName
+     *
+     * @param  string $firstName
+     * @return MailNotification
+     */
+    public function setToFirstName($firstName)
+    {
+        $this->toFirstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * GetToFirstName
+     *
+     * @return string
+     */
+    public function getToFirstName()
+    {
+        return $this->toFirstName;
+    }
+
+    /**
+     * SetToLastName
+     *
+     * @param  string $lastName
+     * @return MailNotification
+     */
+    public function setToLastName($lastName)
+    {
+        $this->toLastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * GetToLastName
+     *
+     * @return string
+     */
+    public function getToLastName()
+    {
+        return $this->toLastName;
+    }
+
+    /**
+     * SetToAddress
+     *
+     * @param  string $address
+     * @return MailNotification
+     */
+    public function setToAddress($address)
+    {
+        $this->toAddress = $address;
+
+        return $this;
+    }
+
+    /**
+     * GetToAddress
+     *
+     * @return string
+     */
+    public function getToAddress()
+    {
+        return $this->toAddress;
+    }
+
+    /**
+     * SetToPostalCode
+     *
+     * @param  string $postalCode
+     * @return MailNotification
+     */
+    public function setToPostalCode($postalCode)
+    {
+        $this->toPostalCode = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * GetToPostalCode
+     *
+     * @return string
+     */
+    public function getToPostalCode()
+    {
+        return $this->toPostalCode;
+    }
+
+    /**
+     * SetToCity
+     *
+     * @param  string $city
+     * @return MailNotification
+     */
+    public function setToCity($city)
+    {
+        $this->toCity = $city;
+
+        return $this;
+    }
+
+    /**
+     * GetToCity
+     *
+     * @return string
+     */
+    public function getToCity()
+    {
+        return $this->toCity;
+    }
+
+    /**
+     * SetToCountry
+     *
+     * @param  string $country
+     * @return MailNotification
+     */
+    public function setToCountry($country)
+    {
+        $this->toCountry = $country;
+
+        return $this;
+    }
+
+    /**
+     * GetToCountry
+     *
+     * @return string
+     */
+    public function getToCountry()
+    {
+        return $this->toCountry;
+    }
+
+    /**
+     * SetMessage
+     *
+     * @param  string $message
+     * @return MailNotification
+     */
     public function setMessage($message)
     {
         $this->message = $message;
@@ -276,6 +372,11 @@ class MailNotification extends AbstractNotification
         return $this;
     }
 
+    /**
+     * GetMessage
+     *
+     * @return string
+     */
     public function getMessage()
     {
         return $this->message;
@@ -288,20 +389,20 @@ class MailNotification extends AbstractNotification
     {
         return array(
             'from' => array(
-                'first_name'  => $this->getSenderFirstName(),
-                'last_name'   => $this->getSenderLastName(),
-                'address'     => $this->getSenderAddress(),
-                'postal_code' => $this->getSenderPostalCode(),
-                'city'        => $this->getSenderCity(),
-                'country'     => $this->getSenderCountry()
+                'firstName'  => $this->getFromFirstName(),
+                'lastName'   => $this->getFromLastName(),
+                'address'    => $this->getFromAddress(),
+                'postalCode' => $this->getFromPostalCode(),
+                'city'       => $this->getFromCity(),
+                'country'    => $this->getFromCountry()
             ),
             'to' => array(
-                'first_name'  => $this->getFirstName(),
-                'last_name'   => $this->getLastName(),
-                'address'     => $this->getAddress(),
-                'postal_code' => $this->getPostalCode(),
-                'city'        => $this->getCity(),
-                'country'     => $this->getCountry()
+                'firstName'  => $this->getToFirstName(),
+                'lastName'   => $this->getToLastName(),
+                'address'    => $this->getToAddress(),
+                'postalCode' => $this->getToPostalCode(),
+                'city'       => $this->getToCity(),
+                'country'    => $this->getToCountry()
             ),
             'content' => array(
                 'message' => $this->getMessage()
