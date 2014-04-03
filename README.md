@@ -18,7 +18,7 @@ Add dependencies in your `composer.json` file:
 
 Install these new dependencies of your application:
 ```sh
-$ php composer update
+$ php composer.phar update
 ```
 
 Enable the bundle in your application kernel:
