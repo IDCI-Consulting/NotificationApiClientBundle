@@ -30,7 +30,7 @@ Note : Please don't forget *to provide the value of "endpoint_root" and "securit
 | security_token | true      | string value  | Security token data
 | cache_enabled  |           | true, false   | To enable or disable the cache
 
-#### Bundle configuration in `Resources/config/config.yml` file :
+#### Configuration in `Resources/config/config.yml` file :
 ```yml
 da_api_client:
     api:
