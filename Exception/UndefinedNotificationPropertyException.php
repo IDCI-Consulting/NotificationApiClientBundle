@@ -10,20 +10,20 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Exception;
 
-class UnavailableNotificationParameterException extends \Exception
+class UndefinedNotificationPropertyException extends \Exception
 {
     /**
      * Constructor
      *
+     * @param string $property
      * @param string $className
-     * @param string $field
      */
-    public function __construct($className, $field)
+    public function __construct($property, $className)
     {
         parent::__construct(
             sprintf(
-                'Unknown field %s for %s object',
-                $field,
+                'Undefined notification property "%s" in the class "%s"',
+                $property,
                 $className
             ),
             0,

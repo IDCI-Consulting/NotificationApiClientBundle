@@ -11,7 +11,7 @@
 namespace IDCI\Bundle\NotificationApiClientBundle\Factory;
 
 use IDCI\Bundle\NotificationApiClientBundle\Util\Inflector;
-use IDCI\Bundle\NotificationApiClientBundle\Exception\UnavailableNotificationParameterException;
+use IDCI\Bundle\NotificationApiClientBundle\Exception\UndefinedNotificationPropertyException;
 
 abstract class NotificationFactory
 {
@@ -31,22 +31,14 @@ abstract class NotificationFactory
         );
 
         $notification = new $className();
-
         $rc = new \ReflectionClass($className);
 
-        if (isset($parameters['notifierAlias'])) {
-            $notification->setNotifierAlias($parameters['notifierAlias']);
-            unset($parameters['notifierAlias']);
-        }
-
-        foreach($parameters as $field => $values) {
-            foreach ($values as $key => $value){
-                $setter = sprintf('set%s', Inflector::camelize($key));
-                if (!$rc->hasMethod($setter)) {
-                    throw new UnavailableNotificationParameterException($className, $field);
-                }
-                $notification->$setter($value);
+        foreach($parameters as $key => $value) {
+            $setter = sprintf('set%s', Inflector::camelize($key));
+            if (!$rc->hasMethod($setter)) {
+                throw new UndefinedNotificationPropertyException($key, $className);
             }
+            $notification->$setter($value);
         }
 
         return $notification;

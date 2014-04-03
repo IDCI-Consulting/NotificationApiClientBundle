@@ -33,10 +33,29 @@ The <info>%command.name%</info> command can send different type of notifications
 Here is an example of usage of this command <info>php app/console %command.name%</info>, you juste have to specify a type and the parameters.
 The parameters are mandatory, see below for example of usage.
 
-Example with an Email notification.
-
+Example with an Email notification:
 <info>
-php app/console %command.name% email '{"notifierAlias": "alias", "to": {"to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null}, "content": {"subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}}'
+php app/console %command.name% email '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+</info>
+
+Example with an Sms notification:
+<info>
+php app/console %command.name% sms '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+</info>
+
+Example with an Facebook notification:
+<info>
+php app/console %command.name% facebook '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+</info>
+
+Example with an Mail notification:
+<info>
+php app/console %command.name% mail '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+</info>
+
+Example with an Twitter notification:
+<info>
+php app/console %command.name% twitter '{"notifierAlias": "alias", "to": "test@email.fr", "cc": "titi@toto.fr, tutu@titi.fr", "bcc": null, "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
 </info>
 
 EOT
@@ -61,6 +80,7 @@ EOT
     {
         $type = $input->getArgument('type');
         $parameters = $input->getArgument('parameters');
+        $parameters = json_decode($parameters, true);
 
         try {
             $this
