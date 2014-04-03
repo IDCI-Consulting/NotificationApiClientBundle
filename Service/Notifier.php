@@ -91,17 +91,13 @@ class Notifier
     /**
      * Add Notification
      *
-     * @param string $type
-     * @param array|string $parameters
+     * @param  string   $type
+     * @param  array    $parameters
      * @return Notifier
-     * @throw UnavailableNotificationDataException
+     * @throw  UnavailableNotificationDataException
      */
     public function addNotification($type, $parameters)
     {
-        if(!is_array($parameters)) {
-            $parameters = json_decode($parameters, true);
-        }
-
         if(!isset($this->notifications[$type])) {
             $this->notifications[$type] = array();
         }
