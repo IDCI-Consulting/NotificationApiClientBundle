@@ -422,7 +422,7 @@ class EmailNotification extends AbstractNotification
                 'login'      => $this->getLogin(),
                 'password'   => $this->getPassword(),
                 'port'       => $this->getPort(),
-                'encryption' => $this->hasEncryption()
+                'encryption' => $this->getEncryption()
             ),
             'to' => array(
                 'to'  => $this->getTo(),
