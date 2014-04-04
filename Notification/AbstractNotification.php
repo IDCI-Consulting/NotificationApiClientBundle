@@ -43,16 +43,49 @@ abstract class AbstractNotification implements QueryStringableInterface
      */
     public function toQueryString()
     {
-        return json_encode(array_merge(
-            array('notifierAlias' => $this->getNotifierAlias()),
-            $this->getData()
+        return json_encode(array(
+            'notifierAlias' => $this->getNotifierAlias(),
+            'from'          => self::cleanQueryData($this->getDataFrom()),
+            'to'            => self::cleanQueryData($this->getDataTo()),
+            'content'       => self::cleanQueryData($this->getDataContent())
         ));
     }
 
     /**
-     * Get data
+     * Clean query data (remove "null" value)
+     *
+     * @param array $data
+     * @return array
+     */
+    protected static function cleanQueryData($data)
+    {
+        foreach($data as $k => $v) {
+            if (null === $v) {
+                unset($data[$k]);
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get data from
      *
      * @return array
      */
-    abstract public function getData();
+    abstract public function getDataFrom();
+
+    /**
+     * Get data to
+     *
+     * @return array
+     */
+    abstract public function getDataTo();
+
+    /**
+     * Get data content
+     *
+     * @return array
+     */
+    abstract public function getDataContent();
 }

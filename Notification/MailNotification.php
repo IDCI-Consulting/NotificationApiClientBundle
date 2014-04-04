@@ -385,28 +385,40 @@ class MailNotification extends AbstractNotification
     /**
      * {@inheritdoc}
      */
-    public function getData()
+    public function getDataFrom()
     {
         return array(
-            'from' => array(
                 'firstName'  => $this->getFromFirstName(),
                 'lastName'   => $this->getFromLastName(),
                 'address'    => $this->getFromAddress(),
                 'postalCode' => $this->getFromPostalCode(),
                 'city'       => $this->getFromCity(),
                 'country'    => $this->getFromCountry()
-            ),
-            'to' => array(
-                'firstName'  => $this->getToFirstName(),
-                'lastName'   => $this->getToLastName(),
-                'address'    => $this->getToAddress(),
-                'postalCode' => $this->getToPostalCode(),
-                'city'       => $this->getToCity(),
-                'country'    => $this->getToCountry()
-            ),
-            'content' => array(
-                'message' => $this->getMessage()
-            )
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataTo()
+    {
+        return array(
+            'firstName'  => $this->getToFirstName(),
+            'lastName'   => $this->getToLastName(),
+            'address'    => $this->getToAddress(),
+            'postalCode' => $this->getToPostalCode(),
+            'city'       => $this->getToCity(),
+            'country'    => $this->getToCountry()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataContent()
+    {
+        return array(
+            'message' => $this->getMessage()
         );
     }
 }

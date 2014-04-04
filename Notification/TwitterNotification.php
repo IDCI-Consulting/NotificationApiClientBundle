@@ -129,19 +129,31 @@ class TwitterNotification extends AbstractNotification
     /**
      * {@inheritdoc}
      */
-    public function getData()
+    public function getDataFrom()
     {
         return array(
-            'from' => array(
-                'login'    => $this->getLogin(),
-                'password' => $this->getPassword()
-            ),
-            'to' => array(
-                'to' => $this->getTo()
-            ),
-            'content' => array(
-                'message'  => $this->getMessage()
-            )
+            'login'    => $this->getLogin(),
+            'password' => $this->getPassword()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataTo()
+    {
+        return array(
+            'to' => $this->getTo()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataContent()
+    {
+        return array(
+            'message' => $this->getMessage()
         );
     }
 }

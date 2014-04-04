@@ -412,29 +412,41 @@ class EmailNotification extends AbstractNotification
     /**
      * {@inheritdoc}
      */
-    public function getData()
+    public function getDataFrom()
     {
         return array(
-            'from' => array(
-                'transport'  => $this->getTransport(),
-                'from'       => $this->getFrom(),
-                'server'     => $this->getServer(),
-                'login'      => $this->getLogin(),
-                'password'   => $this->getPassword(),
-                'port'       => $this->getPort(),
-                'encryption' => $this->getEncryption()
-            ),
-            'to' => array(
-                'to'  => $this->getTo(),
-                'cc'  => $this->getCc(),
-                'bcc' => $this->getBcc()
-            ),
-            'content' => array(
-                'subject'     => $this->getSubject(),
-                'message'     => $this->getMessage(),
-                'htmlMessage' => $this->getHtmlMessage(),
-                'attachments' => $this->getAttachments()
-            )
+            'transport'  => $this->getTransport(),
+            'from'       => $this->getFrom(),
+            'server'     => $this->getServer(),
+            'login'      => $this->getLogin(),
+            'password'   => $this->getPassword(),
+            'port'       => $this->getPort(),
+            'encryption' => $this->getEncryption()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataTo()
+    {
+        return array(
+            'to'  => $this->getTo(),
+            'cc'  => $this->getCc(),
+            'bcc' => $this->getBcc()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataContent()
+    {
+        return array(
+            'subject'     => $this->getSubject(),
+            'message'     => $this->getMessage(),
+            'htmlMessage' => $this->getHtmlMessage(),
+            'attachments' => $this->getAttachments()
         );
     }
 }

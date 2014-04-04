@@ -102,18 +102,30 @@ class SmsNotification extends AbstractNotification
     /**
      * {@inheritdoc}
      */
-    public function getData()
+    public function getDataFrom()
     {
         return array(
-            'from' => array(
-                'phoneNumber' => $this->getFromPhoneNumber()
-            ),
-            'to' => array(
-                'phoneNumber' => $this->getToPhoneNumber()
-            ),
-            'content' => array(
-                'message' => $this->getMessage()
-            )
+          'phoneNumber' => $this->getFromPhoneNumber()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataTo()
+    {
+        return array(
+            'phoneNumber' => $this->getToPhoneNumber()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataContent()
+    {
+        return array(
+            'message' => $this->getMessage()
         );
     }
 }
