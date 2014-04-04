@@ -33,7 +33,7 @@ class SmsNotification extends AbstractNotification
     /**
      * SetFromPhoneNumber
      *
-     * @param  integer $phoneNumber
+     * @param  string $phoneNumber
      * @return SmsNotification
      */
     public function setFromPhoneNumber($phoneNumber)
@@ -46,7 +46,7 @@ class SmsNotification extends AbstractNotification
     /**
      * GetFromPhoneNumber
      *
-     * @return integer
+     * @return string
      */
     public function getFromPhoneNumber()
     {
@@ -56,7 +56,7 @@ class SmsNotification extends AbstractNotification
     /**
      * SetToPhoneNumber
      *
-     * @param  integer $phoneNumber
+     * @param  string $phoneNumber
      * @return SmsNotification
      */
     public function setToPhoneNumber($phoneNumber)
@@ -69,7 +69,7 @@ class SmsNotification extends AbstractNotification
     /**
      * GetToPhoneNumber
      *
-     * @return integer
+     * @return string
      */
     public function getToPhoneNumber()
     {
