@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
  * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
  * @license: GPL
@@ -154,13 +154,12 @@ class Notifier
      */
     public static function queryStringify($notifications)
     {
-        $stringify = '[';
-        foreach($notifications as $notification) {
-            $stringify .= $notification->toQueryString();
+        $data = array();
+        foreach($notifications as $k => $notification) {
+            $data[] = $notification->toArray();
         }
-        $stringify .= ']';
 
-        return $stringify;
+        return json_encode($data);
     }
 
     /**
@@ -171,4 +170,3 @@ class Notifier
         $this->notifications = array();
     }
 }
-

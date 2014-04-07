@@ -11,7 +11,7 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-abstract class AbstractNotification implements QueryStringableInterface
+abstract class AbstractNotification
 {
     protected $notifierAlias;
 
@@ -41,23 +41,23 @@ abstract class AbstractNotification implements QueryStringableInterface
     /**
      * {@inheritdoc}
      */
-    public function toQueryString()
+    public function toArray()
     {
-        return json_encode(array(
+        return array(
             'notifierAlias' => $this->getNotifierAlias(),
-            'from'          => self::cleanQueryData($this->getDataFrom()),
-            'to'            => self::cleanQueryData($this->getDataTo()),
-            'content'       => self::cleanQueryData($this->getDataContent())
-        ));
+            'from'          => self::cleanData($this->getDataFrom()),
+            'to'            => self::cleanData($this->getDataTo()),
+            'content'       => self::cleanData($this->getDataContent())
+        );
     }
 
     /**
-     * Clean query data (remove "null" value)
+     * Clean data (remove "null" value)
      *
      * @param array $data
      * @return array
      */
-    protected static function cleanQueryData($data)
+    protected static function cleanData($data)
     {
         foreach($data as $k => $v) {
             if (null === $v) {
