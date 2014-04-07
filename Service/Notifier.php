@@ -115,17 +115,21 @@ class Notifier
     /**
      * Notify
      *
-     * @return string
+     * @return boolean
      */
     public function notify()
     {
-        $response = $this->getApiClient()->post(
-            '/notifications',
-            $this->buildNotificationQuery()
-        );
-        $this->purgeNotifications();
+        try {
+            $this->getApiClient()->post(
+                '/notification',
+                $this->buildNotificationQuery()
+            );
+            $this->purgeNotifications();
 
-        return $response;
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
