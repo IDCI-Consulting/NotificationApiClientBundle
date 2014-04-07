@@ -39,7 +39,9 @@ abstract class AbstractNotification
     }
 
     /**
-     * {@inheritdoc}
+     * To array
+     *
+     * @return array
      */
     public function toArray()
     {
