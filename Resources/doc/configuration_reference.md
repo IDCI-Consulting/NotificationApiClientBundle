@@ -21,14 +21,14 @@ idci_notification_api_client:
 ### Bundle configuration :
 Previously you imported the bundle configuration in your `app/config/config.yml` file.
 This section provides more informations about it.
-Note : Please don't forget *to provide the value of "endpoint_root" and "security_token" parameters in your* `app/config/parameters.yml` file.
+Note : Please don't forget **to provide the value of "endpoint_root" and "security_token" parameters in your** `app/config/parameters.yml` file.
 
 #### Parameters
 | Parameters     | Optionnal | Requirements  | Description
 |----------------|-----------|---------------|------------
-| endpoint_root  | true      | string value  | Endpoint root data
+| endpoint_root  | false     | string value  | Endpoint root data
 | security_token | true      | string value  | Security token data
-| cache_enabled  |           | true, false   | To enable or disable the cache
+| cache_enabled  | false     | boolean       | To enable or disable the cache
 
 #### Configuration in `Resources/config/config.yml` file :
 ```yml

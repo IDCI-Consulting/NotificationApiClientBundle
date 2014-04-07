@@ -49,6 +49,14 @@ To **send notification** you have to use the `notification_api_client.notifier` 
 | htmlMessage | true     | string value | Email message in html format
 | attachments | true     | string value | Attachments data
 
+#### Results
+The function `notify()` returns a response from an API Client.
+
+| Response values | Meaning
+|-----------------|--------
+| true            | The notification has been sent.
+| false           | The notification has not been sent.
+
 #### Case 1 : notification with notifier parameters
 ```php
 $response1 = $this->get('notification_api_client.notifier')
@@ -114,6 +122,14 @@ $response2 = $this->get('notification_api_client.notifier')
 |-------------|----------|--------------|------------
 | message     | true     | string value | Message data
 
+#### Results
+The function `notify()` returns a response from an API Client.
+
+| Response values | Meaning
+|-----------------|--------
+| true            | The notification has been sent.
+| false           | The notification has not been sent.
+
 #### Case 1 : notification with notifier parameters
 ```php
 $response1 = $this->get('notification_api_client.notifier')
@@ -173,6 +189,14 @@ $response2 = $this->get('notification_api_client.notifier')
 | Subfield    | Optional | Requirements | Description
 |-------------|----------|--------------|------------
 | message     | true     | string value | Message data
+
+#### Results
+The function `notify()` returns a response from an API Client.
+
+| Response values | Meaning
+|-----------------|--------
+| true            | The notification has been sent.
+| false           | The notification has not been sent.
 
 #### Case 1 : notification with notifier parameters
 ```php
@@ -239,6 +263,14 @@ $response2 = $this->get('notification_api_client.notifier')
 |-------------|----------|--------------|------------
 | message     | true     | string value | Message data
 
+#### Results
+The function `notify()` returns a response from an API Client.
+
+| Response values | Meaning
+|-----------------|--------
+| true            | The notification has been sent.
+| false           | The notification has not been sent.
+
 #### Case 1 : notification with notifier parameters
 ```php
 $response1 = $this->get('notification_api_client.notifier')
@@ -289,6 +321,13 @@ $response2 = $this->get('notification_api_client.notifier')
 |-------------|----------|--------------|------------
 | message     | true     | string value | Message data
 
+#### Results
+The function `notify()` returns a response from an API Client.
+
+| Response values | Meaning
+|-----------------|--------
+| true            | The notification has been sent.
+| false           | The notification has not been sent.
 
 #### Case 1 : notification with notifier parameters
 ```php
