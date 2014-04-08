@@ -119,17 +119,13 @@ class Notifier
      */
     public function notify()
     {
-        try {
-            $this->getApiClient()->post(
-                '/notification',
-                $this->buildNotificationQuery()
-            );
-            $this->purgeNotifications();
+        $this->getApiClient()->post(
+            '/notifications',
+            $this->buildNotificationQuery()
+        );
+        $this->purgeNotifications();
 
-            return true;
-        } catch (\Exception $e) {
-            return false;
-        }
+        return true;
     }
 
     /**
