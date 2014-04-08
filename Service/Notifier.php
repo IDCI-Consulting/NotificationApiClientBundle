@@ -116,6 +116,7 @@ class Notifier
      * Notify
      *
      * @return boolean
+     * @throw Da\ApiClientBundle\Exception\ApiHttpResponseException
      */
     public function notify()
     {
