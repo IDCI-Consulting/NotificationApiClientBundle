@@ -33,6 +33,7 @@ To **send notification** you have to use the `notification_api_client.notifier` 
 | Subfield    | Optional | Requirements         | Description
 |-------------|----------|----------------------|------------
 | transport   | true     | smtp, sendmail, mail | Transport data
+| replyTo     | true     | string value         | Email address to reply
 | from        | true     | string value         | Sender email address
 | login       | true     | string value         | Login data
 | password    | true     | string value         | Password data
@@ -65,6 +66,7 @@ $response1 = $this->get('notification_api_client.notifier')
         "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
         "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
         "transport"   => "smtp",
+        "replyTo"     => "replyto@test.fr",
         "from"        => "test@test.fr",
         "login"       => "mail@mxserver.com",
         "password"    => "password",
@@ -363,6 +365,7 @@ $response = $this->get('notification_api_client.notifier')
         "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
         "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
         "transport"   => "smtp",
+        "replyTo"     => "replyto@test.fr",
         "from"        => "test@test.fr",
         "login"       => "mail@mxserver.com",
         "password"    => "password",
@@ -378,6 +381,7 @@ $response = $this->get('notification_api_client.notifier')
 ;
 ```
 #### To send two email notifications :
+Note : notification with and without notifier parameters
 ```php
 $response = $this->get('notification_api_client.notifier')
     ->addNotification("email", array(
@@ -385,6 +389,7 @@ $response = $this->get('notification_api_client.notifier')
         "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
         "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
         "transport"   => "smtp",
+        "replyTo"     => "replyto@test.fr",
         "from"        => "test@test.fr",
         "login"       => "mail@mxserver.com",
         "password"    => "password",
@@ -417,6 +422,7 @@ $response = $this->get('notification_api_client.notifier')
         "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
         "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
         "transport"   => "smtp",
+        "replyTo"     => "replyto@test.fr",
         "from"        => "test@test.fr",
         "login"       => "mail@mxserver.com",
         "password"    => "password",
@@ -463,7 +469,7 @@ Case 1 : notification with notifier parameters
 ```sh
 php app/console tms:notification:notify email '{"to":"to@mail.com","cc":"cc1@mail.com","bcc":"bcc1@mail.com","transport":"smtp","from":"mail@mxserver.com","login":"mail@mxserver.com","password":"password","server":"smtp.mxserver.fr","port":465,"encryption":"ssl","subject":"Notification subject","message":"Notification Message","htmlMessage":"<h1>Titre<\/h1><p>message<\/p>","attachments":[]}'
 ```
-Case 2 : notification with notifier parameters
+Case 2 : notification without notifier parameters
 ```sh
 php app/console tms:notification:notify email '{"notifierAlias": "alias", "to": "me@mymail.com", "cc": "cc1@mymail.com, cc2@mymail.com", "bcc": "bcc@mymail.com", "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
 ```

@@ -26,6 +26,10 @@ class EmailNotification extends AbstractNotification
 
     /**
      */
+    protected $replyTo;
+
+    /**
+     */
     protected $from;
 
     /**
@@ -108,6 +112,29 @@ class EmailNotification extends AbstractNotification
     public function getTransport()
     {
         return $this->transport;
+    }
+
+    /**
+     * Set replyTo
+     *
+     * @param  string $transport
+     * @return AbstractNotification
+     */
+    public function setReplyTo($replyTo)
+    {
+        $this->replyTo = $replyTo;
+
+        return $this;
+    }
+
+    /**
+     * Get replyTo
+     *
+     * @return string
+     */
+    public function getReplyTo()
+    {
+        return $this->replyTo;
     }
 
     /**
@@ -416,6 +443,7 @@ class EmailNotification extends AbstractNotification
     {
         return array(
             'transport'  => $this->getTransport(),
+            'replyTo'    => $this->getReplyTo(),
             'from'       => $this->getFrom(),
             'server'     => $this->getServer(),
             'login'      => $this->getLogin(),
