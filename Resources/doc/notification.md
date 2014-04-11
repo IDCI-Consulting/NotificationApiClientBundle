@@ -55,8 +55,7 @@ The function `notify()` returns a response from an API Client.
 
 | Response values | Meaning
 |-----------------|--------
-| true            | The notification has been sent.
-| false           | The notification has not been sent.
+| true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
 
 #### Case 1 : notification with notifier parameters
 ```php
@@ -129,8 +128,7 @@ The function `notify()` returns a response from an API Client.
 
 | Response values | Meaning
 |-----------------|--------
-| true            | The notification has been sent.
-| false           | The notification has not been sent.
+| true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
 
 #### Case 1 : notification with notifier parameters
 ```php
@@ -197,8 +195,7 @@ The function `notify()` returns a response from an API Client.
 
 | Response values | Meaning
 |-----------------|--------
-| true            | The notification has been sent.
-| false           | The notification has not been sent.
+| true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
 
 #### Case 1 : notification with notifier parameters
 ```php
@@ -270,8 +267,7 @@ The function `notify()` returns a response from an API Client.
 
 | Response values | Meaning
 |-----------------|--------
-| true            | The notification has been sent.
-| false           | The notification has not been sent.
+| true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
 
 #### Case 1 : notification with notifier parameters
 ```php
@@ -328,8 +324,7 @@ The function `notify()` returns a response from an API Client.
 
 | Response values | Meaning
 |-----------------|--------
-| true            | The notification has been sent.
-| false           | The notification has not been sent.
+| true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
 
 #### Case 1 : notification with notifier parameters
 ```php
@@ -473,4 +468,36 @@ php app/console tms:notification:notify email '{"to":"to@mail.com","cc":"cc1@mai
 Case 2 : notification without notifier parameters
 ```sh
 php app/console tms:notification:notify email '{"notifierAlias": "alias", "to": "me@mymail.com", "cc": "cc1@mymail.com, cc2@mymail.com", "bcc": "bcc@mymail.com", "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+```
+Advice
+------
+
+You should send a notification in a try/catch block.
+Example : how to send a notification with notifier parameters in a try/catch block
+
+```php
+try {
+    $response1 = $this->get('notification_api_client.notifier')
+        ->addNotification("email", array(
+            "to"          => "to1@mail.com, to2@mail.com, to3@mail.com",
+            "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
+            "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
+            "transport"   => "smtp",
+            "replyTo"     => "replyto@test.fr",
+            "from"        => "test@test.fr",
+            "login"       => "mail@mxserver.com",
+            "password"    => "password",
+            "server"      => "smtp.mxserver.fr",
+            "port"        => 465,
+            "encryption"  => "ssl",
+            "subject"     => "Notification subject",
+            "message"     => "Notification Message",
+            "htmlMessage" => "<h1>Titre</h1><p>message</p>",
+            "attachments" => array()
+        ))
+        ->notify()
+    ;
+} catch (\Da\ApiClientBundle\Exception\ApiHttpResponseException $e) {
+    echo $e->getMessage();
+}
 ```
