@@ -308,16 +308,18 @@ $response2 = $this->get('notification_api_client.notifier')
 
 #### Field "from" :
 
-| Subfield    | Optional | Requirements | Description
-|-------------|----------|--------------|------------
-| login       | true     | string value | Login data
-| password    | true     | string value | Password data
+| Subfield                  | Optional | Requirements | Description
+|---------------------------|----------|--------------|------------
+| consumer_key              | true     | string value | Consumer key data
+| consumer_secret           | true     | string value | Consumer secret data
+| oauth_access_token        | true     | string value | Oauth access token data
+| oauth_access_token_secret | true     | string value | Oauth access token secret data
 
 #### Field "content" :
 
-| Subfield    | Optional | Requirements | Description
-|-------------|----------|--------------|------------
-| message     | true     | string value | Message data
+| Subfield | Optional | Requirements | Description
+|----------|----------|--------------|------------
+| status   | false    | string value | Twitter status data
 
 #### Results
 The function `notify()` returns a response from an API Client.
@@ -330,10 +332,12 @@ The function `notify()` returns a response from an API Client.
 ```php
 $response1 = $this->get('notification_api_client.notifier')
     ->addNotification("twitter", array(
-        "to"       => "@user1, @user2",
-        "login"    => "@mylogin",
-        "password" => "mypassword",
-        "message"  => "Notification Message"
+        "to"                        => "toto",
+        'consumer_key'              => "your_consumer_key",
+        'consumer_secret'           => "your_consumer_secret",
+        'oauth_access_token'        => "your_oauth_access_token",
+        'oauth_access_token_secret' => "your_oauth_access_token_secret",
+        "status"                    => "your twitter status"
     ))
     ->notify()
 ;
@@ -342,9 +346,9 @@ $response1 = $this->get('notification_api_client.notifier')
 ```php
 $response2 = $this->get('notification_api_client.notifier')
     ->addNotification("twitter", array(
-        "notifierAlias" => "my_twitter_alias",
-        "to"            => "@user1, @user2",
-        "message"       => "Notification Message"
+        "notifierAlias" => "Your_notifierAlias",
+        "to"            => "toto",
+        "status"        => "your twitter status"
     ))
     ->notify()
 ;
