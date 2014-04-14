@@ -300,12 +300,6 @@ $response2 = $this->get('notification_api_client.notifier')
 |----------|--------------|------------
 | true     | string value | The notifier alias used to define a configuration
 
-#### Field "to" :
-
-| Subfield    | Optional | Requirements | Description
-|-------------|----------|--------------|------------
-| to          | false    | string value | Recipient twitter address
-
 #### Field "from" :
 
 | Subfield                  | Optional | Requirements | Description
@@ -332,7 +326,6 @@ The function `notify()` returns a response from an API Client.
 ```php
 $response1 = $this->get('notification_api_client.notifier')
     ->addNotification("twitter", array(
-        "to"                        => "toto",
         'consumer_key'              => "your_consumer_key",
         'consumer_secret'           => "your_consumer_secret",
         'oauth_access_token'        => "your_oauth_access_token",
@@ -347,7 +340,6 @@ $response1 = $this->get('notification_api_client.notifier')
 $response2 = $this->get('notification_api_client.notifier')
     ->addNotification("twitter", array(
         "notifierAlias" => "Your_notifierAlias",
-        "to"            => "toto",
         "status"        => "your twitter status"
     ))
     ->notify()

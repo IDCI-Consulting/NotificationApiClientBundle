@@ -45,12 +45,17 @@ abstract class AbstractNotification
      */
     public function toArray()
     {
-        return array(
+        $array = array(
             'notifierAlias' => $this->getNotifierAlias(),
             'from'          => self::cleanData($this->getDataFrom()),
-            'to'            => self::cleanData($this->getDataTo()),
             'content'       => self::cleanData($this->getDataContent())
         );
+
+        if ($this->getDataTo()) {
+            $array['to'] = self::cleanData($this->getDataTo());
+        }
+
+        return $array;
     }
 
     /**

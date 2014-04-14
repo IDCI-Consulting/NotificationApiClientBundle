@@ -35,11 +35,6 @@ class TwitterNotification extends AbstractNotification
     /**
      * @Assert\NotBlank()
      */
-    protected $to;
-
-    /**
-     * @Assert\NotBlank()
-     */
     protected $status;
 
     /**
@@ -135,29 +130,6 @@ class TwitterNotification extends AbstractNotification
     }
 
     /**
-     * Set to
-     *
-     * @param  string $to
-     * @return TwitterNotification
-     */
-    public function setTo($to)
-    {
-        $this->to = $to;
-
-        return $this;
-    }
-
-    /**
-     * Get to
-     *
-     * @return  string
-     */
-    public function getTo()
-    {
-        return $this->to;
-    }
-
-    /**
      * Set status
      *
      * @param  string $status
@@ -199,9 +171,7 @@ class TwitterNotification extends AbstractNotification
      */
     public function getDataTo()
     {
-        return array(
-            'to' => $this->getTo()
-        );
+        return false;
     }
 
     /**
