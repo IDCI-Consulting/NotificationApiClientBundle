@@ -157,12 +157,30 @@ class TwitterNotification extends AbstractNotification
      */
     public function getDataFrom()
     {
-        return array(
-            'consumer_key'              => $this->getConsumerKey(),
-            'consumer_secret'           => $this->getConsumerSecret(),
-            'oauth_access_token'        => $this->getOauthAccessToken(),
-            'oauth_access_token_secret' => $this->getOauthAccessTokenSecret()
+        if ($this->hasDataFrom()) {
+            return array(
+                'consumer_key'              => $this->getConsumerKey(),
+                'consumer_secret'           => $this->getConsumerSecret(),
+                'oauth_access_token'        => $this->getOauthAccessToken(),
+                'oauth_access_token_secret' => $this->getOauthAccessTokenSecret()
+            );
+        } else {
+            return false;
+        }
+    }
 
+    /**
+     * Has data from
+     *
+     * @return  bool
+     */
+    protected function hasDataFrom()
+    {
+        return (
+            null != $this->getConsumerKey() &&
+            null != $this->getConsumerSecret() &&
+            null != $this->getOauthAccessToken() &&
+            null != $this->getOauthAccessTokenSecret()
         );
     }
 
@@ -179,8 +197,22 @@ class TwitterNotification extends AbstractNotification
      */
     public function getDataContent()
     {
-        return array(
-            'status' => $this->getStatus()
-        );
+        if ($this->hasDataContent()) {
+            return array(
+                'status' => $this->getStatus()
+            );
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Has data content
+     *
+     * @return  bool
+     */
+    protected function hasDataContent()
+    {
+        return (null != $this->getStatus());
     }
 }
