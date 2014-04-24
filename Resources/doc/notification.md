@@ -33,8 +33,9 @@ To **send notification** you have to use the `notification_api_client.notifier` 
 | Subfield    | Optional | Requirements         | Description
 |-------------|----------|----------------------|------------
 | transport   | true     | smtp, sendmail, mail | Transport data
-| replyTo     | true     | string value         | Email address to reply
 | from        | true     | string value         | Sender email address
+| fromName    | true     | string value         | The name associated to an email address
+| replyTo     | true     | string value         | Email address to reply
 | login       | true     | string value         | Login data
 | password    | true     | string value         | Password data
 | server      | true     | string value         | Server data
@@ -65,8 +66,9 @@ $response1 = $this->get('notification_api_client.notifier')
         "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
         "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
         "transport"   => "smtp",
-        "replyTo"     => "replyto@test.fr",
         "from"        => "test@test.fr",
+        "fromName"    => "Test",
+        "replyTo"     => "replyto@test.fr",
         "login"       => "mail@mxserver.com",
         "password"    => "password",
         "server"      => "smtp.mxserver.fr",
@@ -360,8 +362,9 @@ $response = $this->get('notification_api_client.notifier')
         "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
         "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
         "transport"   => "smtp",
-        "replyTo"     => "replyto@test.fr",
         "from"        => "test@test.fr",
+        "fromName"    => "Test",
+        "replyTo"     => "replyto@test.fr",
         "login"       => "mail@mxserver.com",
         "password"    => "password",
         "server"      => "smtp.mxserver.fr",
@@ -384,8 +387,9 @@ $response = $this->get('notification_api_client.notifier')
         "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
         "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
         "transport"   => "smtp",
-        "replyTo"     => "replyto@test.fr",
         "from"        => "test@test.fr",
+        "fromName"    => "Test",
+        "replyTo"     => "replyto@test.fr",
         "login"       => "mail@mxserver.com",
         "password"    => "password",
         "server"      => "smtp.mxserver.fr",
@@ -417,8 +421,9 @@ $response = $this->get('notification_api_client.notifier')
         "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
         "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
         "transport"   => "smtp",
-        "replyTo"     => "replyto@test.fr",
         "from"        => "test@test.fr",
+        "fromName"    => "Test",
+        "replyTo"     => "replyto@test.fr",
         "login"       => "mail@mxserver.com",
         "password"    => "password",
         "server"      => "smtp.mxserver.fr",
@@ -463,7 +468,7 @@ Below an example of usage
 
 Case 1 : notification with notifier parameters
 ```sh
-php app/console tms:notification:notify email '{"to":"to@mail.com","cc":"cc1@mail.com","bcc":"bcc1@mail.com","transport":"smtp","replyTo":"replyto@test.fr","from":"mail@mxserver.com","login":"mail@mxserver.com","password":"password","server":"smtp.mxserver.fr","port":465,"encryption":"ssl","subject":"Notification subject","message":"Notification Message","htmlMessage":"<h1>Titre<\/h1><p>message<\/p>","attachments":[]}'
+php app/console tms:notification:notify email '{"to":"to@mail.com","cc":"cc1@mail.com","bcc":"bcc1@mail.com","transport":"smtp","from":"mail@mxserver.com","fromName":"Test","replyTo":"replyto@test.fr","login":"mail@mxserver.com","password":"password","server":"smtp.mxserver.fr","port":465,"encryption":"ssl","subject":"Notification subject","message":"Notification Message","htmlMessage":"<h1>Titre<\/h1><p>message<\/p>","attachments":[]}'
 ```
 Case 2 : notification without notifier parameters
 ```sh
@@ -483,8 +488,9 @@ try {
             "cc"          => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
             "bcc"         => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",
             "transport"   => "smtp",
-            "replyTo"     => "replyto@test.fr",
             "from"        => "test@test.fr",
+            "fromName"    => "Test",
+            "replyTo"     => "replyto@test.fr",
             "login"       => "mail@mxserver.com",
             "password"    => "password",
             "server"      => "smtp.mxserver.fr",
