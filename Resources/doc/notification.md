@@ -302,12 +302,12 @@ $response2 = $this->get('notification_api_client.notifier')
 
 #### Field "from" :
 
-| Subfield                  | Optional | Requirements | Description
-|---------------------------|----------|--------------|------------
-| consumer_key              | true     | string value | Consumer key data
-| consumer_secret           | true     | string value | Consumer secret data
-| oauth_access_token        | true     | string value | Oauth access token data
-| oauth_access_token_secret | true     | string value | Oauth access token secret data
+| Subfield               | Optional | Requirements | Description
+|------------------------|----------|--------------|------------
+| consumerKey            | true     | string value | Consumer key data
+| consumerSecret         | true     | string value | Consumer secret data
+| oauthAccessToken       | true     | string value | Oauth access token data
+| oauthAccessTokenSecret | true     | string value | Oauth access token secret data
 
 #### Field "content" :
 
@@ -326,11 +326,11 @@ The function `notify()` returns a response from an API Client.
 ```php
 $response1 = $this->get('notification_api_client.notifier')
     ->addNotification("twitter", array(
-        'consumer_key'              => "your_consumer_key",
-        'consumer_secret'           => "your_consumer_secret",
-        'oauth_access_token'        => "your_oauth_access_token",
-        'oauth_access_token_secret' => "your_oauth_access_token_secret",
-        "status"                    => "your twitter status"
+        'consumerKey'            => "your_consumer_key",
+        'consumerSecret'         => "your_consumer_secret",
+        'oauthAccessToken'       => "your_oauth_access_token",
+        'oauthAccessTokenSecret' => "your_oauth_access_token_secret",
+        "status"                 => "your twitter status"
     ))
     ->notify()
 ;

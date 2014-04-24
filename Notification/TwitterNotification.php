@@ -159,10 +159,10 @@ class TwitterNotification extends AbstractNotification
     {
         if ($this->hasDataFrom()) {
             return array(
-                'consumer_key'              => $this->getConsumerKey(),
-                'consumer_secret'           => $this->getConsumerSecret(),
-                'oauth_access_token'        => $this->getOauthAccessToken(),
-                'oauth_access_token_secret' => $this->getOauthAccessTokenSecret()
+                'consumerKey'            => $this->getConsumerKey(),
+                'consumerSecret'         => $this->getConsumerSecret(),
+                'oauthAccessToken'       => $this->getOauthAccessToken(),
+                'oauthAccessTokenSecret' => $this->getOauthAccessTokenSecret()
             );
         } else {
             return false;
