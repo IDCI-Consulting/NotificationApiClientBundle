@@ -351,6 +351,64 @@ $response2 = $this->get('notification_api_client.notifier')
     ->notify()
 ;
 ```
+
+### IOSPush
+
+#### Field "notifierAlias" :
+
+| Optional | Requirements | Description
+|----------|--------------|------------
+| true     | string value | The notifier alias used to define a configuration
+
+#### Field "to" :
+
+| Subfield      | Optional | Requirements | Description
+|---------------|----------|--------------|------------
+| deviceToken   | false    | string value | An "address" that a push notification will be sent to.
+
+#### Field "from" :
+
+| Subfield        | Optional | Requirements | Description
+|-----------------|----------|--------------|------------
+| passphrase      | true     | string value | Passphrase used to access a certificate
+
+#### Field "content" :
+
+| Subfield    | Optional | Requirements | Description
+|-------------|----------|--------------|------------
+| message     | false    | string value | Message data
+
+#### Results
+The function `notify()` returns a response from an API Client.
+
+| Response values | Meaning
+|-----------------|--------
+| true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
+
+#### Case 1 : notification with notifier parameters
+```php
+$response1 = $this->get('notification_api_client.notifier')
+    ->addNotification("iOSPush", array(
+        "deviceToken" => "c5de75d953cff905600hdju153er91f688d99bd408ada5a8d4531d546e20ce6",
+        "passphrase"  => "your_passphrase",
+        "message"     => "iOS push message"
+    ))
+    ->notify()
+;
+```
+
+#### Case 2 : notification without notifier parameters
+```php
+$response2 = $this->get('notification_api_client.notifier')
+    ->addNotification("iOSPush", array(
+        "notifierAlias" => "my_iOSPush_alias",
+        "deviceToken"   => "c5de75d953cff905600hdju153er91f688d99bd408ada5a8d4531d546e20ce6",
+        "message"       => "iOS push message"
+    ))
+    ->notify()
+;
+```
+
 ### Examples :
 
 #### To send one email notification :
