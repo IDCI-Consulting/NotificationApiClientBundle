@@ -45,12 +45,25 @@ abstract class AbstractNotification
      */
     public function toArray()
     {
-        return array(
-            'notifierAlias' => $this->getNotifierAlias(),
-            'from'          => self::cleanData($this->getDataFrom()),
-            'to'            => self::cleanData($this->getDataTo()),
-            'content'       => self::cleanData($this->getDataContent())
-        );
+        $array = array();
+
+        if ($this->getNotifierAlias()) {
+            $array['notifierAlias'] = $this->getNotifierAlias();
+        }
+
+        if ($this->getDataFrom()) {
+            $array['from'] = self::cleanData($this->getDataFrom());
+        }
+
+        if ($this->getDataTo()) {
+            $array['to'] = self::cleanData($this->getDataTo());
+        }
+
+        if ($this->getDataContent()) {
+            $array['content'] = self::cleanData($this->getDataContent());
+        }
+
+        return $array;
     }
 
     /**
@@ -73,21 +86,21 @@ abstract class AbstractNotification
     /**
      * Get data from
      *
-     * @return array
+     * @return array |false
      */
     abstract public function getDataFrom();
 
     /**
      * Get data to
      *
-     * @return array
+     * @return array | false
      */
     abstract public function getDataTo();
 
     /**
      * Get data content
      *
-     * @return array
+     * @return array | false
      */
     abstract public function getDataContent();
 }

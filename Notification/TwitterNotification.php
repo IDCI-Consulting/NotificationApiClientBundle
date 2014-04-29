@@ -18,112 +18,138 @@ class TwitterNotification extends AbstractNotification
 {
     /**
      */
-    protected $login;
+    protected $consumerKey;
 
     /**
      */
-    protected $password;
+    protected $consumerSecret;
+
+    /**
+     */
+    protected $oauthAccessToken;
+
+    /**
+     */
+    protected $oauthAccessTokenSecret;
 
     /**
      * @Assert\NotBlank()
      */
-    protected $to;
+    protected $status;
 
     /**
-     * @Assert\NotBlank()
-     */
-    protected $message;
-
-    /**
-     * Set login
+     * Set consumer key
      *
-     * @param  string $login
+     * @param  string $consumerKey
      * @return TwitterNotification
      */
-    public function setLogin($login)
+    public function setConsumerKey($consumerKey)
     {
-        $this->login = $login;
+        $this->consumerKey = $consumerKey;
 
         return $this;
     }
 
     /**
-     * Get login
+     * Get consumer key
      *
      * @return  string
      */
-    public function getLogin()
+    public function getConsumerKey()
     {
-        return $this->login;
+        return $this->consumerKey;
     }
 
     /**
-     * Set password
+     * Set consumer secret
      *
-     * @param  string $password
+     * @param  string $consumerSecret
      * @return TwitterNotification
      */
-    public function setPassword($password)
+    public function setConsumerSecret($consumerSecret)
     {
-        $this->password = $password;
+        $this->consumerSecret = $consumerSecret;
 
         return $this;
     }
 
     /**
-     * Get password
+     * Get consumer secret
      *
      * @return  string
      */
-    public function getPassword()
+    public function getConsumerSecret()
     {
-        return $this->password;
+        return $this->consumerSecret;
     }
 
     /**
-     * Set to
+     * Set oauth access token
      *
-     * @param  string $to
+     * @param  string $oauthAccessToken
      * @return TwitterNotification
      */
-    public function setTo($to)
+    public function setOauthAccessToken($oauthAccessToken)
     {
-        $this->to = $to;
+        $this->oauthAccessToken = $oauthAccessToken;
 
         return $this;
     }
 
     /**
-     * Get to
+     * Get oauth access token
      *
      * @return  string
      */
-    public function getTo()
+    public function getOauthAccessToken()
     {
-        return $this->to;
+        return $this->oauthAccessToken;
     }
 
     /**
-     * Set message
+     * Set oauth access token secret
      *
-     * @param  string $message
+     * @param  string $oauthAccessTokenSecret
      * @return TwitterNotification
      */
-    public function setMessage($message)
+    public function setOauthAccessTokenSecret($oauthAccessTokenSecret)
     {
-        $this->message = $message;
+        $this->oauthAccessTokenSecret = $oauthAccessTokenSecret;
 
         return $this;
     }
 
     /**
-     * Get message
+     * Get oauth access token secret
      *
      * @return  string
      */
-    public function getMessage()
+    public function getOauthAccessTokenSecret()
     {
-        return $this->message;
+        return $this->oauthAccessTokenSecret;
+    }
+
+    /**
+     * Set status
+     *
+     * @param  string $status
+     * @return TwitterNotification
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return  string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
@@ -131,9 +157,30 @@ class TwitterNotification extends AbstractNotification
      */
     public function getDataFrom()
     {
-        return array(
-            'login'    => $this->getLogin(),
-            'password' => $this->getPassword()
+        if ($this->hasDataFrom()) {
+            return array(
+                'consumerKey'            => $this->getConsumerKey(),
+                'consumerSecret'         => $this->getConsumerSecret(),
+                'oauthAccessToken'       => $this->getOauthAccessToken(),
+                'oauthAccessTokenSecret' => $this->getOauthAccessTokenSecret()
+            );
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Has data from
+     *
+     * @return  bool
+     */
+    protected function hasDataFrom()
+    {
+        return (
+            null != $this->getConsumerKey() &&
+            null != $this->getConsumerSecret() &&
+            null != $this->getOauthAccessToken() &&
+            null != $this->getOauthAccessTokenSecret()
         );
     }
 
@@ -142,9 +189,7 @@ class TwitterNotification extends AbstractNotification
      */
     public function getDataTo()
     {
-        return array(
-            'to' => $this->getTo()
-        );
+        return false;
     }
 
     /**
@@ -152,8 +197,22 @@ class TwitterNotification extends AbstractNotification
      */
     public function getDataContent()
     {
-        return array(
-            'message' => $this->getMessage()
-        );
+        if ($this->hasDataContent()) {
+            return array(
+                'status' => $this->getStatus()
+            );
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Has data content
+     *
+     * @return  bool
+     */
+    protected function hasDataContent()
+    {
+        return (null != $this->getStatus());
     }
 }
