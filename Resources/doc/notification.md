@@ -397,7 +397,7 @@ $response1 = $this->get('notification_api_client.notifier')
 ```php
 $response2 = $this->get('notification_api_client.notifier')
     ->addNotification("pushIOS", array(
-        "notifierAlias" => "my_iOSPush_alias",
+        "notifierAlias" => "my_pushIOS_alias",
         "deviceToken"   => "c5de75d953cff905600hdju153er91f688d99bd408ada5a8d4531d546e20ce6",
         "message"       => "push iOS message"
     ))
