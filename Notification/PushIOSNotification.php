@@ -12,8 +12,8 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-//TO FIX to change into PushIOSNotification in factory
-class PushIosNotification extends AbstractNotification
+
+class PushIOSNotification extends AbstractNotification
 {
     /**
      * @Assert\NotBlank()

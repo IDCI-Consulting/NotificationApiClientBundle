@@ -348,7 +348,7 @@ $response2 = $this->get('notification_api_client.notifier')
 ;
 ```
 
-### IOSPush
+### PushIOS
 
 #### Field "notifierAlias" :
 
@@ -384,10 +384,10 @@ The function `notify()` returns a response from an API Client.
 #### Case 1 : notification with notifier parameters
 ```php
 $response1 = $this->get('notification_api_client.notifier')
-    ->addNotification("iOSPush", array(
+    ->addNotification("pushIOS", array(
         "deviceToken" => "c5de75d953cff905600hdju153er91f688d99bd408ada5a8d4531d546e20ce6",
         "passphrase"  => "your_passphrase",
-        "message"     => "iOS push message"
+        "message"     => "push iOS message"
     ))
     ->notify()
 ;
@@ -396,10 +396,10 @@ $response1 = $this->get('notification_api_client.notifier')
 #### Case 2 : notification without notifier parameters
 ```php
 $response2 = $this->get('notification_api_client.notifier')
-    ->addNotification("iOSPush", array(
+    ->addNotification("pushIOS", array(
         "notifierAlias" => "my_iOSPush_alias",
         "deviceToken"   => "c5de75d953cff905600hdju153er91f688d99bd408ada5a8d4531d546e20ce6",
-        "message"       => "iOS push message"
+        "message"       => "push iOS message"
     ))
     ->notify()
 ;
