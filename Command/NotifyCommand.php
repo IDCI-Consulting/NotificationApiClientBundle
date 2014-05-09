@@ -60,7 +60,12 @@ php app/console %command.name% twitter '{"notifierAlias": "alias", "to": "mytwit
 
 Example with a IOSPush notification:
 <info>
-php app/console %command.name% sms '{"notifierAlias": "alias", "deviceToken": "c5de7ff905600djuf4ehdju153er91f688d99bd408ada5a8d4531d546e20ce6", "message": "the iOS push message to be send"}'
+php app/console %command.name% iOSPush '{"notifierAlias": "alias", "deviceToken": "mydevicetoken", "message": "the iOS push message to be send"}'
+</info>
+
+Example with a Push Android notification:
+<info>
+php app/console %command.name% pushAndroid '{"notifierAlias": "alias", "deviceToken": "mydevicetoken", "message": "the push android message to be send"}'
 </info>
 
 EOT
