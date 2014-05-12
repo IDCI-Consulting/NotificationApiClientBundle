@@ -407,6 +407,62 @@ $response2 = $this->get('notification_api_client.notifier')
 ;
 ```
 
+### Push Android
+
+#### Field "notifierAlias" :
+
+| Optional | Requirements | Description
+|----------|--------------|------------
+| true     | string value | The notifier alias used to define a configuration
+
+#### Field "to" :
+
+| Subfield      | Optional | Requirements | Description
+|---------------|----------|--------------|------------
+| deviceToken   | false    | string value | The token used to identify an android device.
+
+#### Field "from" :
+
+| Subfield | Optional | Requirements | Description
+|----------|----------|--------------|------------
+| apiKey   | true     | string value | The key using to identify an android application
+
+#### Field "content" :
+
+| Subfield    | Optional | Requirements | Description
+|-------------|----------|--------------|------------
+| message     | false    | string value | Message data
+
+#### Results
+The function `notify()` returns a response from an API Client.
+
+| Response values | Meaning
+|-----------------|--------
+| true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
+
+#### Case 1 : notification with notifier parameters
+```php
+$response1 = $this->get('notification_api_client.notifier')
+    ->addNotification("pushAndroid", array(
+        "deviceToken" => "your_device_token",
+        "apiKey"      => "your_api_key",
+        "message"     => "Push android message"
+    ))
+    ->notify()
+;
+```
+
+#### Case 2 : notification without notifier parameters
+```php
+$response2 = $this->get('notification_api_client.notifier')
+    ->addNotification("pushAndroid", array(
+        "notifierAlias" => "your_push_android_alias",
+        "deviceToken"   => "your_device_token",
+        "message"       => "Push android message"
+    ))
+    ->notify()
+;
+```
 ### Examples :
 
 #### To send one email notification :
