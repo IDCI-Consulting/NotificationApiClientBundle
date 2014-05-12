@@ -22,6 +22,14 @@ class PushIOSNotification extends AbstractNotification
 
     /**
      */
+    protected $path;
+
+    /**
+     */
+    protected $file;
+
+    /**
+     */
     protected $passphrase;
 
     /**
@@ -32,6 +40,75 @@ class PushIOSNotification extends AbstractNotification
      * )
      */
     protected $message;
+
+    /**
+     * Set device token
+     *
+     * @param string $deviceToken
+     * @return PushIOSNotificationNotification
+     */
+    public function setDeviceToken($deviceToken)
+    {
+        $this->deviceToken = $deviceToken;
+
+        return $this;
+    }
+
+    /**
+     * Get device token
+     *
+     * @return string $deviceToken
+     */
+    public function getDeviceToken()
+    {
+        return $this->deviceToken;
+    }
+
+    /**
+     * Set certificate
+     *
+     * @param string $path
+     * @return PushIOSNotificationNotification
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set file
+     *
+     * @param string $file
+     * @return PushIOSNotificationNotification
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
 
     /**
      * Set passphrase
@@ -54,29 +131,6 @@ class PushIOSNotification extends AbstractNotification
     public function getPassphrase()
     {
         return $this->passphrase;
-    }
-
-    /**
-     * Set device token
-     *
-     * @param string $deviceToken
-     * @return IOSPushNotificationNotification
-     */
-    public function setDeviceToken($deviceToken)
-    {
-        $this->deviceToken = $deviceToken;
-
-        return $this;
-    }
-
-    /**
-     * Get device token
-     *
-     * @return string $deviceToken
-     */
-    public function getDeviceToken()
-    {
-        return $this->deviceToken;
     }
 
     /**
@@ -108,7 +162,11 @@ class PushIOSNotification extends AbstractNotification
     public function getDataFrom()
     {
         return array(
-          'passphrase' => $this->getPassphrase()
+            'certificate' => array(
+                "path" => $this->getPath(),
+                "file" => $this->getFile()
+            ),
+            'passphrase'  => $this->getPassphrase()
         );
     }
 
