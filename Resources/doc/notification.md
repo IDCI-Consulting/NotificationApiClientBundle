@@ -386,6 +386,8 @@ The function `notify()` returns a response from an API Client.
 $response1 = $this->get('notification_api_client.notifier')
     ->addNotification("pushIOS", array(
         "deviceToken" => "c5de75d953cff905600hdju153er91f688d99bd408ada5a8d4531d546e20ce6",
+        "path"        => "/path/of/your/certificate_file.pem",
+        "file"        => null,
         "passphrase"  => "your_passphrase",
         "message"     => "push iOS message"
     ))
@@ -398,7 +400,7 @@ $response1 = $this->get('notification_api_client.notifier')
 $response2 = $this->get('notification_api_client.notifier')
     ->addNotification("pushIOS", array(
         "notifierAlias" => "my_pushIOS_alias",
-        "deviceToken"   => "c5de75d953cff905600hdju153er91f688d99bd408ada5a8d4531d546e20ce6",
+        "deviceToken"   => "c5de75d953cff905600hdju153er91f688d146d408ada5a8d4531d546e20ce6",
         "message"       => "push iOS message"
     ))
     ->notify()
