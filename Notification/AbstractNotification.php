@@ -86,21 +86,21 @@ abstract class AbstractNotification
     /**
      * Get data from
      *
-     * @return array |false
+     * @return array
      */
     abstract public function getDataFrom();
 
     /**
      * Get data to
      *
-     * @return array | false
+     * @return array
      */
     abstract public function getDataTo();
 
     /**
      * Get data content
      *
-     * @return array | false
+     * @return array
      */
     abstract public function getDataContent();
 }
