@@ -55,7 +55,7 @@ php app/console %command.name% sms '{"notifierAlias": "alias", "toPhoneNumber": 
 
 Example with a Twitter notification:
 <info>
-php app/console %command.name% twitter '{"notifierAlias": "alias", "to": "mytwitteraccount", "message": "the message to be send"}'
+php app/console %command.name% twitter '{"notifierAlias": "alias", "status": "the message to be send"}'
 </info>
 
 Example with a IOSPush notification:
