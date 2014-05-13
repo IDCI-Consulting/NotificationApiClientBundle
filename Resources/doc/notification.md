@@ -362,12 +362,6 @@ $response2 = $this->get('notification_api_client.notifier')
 |---------------|----------|--------------|------------
 | deviceToken   | false    | string value | An "address" that a push notification will be sent to.
 
-#### Field "from" :
-
-| Subfield        | Optional | Requirements | Description
-|-----------------|----------|--------------|------------
-| passphrase      | true     | string value | Passphrase used to access a certificate
-
 #### Field "content" :
 
 | Subfield    | Optional | Requirements | Description
@@ -381,31 +375,18 @@ The function `notify()` returns a response from an API Client.
 |-----------------|--------
 | true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
 
-#### Case 1 : notification with notifier parameters
-```php
-$response1 = $this->get('notification_api_client.notifier')
-    ->addNotification("pushIOS", array(
-        "deviceToken" => "c5de75d953cff905600hdju153er91f688d99bd408ada5a8d4531d546e20ce6",
-        "path"        => "/path/of/your/certificate_file.pem",
-        "file"        => null,
-        "passphrase"  => "your_passphrase",
-        "message"     => "push iOS message"
-    ))
-    ->notify()
-;
-```
-
-#### Case 2 : notification without notifier parameters
+#### Notification with an notifier alias
 ```php
 $response2 = $this->get('notification_api_client.notifier')
     ->addNotification("pushIOS", array(
-        "notifierAlias" => "my_pushIOS_alias",
+        "notifierAlias" => "my_push_ios_alias",
         "deviceToken"   => "c5de75d953cff905600hdju153er91f688d146d408ada5a8d4531d546e20ce6",
         "message"       => "push iOS message"
     ))
     ->notify()
 ;
 ```
+Note : You can only use a notification with an notifier alias.
 
 ### Push Android
 

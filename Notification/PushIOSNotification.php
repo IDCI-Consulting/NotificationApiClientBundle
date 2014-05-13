@@ -21,18 +21,6 @@ class PushIOSNotification extends AbstractNotification
     protected $deviceToken;
 
     /**
-     */
-    protected $path;
-
-    /**
-     */
-    protected $file;
-
-    /**
-     */
-    protected $passphrase;
-
-    /**
      * @Assert\NotBlank()
      * @Assert\Length(
      *     max = "218",
@@ -65,75 +53,6 @@ class PushIOSNotification extends AbstractNotification
     }
 
     /**
-     * Set certificate
-     *
-     * @param string $path
-     * @return PushIOSNotificationNotification
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    /**
-     * Get path
-     *
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * Set file
-     *
-     * @param string $file
-     * @return PushIOSNotificationNotification
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-    /**
-     * Get file
-     *
-     * @return string
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Set passphrase
-     *
-     * @param string $passphrase
-     * @return IOSPushNotificationNotification
-     */
-    public function setPassphrase($passphrase)
-    {
-        $this->passphrase = $passphrase;
-
-        return $this;
-    }
-
-    /**
-     * Get passphrase
-     *
-     * @return string $passphrase
-     */
-    public function getPassphrase()
-    {
-        return $this->passphrase;
-    }
-
-    /**
      * Set message
      *
      * @param  string $message
@@ -161,13 +80,7 @@ class PushIOSNotification extends AbstractNotification
      */
     public function getDataFrom()
     {
-        return array(
-            'certificate' => array(
-                "path" => $this->getPath(),
-                "file" => $this->getFile()
-            ),
-            'passphrase'  => $this->getPassphrase()
-        );
+        return array();
     }
 
     /**
