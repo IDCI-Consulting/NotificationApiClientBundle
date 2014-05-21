@@ -56,7 +56,7 @@ class PushIOSNotification extends AbstractNotification
      * Set message
      *
      * @param  string $message
-     * @return IOSPushNotificationNotification
+     * @return PushIOSNotificationNotification
      */
     public function setMessage($message)
     {
