@@ -214,16 +214,16 @@ The function `notify()` returns a response from an API Client.
 ```php
 $response1 = $this->get('notification_api_client.notifier')
     ->addNotification("smsOcito", array(
-        'userName'          => "userName_value",
-        'password'          => "password_value",
-        'senderAppId'       => "1234",
-        'senderId'          => "senderId_value",
-        'flag'              => 3,
-        'priority'          => "H",
+        "userName"          => "userName_value",
+        "password"          => "password_value",
+        "senderAppId"       => "1234",
+        "senderId"          => "senderId_value",
+        "flag"              => 3,
+        "priority"          => "H",
         "phoneNumber"       => "33612345678",
         "message"           => "Notification Message",
-        'timeToLiveTimeout' => 10,
-        'timeToLiveTimeout' => 20
+        "timeToLiveTimeout" => 10,
+        "timeToSendTimeout" => 20
     ))
     ->notify()
 ;
