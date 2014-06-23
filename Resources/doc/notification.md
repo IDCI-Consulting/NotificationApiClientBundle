@@ -189,7 +189,7 @@ Note : How to define the flag
 | F0      |              | 0 or 1          | SMS Manger Push asks acquittals and acknowledgments from carrier
 | F1      | F0 enabled   | 0 or 2          | Ask SMS Manager Push to send acquittals and acknowledgments to client applcation
 | F2      |              | 0 or 4          | Enable special class (F2=0 enable class 1)
-| F4 + F3 | F2 enabled   | 0, 8, 16 or 24  | 00: class 0, flash    01: class 1, default value from cellphone    10: class 2, saved on SIM card     11: class 3, saved in cellphone
+| F3 + F4 | F2 enabled   | 0, 8, 16 or 24  | [00] class 0 : flash; [01] class 1 : default value from cellphone; [10] class 2 : saved on SIM card ; [11] class 3: saved in cellphone
 
 Exemple :
 
