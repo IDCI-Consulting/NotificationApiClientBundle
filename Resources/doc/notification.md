@@ -155,6 +155,87 @@ $response2 = $this->get('notification_api_client.notifier')
     ->notify()
 ;
 ```
+### Sms Ocito
+
+#### Field "notifierAlias" :
+
+| Optional | Requirements | Description
+|----------|--------------|------------
+| true     | string value | The notifier alias used to define a configuration
+
+#### Field "to" :
+
+| Subfield    | Optional | Requirements | Description
+|-------------|----------|--------------|------------
+| phoneNumber | false    | string value | Recipient phone number must be in international format (exemple : 33612345698 for a french phone number)
+
+#### Field "from" :
+
+| Subfield          | Optional | Requirements  | Description
+|-------------------|----------|---------------|------------
+| userName          | true     | string value  | SMS Manager's account name
+| password          | true     | string value  | SMS Manager's password
+| senderAppId       | true     | string value  | Id of the application used to send SMS
+| senderId          | true     | string value  | Id of the sender
+| flag              | true     | integer value | Flag value
+| priority          | true     | string value  | H : high, L : low
+| timeToLiveTimeout | true     | integer value | Timeout used to define "time to live" of a SMS
+| timeToSendTimeout | true     | integer value | Timeout used to define the moment when the SMS should be sent (deferred message).
+
+Note : How to define the flag
+| Flag    | Requirements | Possible values | Description
+|---------|--------------|-----------------|----------------
+| F0      |              | 0 or 1          | SMS Manger Push asks acquittals and acknowledgments from carrier
+| F1      | F0 enabled   | 0 or 2          | Ask SMS Manager Push to send acquittals and acknowledgments to client applcation
+| F2      |              | 0 or 4          | Enable special class (F2=0 enable class 1)
+| F4 + F3 | F2 enabled   | 0, 8, 16 or 24  | 00: class 0, flash    01: class 1, default value from cellphone    10: class 2, saved on SIM card     11: class 3, saved in cellphone
+
+Exemple :
+1. Client application doesn't want to recieve acquittals and acknowledgments :    flag = 0    2. SMS with acquittals and acknowledgments : flag = 1*2⁰ + 1*2¹ = 3    3. Class 2 SMS with acquittals and acknowledgments : flag = 1*2⁰ + 1*2¹ + 1*2² + 1*2⁴ = 23
+
+#### Field "content" :
+
+| Subfield    | Optional | Requirements | Description
+|-------------|----------|--------------|------------
+| message     | true     | string value | Message data (only 70 characters)
+
+#### Results
+The function `notify()` returns a response from an API Client.
+
+| Response values | Meaning
+|-----------------|--------
+| true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
+
+#### Case 1 : notification with notifier parameters
+```php
+$response1 = $this->get('notification_api_client.notifier')
+    ->addNotification("smsOcito", array(
+        'userName'          => "userName_value",
+        'password'          => "password_value",
+        'senderAppId'       => "1234",
+        'senderId'          => "senderId_value",
+        'flag'              => 3,
+        'priority'          => "H",
+        "phoneNumber"       => "33612345678",
+        "message"           => "Notification Message",
+        'timeToLiveTimeout' => 10,
+        'timeToLiveTimeout' => 20
+    ))
+    ->notify()
+;
+```
+
+#### Case 2 : notification without notifier parameters
+```php
+$response2 = $this->get('notification_api_client.notifier')
+    ->addNotification("sms", array(
+        "notifierALias" => "my_sms_ocito_alias",
+        "phoneNumber"   => "33612345678",
+        "message"       => "Notification Message"
+    ))
+    ->notify()
+;
+```
 
 ### Mail
 
