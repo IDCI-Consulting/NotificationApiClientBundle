@@ -222,12 +222,13 @@ $response1 = $this->get('notification_api_client.notifier')
         "priority"          => "H",
         "phoneNumber"       => "33612345678",
         "message"           => "Notification Message",
-        "timeToLiveTimeout" => 10,
+        "timeToLiveTimeout" => 50,
         "timeToSendTimeout" => 20
     ))
     ->notify()
 ;
 ```
+Note : "timeToLiveTimeout" must be greater than "timeToSendTimeout".
 
 #### Case 2 : notification without notifier parameters
 ```php
