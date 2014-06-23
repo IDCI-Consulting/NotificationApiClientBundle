@@ -53,6 +53,11 @@ Example with a Sms notification:
 php app/console %command.name% sms '{"notifierAlias": "alias", "toPhoneNumber": "0678787878", "message": "the message to be send"}'
 </info>
 
+Example with a Sms Ocito notification:
+<info>
+php app/console %command.name% smsOcito '{"notifierAlias": "alias", "phoneNumber": "33678787878", "message": "the message to be send"}'
+</info>
+
 Example with a Twitter notification:
 <info>
 php app/console %command.name% twitter '{"notifierAlias": "alias", "status": "the message to be send"}'
@@ -73,7 +78,7 @@ EOT
             ->addArgument(
                 'type',
                 InputArgument::REQUIRED,
-                'Specify the type of notification (email, mail, facebook, twitter, sms)'
+                'Specify the type of notification (email, mail, facebook, twitter, sms, smsOcito, pushIOS, pushAndroid)'
             )
             ->addArgument(
                 'parameters',
