@@ -99,62 +99,6 @@ $response2 = $this->get('notification_api_client.notifier')
 ;
 ```
 
-### Sms
-
-#### Field "notifierAlias" :
-
-| Optional | Requirements | Description
-|----------|--------------|------------
-| true     | string value | The notifier alias used to define a configuration
-
-#### Field "to" :
-
-| Subfield      | Optional | Requirements | Description
-|---------------|----------|--------------|------------
-| toPhoneNumber | false    | string value | Recipient phone number
-
-#### Field "from" :
-
-| Subfield        | Optional | Requirements | Description
-|-----------------|----------|--------------|------------
-| fromPhoneNumber | true     | string value | Sender phone number
-
-#### Field "content" :
-
-| Subfield    | Optional | Requirements | Description
-|-------------|----------|--------------|------------
-| message     | true     | string value | Message data
-
-#### Results
-The function `notify()` returns a response from an API Client.
-
-| Response values | Meaning
-|-----------------|--------
-| true            | This function return only the value true if the notification has been sent. If not, an Da\ApiClientBundle\Exception\ApiHttpResponseException will be thrown.
-
-#### Case 1 : notification with notifier parameters
-```php
-$response1 = $this->get('notification_api_client.notifier')
-    ->addNotification("sms", array(
-        "toPhoneNumber"   => "0612345678, 0610111213, 0610112214",
-        "fromPhoneNumber" => "0625415878",
-        "message"         => "Notification Message"
-    ))
-    ->notify()
-;
-```
-
-#### Case 2 : notification without notifier parameters
-```php
-$response2 = $this->get('notification_api_client.notifier')
-    ->addNotification("sms", array(
-        "notifierALias" => "my_sms_alias",
-        "toPhoneNumber" => "0612345678, 0610111213, 0610112214",
-        "message"       => "Notification Message"
-    ))
-    ->notify()
-;
-```
 ### Sms Ocito
 
 #### Field "notifierAlias" :
@@ -171,16 +115,16 @@ $response2 = $this->get('notification_api_client.notifier')
 
 #### Field "from" :
 
-| Subfield          | Optional | Requirements  | Description
-|-------------------|----------|---------------|------------
-| userName          | true     | string value  | SMS Manager's account name
-| password          | true     | string value  | SMS Manager's password
-| senderAppId       | true     | string value  | Id of the application used to send SMS
-| senderId          | true     | string value  | Id of the sender
-| flag              | true     | integer value | Flag value
-| priority          | true     | string value  | H : high, L : low
-| timeToLiveTimeout | true     | integer value | Timeout used to define "time to live" of a SMS
-| timeToSendTimeout | true     | integer value | Timeout used to define the moment when the SMS should be sent (deferred message).
+| Subfield           | Optional | Requirements  | Description
+|--------------------|----------|---------------|------------
+| userName           | true     | string value  | SMS Manager's account name
+| password           | true     | string value  | SMS Manager's password
+| senderAppId        | true     | string value  | Id of the application used to send SMS
+| senderId           | true     | string value  | Id of the sender
+| flag               | true     | integer value | Flag value
+| priority           | true     | string value  | H : high, L : low
+| timeToLiveDuration | true     | integer value | Duration used to define "time to live" of a SMS
+| timeToSendDuration | true     | integer value | Duration used to define the moment when the SMS should be sent (deferred message).
 
 Note : How to define the flag
 
@@ -214,26 +158,26 @@ The function `notify()` returns a response from an API Client.
 ```php
 $response1 = $this->get('notification_api_client.notifier')
     ->addNotification("smsOcito", array(
-        "userName"          => "userName_value",
-        "password"          => "password_value",
-        "senderAppId"       => "1234",
-        "senderId"          => "senderId_value",
-        "flag"              => 3,
-        "priority"          => "H",
-        "phoneNumber"       => "33612345678",
-        "message"           => "Notification Message",
-        "timeToLiveTimeout" => 50,
-        "timeToSendTimeout" => 20
+        "userName"           => "userName_value",
+        "password"           => "password_value",
+        "senderAppId"        => "1234",
+        "senderId"           => "senderId_value",
+        "flag"               => 3,
+        "priority"           => "H",
+        "phoneNumber"        => "33612345678",
+        "message"            => "Notification Message",
+        "timeToLiveDuration" => 50,
+        "timeToSendDuration" => 20
     ))
     ->notify()
 ;
 ```
-Note : "timeToLiveTimeout" must be greater than "timeToSendTimeout".
+Note : "timeToLiveDuration" must be greater than "timeToSendDuration".
 
 #### Case 2 : notification without notifier parameters
 ```php
 $response2 = $this->get('notification_api_client.notifier')
-    ->addNotification("sms", array(
+    ->addNotification("smsOcito", array(
         "notifierALias" => "my_sms_ocito_alias",
         "phoneNumber"   => "33612345678",
         "message"       => "Notification Message"
@@ -623,10 +567,17 @@ $response = $this->get('notification_api_client.notifier')
         "htmlMessage"   => "<h1>Titre</h1><p>message</p>",
         "attachments"   => array()
     ))
-    ->addNotification("sms", array(
-        "toPhoneNumber"   => "0612345678, 0610111213, 0610112214",
-        "fromPhoneNumber" => "0625415878",
-        "message"         => "Notification Message"
+    ->addNotification("smsOcito", array(
+        "userName"           => "userName_value",
+        "password"           => "password_value",
+        "senderAppId"        => "1234",
+        "senderId"           => "senderId_value",
+        "flag"               => 3,
+        "priority"           => "H",
+        "phoneNumber"        => "33612345678",
+        "message"            => "Notification Message",
+        "timeToLiveDuration" => 50,
+        "timeToSendDuration" => 20
     ))
     ->notify()
 ;
