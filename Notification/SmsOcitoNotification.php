@@ -19,7 +19,7 @@ class SmsOcitoNotification extends AbstractNotification
     /**
      * @Assert\Length(
      *      max = "30",
-     *      maxMessage = "Votre message ne doit pas excéder {{ limit }} caractères"
+     *      maxMessage = "Your userName cannot be longer than  {{ limit }} characters length"
      * )
      */
     protected $userName;
@@ -27,7 +27,7 @@ class SmsOcitoNotification extends AbstractNotification
     /**
      * @Assert\Length(
      *      max = "30",
-     *      maxMessage = "Votre message ne doit pas excéder {{ limit }} caractères"
+     *      maxMessage = "Your password cannot be longer than  {{ limit }} characters length"
      * )
      */
     protected $password;
@@ -35,7 +35,7 @@ class SmsOcitoNotification extends AbstractNotification
     /**
      * @Assert\Length(
      *      max = "10",
-     *      maxMessage = "Votre message ne doit pas excéder {{ limit }} caractères"
+     *      maxMessage = "Your senderAppId cannot be longer than  {{ limit }} characters length"
      * )
      */
     protected $senderAppId;
@@ -43,7 +43,7 @@ class SmsOcitoNotification extends AbstractNotification
     /**
      * @Assert\Length(
      *      max = "11",
-     *      maxMessage = "Votre message ne doit pas excéder {{ limit }} caractères"
+     *      maxMessage = "Your senderId cannot be longer than  {{ limit }} characters length"
      * )
      */
     protected $senderId;
@@ -51,7 +51,7 @@ class SmsOcitoNotification extends AbstractNotification
     /**
      * @Assert\Length(
      *      max = "10",
-     *      maxMessage = "Votre message ne doit pas excéder {{ limit }} caractères"
+     *      maxMessage = "Your flag cannot be longer than  {{ limit }} characters length"
      * )
      */
     protected $flag;
@@ -60,24 +60,32 @@ class SmsOcitoNotification extends AbstractNotification
      * @Assert\Choice(choices = {"H", "L"}, message = "Choisissez une priorité valide.")
      * @Assert\Length(
      *      max = "1",
-     *      maxMessage = "Votre message ne doit pas excéder {{ limit }} caractères"
+     *      maxMessage = "Your priority cannot be longer than  {{ limit }} characters length"
      * )
      */
     protected $priority;
 
     /**
+     * @Assert\Length(
+     *      max = "30",
+     *      maxMessage = "Your timeToLiveDuration cannot be longer than  {{ limit }} characters length"
+     * )
      */
-    protected $timeToLiveTimeout;
+    protected $timeToLiveDuration;
 
     /**
+     * @Assert\Length(
+     *      max = "30",
+     *      maxMessage = "Your timeToSendDuration cannot be longer than  {{ limit }} characters length"
+     * )
      */
-    protected $timeToSendTimeout;
+    protected $timeToSendDuration;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Length(
      *      max = "30",
-     *      maxMessage = "Votre message ne doit pas excéder {{ limit }} caractères"
+     *      maxMessage = "Your phoneNumber cannot be longer than  {{ limit }} characters length"
      * )
      */
     protected $phoneNumber;
@@ -86,7 +94,7 @@ class SmsOcitoNotification extends AbstractNotification
      * @Assert\NotBlank()
      * @Assert\Length(
      *      max = "70",
-     *      maxMessage = "Votre message ne doit pas excéder {{ limit }} caractères"
+     *      maxMessage = "Your message cannot be longer than  {{ limit }} characters length"
      * )
      */
     protected $message;
@@ -230,49 +238,49 @@ class SmsOcitoNotification extends AbstractNotification
     }
 
     /**
-     * SetTimeToLiveTimeout
+     * SetTimeToLiveDuration
      *
-     * @param integer $timeToLiveTimeout
+     * @param integer $timeToLiveDuration
      * @return SmsOcitoNotification
      */
-    public function setTimeToLiveTimeout($timeToLiveTimeout)
+    public function setTimeToLiveDuration($timeToLiveDuration)
     {
-        $this->timeToLiveTimeout = $timeToLiveTimeout;
+        $this->timeToLiveDuration = $timeToLiveDuration;
 
         return $this;
     }
 
     /**
-     * GetTimeToLiveTimeout
+     * GetTimeToLiveDuration
      *
      * @return integer
      */
-    public function getTimeToLiveTimeout()
+    public function getTimeToLiveDuration()
     {
-        return $this->timeToLiveTimeout;
+        return $this->timeToLiveDuration;
     }
 
     /**
-     * SetTimeToSendTimeout
+     * SetTimeToSendDuration
      *
-     * @param integer $timeToSendTimeout
+     * @param integer $timeToSendDuration
      * @return SmsOcitoNotification
      */
-    public function setTimeToSendTimeout($timeToSendTimeout)
+    public function setTimeToSendDuration($timeToSendDuration)
     {
-        $this->timeToSendTimeout = $timeToSendTimeout;
+        $this->timeToSendDuration = $timeToSendDuration;
 
         return $this;
     }
 
     /**
-     * GetTimeToSendTimeout
+     * GetTimeToSendDuration
      *
      * @return integer
      */
-    public function getTimeToSendTimeout()
+    public function getTimeToSendDuration()
     {
-        return $this->timeToSendTimeout;
+        return $this->timeToSendDuration;
     }
 
     /**
@@ -327,14 +335,14 @@ class SmsOcitoNotification extends AbstractNotification
     public function getDataFrom()
     {
         return array(
-          'userName'          => $this->getUserName(),
-          'password'          => $this->getPassword(),
-          'senderAppId'       => $this->getSenderAppId(),
-          'senderId'          => $this->getSenderId(),
-          'flag'              => $this->getFlag(),
-          'priority'          => $this->getPriority(),
-          'timeToSendTimeout' => $this->getTimeToSendTimeout(),
-          'timeToLiveTimeout' => $this->getTimeToLiveTimeout()
+          'userName'           => $this->getUserName(),
+          'password'           => $this->getPassword(),
+          'senderAppId'        => $this->getSenderAppId(),
+          'senderId'           => $this->getSenderId(),
+          'flag'               => $this->getFlag(),
+          'priority'           => $this->getPriority(),
+          'timeToLiveDuration' => $this->getTimeToLiveDuration(),
+          'timeToSendDuration' => $this->getTimeToSendDuration()
         );
     }
 
