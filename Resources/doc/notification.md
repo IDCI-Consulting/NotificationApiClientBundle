@@ -157,7 +157,7 @@ The function `notify()` returns a response from an API Client.
 #### Case 1 : notification with notifier parameters
 ```php
 $response1 = $this->get('notification_api_client.notifier')
-    ->addNotification("smsOcito", array(
+    ->addNotification("sms_ocito", array(
         "userName"           => "userName_value",
         "password"           => "password_value",
         "senderAppId"        => "1234",
@@ -177,7 +177,7 @@ Note : "timeToLiveDuration" must be greater than "timeToSendDuration".
 #### Case 2 : notification without notifier parameters
 ```php
 $response2 = $this->get('notification_api_client.notifier')
-    ->addNotification("smsOcito", array(
+    ->addNotification("sms_ocito", array(
         "notifierALias" => "my_sms_ocito_alias",
         "phoneNumber"   => "33612345678",
         "message"       => "Notification Message"
@@ -408,7 +408,7 @@ The function `notify()` returns a response from an API Client.
 #### Notification with an notifier alias
 ```php
 $response2 = $this->get('notification_api_client.notifier')
-    ->addNotification("pushIOS", array(
+    ->addNotification("push_ios", array(
         "notifierAlias" => "my_push_ios_alias",
         "deviceToken"   => "c5de75d953cff905600hdju153er91f688d146d408ada5a8d4531d546e20ce6",
         "message"       => "push iOS message"
@@ -454,7 +454,7 @@ The function `notify()` returns a response from an API Client.
 #### Case 1 : notification with notifier parameters
 ```php
 $response1 = $this->get('notification_api_client.notifier')
-    ->addNotification("pushAndroid", array(
+    ->addNotification("push_android", array(
         "deviceToken" => "your_device_token",
         "apiKey"      => "your_api_key",
         "message"     => "Push android message"
@@ -466,7 +466,7 @@ $response1 = $this->get('notification_api_client.notifier')
 #### Case 2 : notification without notifier parameters
 ```php
 $response2 = $this->get('notification_api_client.notifier')
-    ->addNotification("pushAndroid", array(
+    ->addNotification("push_android", array(
         "notifierAlias" => "your_push_android_alias",
         "deviceToken"   => "your_device_token",
         "message"       => "Push android message"
@@ -567,7 +567,7 @@ $response = $this->get('notification_api_client.notifier')
         "htmlMessage"   => "<h1>Titre</h1><p>message</p>",
         "attachments"   => array()
     ))
-    ->addNotification("smsOcito", array(
+    ->addNotification("sms_ocito", array(
         "userName"           => "userName_value",
         "password"           => "password_value",
         "senderAppId"        => "1234",
