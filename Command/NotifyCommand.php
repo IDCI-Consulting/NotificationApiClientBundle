@@ -26,7 +26,7 @@ class NotifyCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('tms:notification:notify')
+            ->setName('idci:notification:notify')
             ->setDescription('Sends notifications from command line')
             ->setHelp(<<<EOT
 The <info>%command.name%</info> command can send different type of notifications such as Email, Mail, SMS, Twitter or Facebook.
