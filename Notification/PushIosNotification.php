@@ -13,7 +13,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-class PushIOSNotification extends AbstractNotification
+class PushIosNotification extends AbstractNotification
 {
     /**
      * @Assert\NotBlank()
@@ -33,7 +33,7 @@ class PushIOSNotification extends AbstractNotification
      * Set device token
      *
      * @param string $deviceToken
-     * @return PushIOSNotificationNotification
+     * @return PushIosNotificationNotification
      */
     public function setDeviceToken($deviceToken)
     {
@@ -56,7 +56,7 @@ class PushIOSNotification extends AbstractNotification
      * Set message
      *
      * @param  string $message
-     * @return PushIOSNotificationNotification
+     * @return PushIosNotificationNotification
      */
     public function setMessage($message)
     {
