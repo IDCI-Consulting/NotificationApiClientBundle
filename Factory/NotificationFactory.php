@@ -30,17 +30,6 @@ abstract class NotificationFactory
             Inflector::camelize($type)
         );
 
-        $notification = new $className();
-        $rc = new \ReflectionClass($className);
-
-        foreach($parameters as $key => $value) {
-            $setter = sprintf('set%s', Inflector::camelize($key));
-            if (!$rc->hasMethod($setter)) {
-                throw new UndefinedNotificationPropertyException($key, $className);
-            }
-            $notification->$setter($value);
-        }
-
-        return $notification;
+        return new $className($parameters);
     }
 }

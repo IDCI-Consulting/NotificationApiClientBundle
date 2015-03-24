@@ -3,7 +3,6 @@
 /**
  *
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
- * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
  * @author:  Pichet PUTH <pichet.puth@utt.fr>
  * @license: GPL
  *
@@ -11,31 +10,26 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 abstract class AbstractNotification
 {
-    protected $notifierAlias;
+    /**
+     * @var array
+     */
+    protected $parameters;
 
     /**
-     * Set notifier alias
+     * Constructor
      *
-     * @param string $notifierAlias
-     * @return AbstractNotification
+     * @param array $parameters The parameters.
      */
-    public function setNotifierAlias($notifierAlias)
+    public function __construct(array $parameters = array())
     {
-        $this->notifierAlias = $notifierAlias;
-
-        return $this;
-    }
-
-    /**
-     * Get notifier alias
-     *
-     * @return string
-     */
-    public function getNotifierAlias()
-    {
-        return $this->notifierAlias;
+        $resolver = new OptionsResolver();
+        $this->configureParameters($resolver);
+        $this->parameters = $resolver->resolve($parameters);
     }
 
     /**
@@ -47,8 +41,8 @@ abstract class AbstractNotification
     {
         $array = array();
 
-        if ($this->getNotifierAlias()) {
-            $array['notifierAlias'] = $this->getNotifierAlias();
+        if (isset($this->parameters['notifierAlias'])) {
+            $array['notifierAlias'] = $this->parameters['notifierAlias'];
         }
 
         if ($this->getDataFrom()) {
@@ -81,6 +75,21 @@ abstract class AbstractNotification
         }
 
         return $data;
+    }
+
+    /**
+     * Configure parameters
+     *
+     * @param OptionsResolverInterface $resolver The resolver.
+     */
+    protected function configureParameters(OptionsResolverInterface $resolver)
+    {
+        $resolver
+            ->setOptional(array('notifierAlias'))
+            ->setAllowedTypes(array(
+                'notifierAlias' => array("null", "string")
+            ))
+        ;
     }
 
     /**

@@ -10,92 +10,25 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PushAndroidNotification extends AbstractNotification
 {
     /**
-     * @Assert\NotBlank()
+     * {@inheritdoc}
      */
-    protected $deviceToken;
-
-    /**
-     */
-    protected $apiKey;
-
-    /**
-     * @Assert\NotBlank()
-     */
-    protected $message;
-
-
-    /**
-     * Set device token
-     *
-     * @param string $deviceToken
-     * @return PushAndroidNotification
-     */
-    public function setDeviceToken($deviceToken)
+    protected function configureParameters(OptionsResolverInterface $resolver)
     {
-        $this->deviceToken = $deviceToken;
-
-        return $this;
-    }
-
-    /**
-     * Get device token
-     *
-     * @return string
-     */
-    public function getDeviceToken()
-    {
-        return $this->deviceToken;
-    }
-    /**
-     * Set api key
-     *
-     * @param string $apiKey
-     * @return PushAndroidNotification
-     */
-    public function setApiKey($apiKey)
-    {
-        $this->apiKey = $apiKey;
-
-        return $this;
-    }
-
-    /**
-     * Get api key
-     *
-     * @return string
-     */
-    public function getApiKey()
-    {
-        return $this->apiKey;
-    }
-
-    /**
-     * Set message
-     *
-     * @param  string $message
-     * @return PushAndroidNotification
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    /**
-     * Get message
-     *
-     * @return  string
-     */
-    public function getMessage()
-    {
-        return $this->message;
+        parent::configureParameters($resolver);
+        $resolver
+            ->setOptional(array(
+                'apiKey',
+            ))
+            ->setRequired(array(
+                'deviceToken',
+                'message',
+            ))
+        ;
     }
 
     /**
@@ -104,7 +37,7 @@ class PushAndroidNotification extends AbstractNotification
     public function getDataFrom()
     {
         return array(
-          'apiKey' => $this->getApiKey()
+          'apiKey' => $this->parameters['apiKey']
         );
     }
 
@@ -114,7 +47,7 @@ class PushAndroidNotification extends AbstractNotification
     public function getDataTo()
     {
         return array(
-            'deviceToken' => $this->getDeviceToken()
+            'deviceToken' => $this->parameters['deviceToken']
         );
     }
 
@@ -124,7 +57,7 @@ class PushAndroidNotification extends AbstractNotification
     public function getDataContent()
     {
         return array(
-            'message' => $this->getMessage()
+            'message' => $this->parameters['message']
         );
     }
 }
