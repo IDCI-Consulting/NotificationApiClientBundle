@@ -8,6 +8,7 @@
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\Options;
 
 class ModalNotification extends AbstractSessionNotification
 {
@@ -28,6 +29,23 @@ class ModalNotification extends AbstractSessionNotification
             ))
             ->setAllowedTypes(array(
                 'actions' => array('array')
+            ))
+            ->setNormalizers(array(
+                'actions' => function($options, $value) {
+                    foreach ($value as $k => $action) {
+                        if (isset($action['href'])) {
+                            $value[$k] = array_merge(
+                                array(
+                                    'name'   => $action['href'],
+                                    'target' => '_self',
+                                ),
+                                $action
+                            );
+                        }
+                    }
+
+                    return $value;
+                }
             ))
         ;
     }

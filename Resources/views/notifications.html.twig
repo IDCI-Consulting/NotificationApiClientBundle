@@ -1,8 +1,22 @@
-{% for label, flashes in app.session.flashbag.all %}
+{% for label, sessions in app.session.flashbag.all %}
     {% if label[:6] == 'flash_' %}
-        {% for flash in flashes %}
+        {% for flash in sessions %}
             <div class="alert alert-{{ label[6:] }}">
                 {{ flash }}
+            </div>
+        {% endfor %}
+    {% elseif label[:6] == 'modal_' %}
+        {% for modal in sessions %}
+            <div class="modal modal-{{ label[6:] }}">
+                <h1>{{ modal.title }}</h1>
+                <p>{{ modal.message }}</p>
+                <ul>
+                    {% for action in modal.actions %}
+                        <li>
+                            <a href="{{ action.href }}" target="{{ action.target }}">{{ action.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         {% endfor %}
     {% endif %}
