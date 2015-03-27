@@ -13,7 +13,7 @@
                 <ul>
                     {% for action in modal.actions %}
                         <li>
-                            <a href="{{ action.href }}" target="{{ action.target }}">{{ action.name }}</a>
+                            <a href="{{ action.href }}" target="{{ action.target }}"{% if action.class is defined %} class="{{ action.class }}"{% endif %}>{{ action.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>

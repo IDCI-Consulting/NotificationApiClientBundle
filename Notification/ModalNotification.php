@@ -22,7 +22,8 @@ class ModalNotification extends AbstractSessionNotification
             ->setDefaults(array(
                 'level'   => 'info',
                 'title'   => null,
-                'actions' => array()
+                'actions' => array(),
+                'class'   => null,
             ))
             ->setAllowedValues(array(
                 'level' => array('info', 'error', 'warning')
@@ -67,6 +68,7 @@ class ModalNotification extends AbstractSessionNotification
             'title'   => $this->parameters['title'],
             'message' => $this->parameters['message'],
             'actions' => $this->parameters['actions'],
+            'class'   => $this->parameters['class'],
         );
     }
 }
