@@ -12,7 +12,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class MailNotification extends AbstractNotification
+class MailNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
@@ -21,13 +21,13 @@ class MailNotification extends AbstractNotification
     {
         parent::configureParameters($resolver);
         $resolver
-            ->setOptional(array(
-                'fromFirstName',
-                'fromLastName',
-                'fromAddress',
-                'fromPostalCode',
-                'fromCity',
-                'fromCountry',
+            ->setDefaults(array(
+                'fromFirstName'  => null,
+                'fromLastName'   => null,
+                'fromAddress'    => null,
+                'fromPostalCode' => null,
+                'fromCity'       => null,
+                'fromCountry'    => null,
             ))
             ->setRequired(array(
                 'toFirstName',

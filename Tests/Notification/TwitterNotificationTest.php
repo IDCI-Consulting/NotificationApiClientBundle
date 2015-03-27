@@ -6,7 +6,7 @@ use IDCI\Bundle\NotificationApiClientBundle\Factory\NotificationFactory;
 
 class TwitterNotificationTest extends \PHPUnit_Framework_TestCase
 {
-    public function testToArray()
+    public function testNormalize()
     {
         $notification = NotificationFactory::create(
             'twitter',
@@ -21,7 +21,7 @@ class TwitterNotificationTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            $notification->toArray(),
+            $notification->normalize(),
             array(
                 'notifierAlias' => 'alias',
                 'from'          => array(

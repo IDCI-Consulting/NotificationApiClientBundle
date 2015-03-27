@@ -12,7 +12,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SmsOcitoNotification extends AbstractNotification
+class SmsOcitoNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
@@ -21,15 +21,15 @@ class SmsOcitoNotification extends AbstractNotification
     {
         parent::configureParameters($resolver);
         $resolver
-            ->setOptional(array(
-                'userName',     //max = "30"
-                'password',     //max = "30"
-                'senderAppId',  //max = "10"
-                'senderId',     //max = "11"
-                'flag',         //max = "10"
-                'priority',
-                'timeToLiveDuration', //max = "30"
-                'timeToSendDuration', //max = "30"
+            ->setDefaults(array(
+                'userName'           => null, //max = "30"
+                'password'           => null, //max = "30"
+                'senderAppId'        => null, //max = "10"
+                'senderId'           => null, //max = "11"
+                'flag'               => null, //max = "10"
+                'priority'           => 'L',
+                'timeToLiveDuration' => null, //max = "30"
+                'timeToSendDuration' => null, //max = "30"
             ))
             ->setRequired(array(
                 'phoneNumber',  //max = "30"

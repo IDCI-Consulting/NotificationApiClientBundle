@@ -12,7 +12,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EmailNotification extends AbstractNotification
+class EmailNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
@@ -21,20 +21,20 @@ class EmailNotification extends AbstractNotification
     {
         parent::configureParameters($resolver);
         $resolver
-            ->setOptional(array(
-                'transport',
-                'from',
-                'fromName',
-                'replyTo',
-                'server',
-                'login',
-                'password',
-                'port',
-                'encryption',
-                'cc',
-                'bcc',
-                'htmlMessage',
-                'attachments',
+            ->setDefaults(array(
+                'transport'   => null,
+                'from'        => null,
+                'fromName'    => null,
+                'replyTo'     => null,
+                'server'      => null,
+                'login'       => null,
+                'password'    => null,
+                'port'        => null,
+                'encryption'  => null,
+                'cc'          => null,
+                'bcc'         => null,
+                'htmlMessage' => null,
+                'attachments' => null,
             ))
             ->setRequired(array(
                 'to',
@@ -42,7 +42,7 @@ class EmailNotification extends AbstractNotification
                 'message',
             ))
             ->setAllowedTypes(array(
-                'port' => array('integer'),
+                'port' => array('null', 'integer'),
             ))
             ->setAllowedValues(array(
                 'transport'  => array('smtp', 'sendmail', 'mail'),

@@ -12,7 +12,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PushIosNotification extends AbstractNotification
+class PushIosNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}

@@ -12,7 +12,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PushAndroidNotification extends AbstractNotification
+class PushAndroidNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
@@ -21,8 +21,8 @@ class PushAndroidNotification extends AbstractNotification
     {
         parent::configureParameters($resolver);
         $resolver
-            ->setOptional(array(
-                'apiKey',
+            ->setDefaults(array(
+                'apiKey' => null,
             ))
             ->setRequired(array(
                 'deviceToken',

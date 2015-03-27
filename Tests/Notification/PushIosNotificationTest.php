@@ -6,7 +6,7 @@ use IDCI\Bundle\NotificationApiClientBundle\Factory\NotificationFactory;
 
 class PushIosNotificationTest extends \PHPUnit_Framework_TestCase
 {
-    public function testToArray()
+    public function testNormalize()
     {
         $notification = NotificationFactory::create(
             'push_ios',
@@ -18,7 +18,7 @@ class PushIosNotificationTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            $notification->toArray(),
+            $notification->normalize(),
             array(
                 'notifierAlias' => 'alias',
                 'to'            => array(

@@ -33,34 +33,6 @@ abstract class AbstractNotification
     }
 
     /**
-     * To array
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        $array = array();
-
-        if (isset($this->parameters['notifierAlias'])) {
-            $array['notifierAlias'] = $this->parameters['notifierAlias'];
-        }
-
-        if ($this->getDataFrom()) {
-            $array['from'] = self::cleanData($this->getDataFrom());
-        }
-
-        if ($this->getDataTo()) {
-            $array['to'] = self::cleanData($this->getDataTo());
-        }
-
-        if ($this->getDataContent()) {
-            $array['content'] = self::cleanData($this->getDataContent());
-        }
-
-        return $array;
-    }
-
-    /**
      * Clean data (remove "null" value)
      *
      * @param array $data
@@ -82,34 +54,5 @@ abstract class AbstractNotification
      *
      * @param OptionsResolverInterface $resolver The resolver.
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
-    {
-        $resolver
-            ->setOptional(array('notifierAlias'))
-            ->setAllowedTypes(array(
-                'notifierAlias' => array("null", "string")
-            ))
-        ;
-    }
-
-    /**
-     * Get data from
-     *
-     * @return array
-     */
-    abstract public function getDataFrom();
-
-    /**
-     * Get data to
-     *
-     * @return array
-     */
-    abstract public function getDataTo();
-
-    /**
-     * Get data content
-     *
-     * @return array
-     */
-    abstract public function getDataContent();
+    abstract protected function configureParameters(OptionsResolverInterface $resolver);
 }

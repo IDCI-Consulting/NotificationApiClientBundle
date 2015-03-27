@@ -1,71 +1,89 @@
 <?php
 
 /**
- *
- * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
- * @author:  Sekou KOÏTA <sekou.koita@supinfo.com>
- * @license: GPL
- *
+ * @author  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
+ * @license GPL
  */
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Service;
 
-use Symfony\Component\Validator\ValidatorInterface;
-use IDCI\Bundle\NotificationApiClientBundle\Exception\UnavailableNotificationDataException;
 use IDCI\Bundle\NotificationApiClientBundle\Factory\NotificationFactory;
 use Da\ApiClientBundle\Http\Rest\RestApiClientInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Notifier
 {
-    protected $validator;
+    /**
+     * @var RestApiClientInterface
+     */
     protected $apiClient;
+
+    /**
+     * @var string
+     */
     protected $sourceName;
+
+    /**
+     * @var SessionInterface
+     */
+    protected $session;
+
+    /**
+     * @var array
+     */
     protected $notifications;
 
     /**
      * Constructor
      *
-     * @param ValidatorInterface $validator
      * @param RestApiClientInterface $apiClient
-     * @param string $sourceName
+     * @param string                 $sourceName
+     * @param SessionInterface       $session
      */
-    public function __construct(ValidatorInterface $validator, RestApiClientInterface $apiClient, $sourceName)
+    public function __construct(
+        RestApiClientInterface $apiClient,
+        $sourceName,
+        SessionInterface $session
+    )
     {
-        $this->validator = $validator;
-        $this->apiClient = $apiClient;
-        $this->sourceName = $sourceName;
-        $this->notifications = array();
-    }
+        $this->apiClient     = $apiClient;
+        $this->sourceName    = $sourceName;
+        $this->session       = $session;
 
-
-    /**
-     * Get Validator
-     *
-     * @return Symfony\Component\Validator\Validator
-     */
-    protected function getValidator()
-    {
-        return $this->validator;
+        $this->initNotifications();
     }
 
     /**
-     * Get ApiClient
+     * Returns notifications
      *
-     * @return RestApiClientInterface
+     * @param string $category
+     * @return array
      */
-    protected function getApiClient()
+    public function getNotifications($category = null)
     {
-        return $this->apiClient;
+        if (null === $category) {
+            return $this->notifications;
+        }
+
+        if (!isset($this->notifications[$category])) {
+            throw new \InvalidArgumentException(sprintf(
+                'The given category "%s%" is undefined',
+                $category
+            ));
+        }
+
+        return $this->notifications[$category];
     }
 
     /**
-     * Get the notifier source name
-     *
-     * @return string
+     * Init notifications
      */
-    public function getSourceName()
+    protected function initNotifications()
     {
-        return $this->sourceName;
+        $this->notifications = array(
+            'api'     => array(),
+            'session' => array()
+        );
     }
 
     /**
@@ -75,17 +93,7 @@ class Notifier
      */
     public function hasSourceName()
     {
-        return null !== $this->getSourceName();
-    }
-
-    /**
-     * Get Notifications
-     *
-     * @return array
-     */
-    public function getNotifications()
-    {
-        return $this->notifications;
+        return null !== $this->sourceName;
     }
 
     /**
@@ -94,20 +102,21 @@ class Notifier
      * @param  string   $type
      * @param  array    $parameters
      * @return Notifier
-     * @throw  UnavailableNotificationDataException
      */
     public function addNotification($type, $parameters)
     {
-        if(!isset($this->notifications[$type])) {
-            $this->notifications[$type] = array();
+        $notification = NotificationFactory::create($type, $parameters);
+
+        $category = 'api';
+        if ($notification instanceof \IDCI\Bundle\NotificationApiClientBundle\Notification\AbstractSessionNotification) {
+            $category = 'session';
         }
 
-        $notification = NotificationFactory::create($type, $parameters);
-        $errorList = $this->getValidator()->validate($notification);
-        if(count($errorList) > 0) {
-            throw new UnavailableNotificationDataException($errorList);
+        if (!isset($this->notifications[$category][$type])) {
+            $this->notifications[$category][$type] = array();
         }
-        $this->notifications[$type][] = $notification;
+
+        $this->notifications[$category][$type][] = $notification;
 
         return $this;
     }
@@ -115,33 +124,38 @@ class Notifier
     /**
      * Notify
      *
-     * @return boolean
      * @throw Da\ApiClientBundle\Exception\ApiHttpResponseException
      */
     public function notify()
     {
-        $this->getApiClient()->post(
-            '/notifications',
-            $this->buildNotificationQuery()
-        );
-        $this->purgeNotifications();
+        if (count($this->getNotifications('api')) > 0) {
+            $this->getApiClient()->post(
+                '/notifications',
+                $this->buildNotificationApiQuery()
+            );
+        }
 
-        return true;
+        if (count($this->getNotifications('session')) > 0) {
+           $this->buildNotificationSession();
+        }
+
+        $this->initNotifications();
     }
 
     /**
-     * Build Notification Query
+     * Build notification api query
      *
      * @return array
      */
-    public function buildNotificationQuery()
+    public function buildNotificationApiQuery()
     {
         $query = array();
-        foreach($this->getNotifications() as $type => $notifications) {
+        foreach ($this->getNotifications('api') as $type => $notifications) {
             $query[$type] = self::queryStringify($notifications);
         }
-        if($this->hasSourceName()) {
-            $query['sourceName'] = $this->getSourceName();
+
+        if ($this->hasSourceName()) {
+            $query['sourceName'] = $this->sourceName;
         }
 
         return $query;
@@ -156,18 +170,25 @@ class Notifier
     public static function queryStringify($notifications)
     {
         $data = array();
-        foreach($notifications as $k => $notification) {
-            $data[] = $notification->toArray();
+        foreach ($notifications as $k => $notification) {
+            $data[] = $notification->normalize();
         }
 
         return json_encode($data);
     }
 
     /**
-     * Purge Notifications
+     * Build notification session
      */
-    public function purgeNotifications()
+    public function buildNotificationSession()
     {
-        $this->notifications = array();
+        foreach ($this->getNotifications('session') as $type => $notifications) {
+            foreach ($notifications as $notification) {
+                $this->session->getFlashBag()->add(
+                    $notification->getDataType(),
+                    $notification->getDataMessage()
+                );
+            }
+        }
     }
 }

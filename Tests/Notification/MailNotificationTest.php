@@ -6,7 +6,7 @@ use IDCI\Bundle\NotificationApiClientBundle\Factory\NotificationFactory;
 
 class MailNotificationTest extends \PHPUnit_Framework_TestCase
 {
-    public function testToArray()
+    public function testNormalize()
     {
         $notification = NotificationFactory::create(
             'mail',
@@ -29,7 +29,7 @@ class MailNotificationTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            $notification->toArray(),
+            $notification->normalize(),
             array(
                 'notifierAlias' => 'alias',
                 'from'          => array(

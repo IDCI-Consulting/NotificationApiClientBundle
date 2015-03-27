@@ -12,7 +12,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class FacebookNotification extends AbstractNotification
+class FacebookNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
@@ -21,9 +21,9 @@ class FacebookNotification extends AbstractNotification
     {
         parent::configureParameters($resolver);
         $resolver
-            ->setOptional(array(
-                'login',
-                'password',
+            ->setDefaults(array(
+                'login'    => null,
+                'password' => null,
             ))
             ->setRequired(array(
                 'to',

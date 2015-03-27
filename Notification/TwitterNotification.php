@@ -12,7 +12,7 @@ namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TwitterNotification extends AbstractNotification
+class TwitterNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
@@ -21,11 +21,11 @@ class TwitterNotification extends AbstractNotification
     {
         parent::configureParameters($resolver);
         $resolver
-            ->setOptional(array(
-                'consumerKey',
-                'consumerSecret',
-                'oauthAccessToken',
-                'oauthAccessTokenSecret',
+            ->setDefaults(array(
+                'consumerKey'            => null,
+                'consumerSecret'         => null,
+                'oauthAccessToken'       => null,
+                'oauthAccessTokenSecret' => null,
             ))
             ->setRequired(array(
                 'status',
