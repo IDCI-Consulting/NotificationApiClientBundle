@@ -129,7 +129,7 @@ class Notifier
     public function notify()
     {
         if (count($this->getNotifications('api')) > 0) {
-            $this->getApiClient()->post(
+            $this->apiClient->post(
                 '/notifications',
                 $this->buildNotificationApiQuery()
             );
