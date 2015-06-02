@@ -1,10 +1,13 @@
 <?php
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Tests\Service;
+use IDCI\Bundle\NotificationApiClientBundle\Service\Notifier;
 
 class NotifierTest extends \PHPUnit_Framework_TestCase
 {
-    public function testAddNotification()
+    protected $notifier;
+
+    protected function setUp()
     {
         $apiClient = $this->getMockBuilder('Da\ApiClientBundle\Http\Rest\RestApiClientInterface')
             ->disableOriginalConstructor()
@@ -14,14 +17,22 @@ class NotifierTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-
-        $notifier = new \IDCI\Bundle\NotificationApiClientBundle\Service\Notifier(
-            $apiClient,
-            'dummySource',
-            $session
+        $notificationTypes = array(
+            'email' => array('class' => 'IDCI\Bundle\NotificationApiClientBundle\Notification\EmailNotification'),
+            'flash' => array('class' => 'IDCI\Bundle\NotificationApiClientBundle\Notification\FlashNotification')
         );
 
-        $notifier
+        $this->notifier = new Notifier(
+            $apiClient,
+            'dummySource',
+            $notificationTypes,
+            $session
+        );
+    }
+
+    public function testAddNotification()
+    {
+        $this->notifier
             ->addNotification(
                 'email',
                 array(
@@ -40,28 +51,13 @@ class NotifierTest extends \PHPUnit_Framework_TestCase
             )
         ;
 
-        $this->assertEquals(count($notifier->getNotifications('api')), 1);
-        $this->assertEquals(count($notifier->getNotifications('session')), 1);
+        $this->assertEquals(count($this->notifier->getNotifications('api')), 1);
+        $this->assertEquals(count($this->notifier->getNotifications('session')), 1);
     }
 
     public function testBuildNotificationApiQuery()
     {
-        $apiClient = $this->getMockBuilder('Da\ApiClientBundle\Http\Rest\RestApiClientInterface')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-        $session = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\SessionInterface')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
-        $notifier = new \IDCI\Bundle\NotificationApiClientBundle\Service\Notifier(
-            $apiClient,
-            'dummySource',
-            $session
-        );
-
-        $notifier
+        $this->notifier
             ->addNotification(
                 'email',
                 array(
@@ -80,7 +76,7 @@ class NotifierTest extends \PHPUnit_Framework_TestCase
             )
         ;
 
-        $query = $notifier->buildNotificationApiQuery();
+        $query = $this->notifier->buildNotificationApiQuery();
         $this->assertEquals($query['sourceName'], 'dummySource');
         $this->assertEquals($query['email'], '[{"notifierAlias":"alias","from":[],"to":{"to":"to"},"content":{"subject":"Subject","message":"Message"}}]');
     }
