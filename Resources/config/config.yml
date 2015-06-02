@@ -1,6 +1,33 @@
+# IDCI Notification
+
+idci_notification_api_client:
+    notification_types:
+        email:
+            class: IDCI\Bundle\NotificationApiClientBundle\Notification\EmailNotification
+        facebook:
+            class: IDCI\Bundle\NotificationApiClientBundle\Notification\FacebookNotification
+        flash:
+            class: IDCI\Bundle\NotificationApiClientBundle\Notification\FlashNotification
+        mail:
+            class: IDCI\Bundle\NotificationApiClientBundle\Notification\MailNotification
+        modal:
+            class: IDCI\Bundle\NotificationApiClientBundle\Notification\ModalNotification
+        push_android:
+            class: IDCI\Bundle\NotificationApiClientBundle\Notification\PushAndroidNotification
+        push_ios:
+            class: IDCI\Bundle\NotificationApiClientBundle\Notification\PushIosNotification
+        sms_ocito:
+            class: IDCI\Bundle\NotificationApiClientBundle\Notification\SmsOcitoNotification
+        twitter:
+            class: IDCI\Bundle\NotificationApiClientBundle\Notification\TwitterNotification
+
+
+# Da api client
+
 da_api_client:
     api:
         notification:
             endpoint_root: %api.notification.endpoint_root%
             security_token: %api.security_token%
             cache_enabled: true
+
