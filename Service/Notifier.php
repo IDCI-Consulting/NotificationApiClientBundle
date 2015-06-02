@@ -7,9 +7,9 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Service;
 
-use IDCI\Bundle\NotificationApiClientBundle\Factory\NotificationFactory;
 use Da\ApiClientBundle\Http\Rest\RestApiClientInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use IDCI\Bundle\NotificationApiClientBundle\Notification\AbstractNotification;
 
 class Notifier
 {
@@ -22,6 +22,11 @@ class Notifier
      * @var string
      */
     protected $sourceName;
+
+    /**
+     * @var array
+     */
+    protected $notificationTypes;
 
     /**
      * @var SessionInterface
@@ -38,17 +43,20 @@ class Notifier
      *
      * @param RestApiClientInterface $apiClient
      * @param string                 $sourceName
+     * @param array                  $notificationTypes
      * @param SessionInterface       $session
      */
     public function __construct(
         RestApiClientInterface $apiClient,
         $sourceName,
+        array $notificationTypes,
         SessionInterface $session
     )
     {
-        $this->apiClient     = $apiClient;
-        $this->sourceName    = $sourceName;
-        $this->session       = $session;
+        $this->apiClient         = $apiClient;
+        $this->sourceName        = $sourceName;
+        $this->notificationTypes = $notificationTypes;
+        $this->session           = $session;
 
         $this->initNotifications();
     }
@@ -105,7 +113,7 @@ class Notifier
      */
     public function addNotification($type, $parameters)
     {
-        $notification = NotificationFactory::create($type, $parameters);
+        $notification = $this->createNotification($type, $parameters);
 
         $category = 'api';
         if ($notification instanceof \IDCI\Bundle\NotificationApiClientBundle\Notification\AbstractSessionNotification) {
@@ -119,6 +127,30 @@ class Notifier
         $this->notifications[$category][$type][] = $notification;
 
         return $this;
+    }
+
+    /**
+     * Create notification object by type.
+     *
+     * @param string $type       Notification type.
+     * @param array  $parameters Notification parameters.
+     *
+     * @throw \InvalidArgumentException
+     *
+     * @return AbstractNotification
+     */
+    public function createNotification($type, $parameters)
+    {
+        if (!isset($this->notificationTypes[$type])) {
+            throw new \InvalidArgumentException(sprintf(
+                'The notification type "%s" is not defined.',
+                $type
+            ));
+        }
+
+        $notificationClassName = $this->notificationTypes[$type]['class'];
+
+        return new $notificationClassName($parameters);
     }
 
     /**

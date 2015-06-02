@@ -37,5 +37,11 @@ class IDCINotificationApiClientExtension extends Extension
             'notification_api_client.source_name',
             $config['source_name']
         );
+
+        $container->setParameter(
+            'notification_api_client.notification_types',
+            $config['notification_types']
+        );
+
     }
 }
