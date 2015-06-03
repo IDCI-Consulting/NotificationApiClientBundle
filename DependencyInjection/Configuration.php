@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('source_name')->defaultNull()->end()
                 ->arrayNode('notification_types')
+                    ->useAttributeAsKey('')
                     ->prototype('array')
                         ->children()
                             ->scalarNode('class')->isRequired()->end()
