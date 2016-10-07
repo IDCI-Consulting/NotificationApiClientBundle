@@ -45,7 +45,7 @@ class EmailNotification extends AbstractApiNotification
                 'port' => array('null', 'integer'),
             ))
             ->setAllowedValues(array(
-                'transport'  => array('smtp', 'sendmail', 'mail'),
+                'transport'  => array(null, 'smtp', 'sendmail', 'mail'),
                 'encryption' => array(null, 'ssl', 'tsl')
             ))
         ;
