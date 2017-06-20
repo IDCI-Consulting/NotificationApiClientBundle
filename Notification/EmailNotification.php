@@ -33,13 +33,13 @@ class EmailNotification extends AbstractApiNotification
                 'encryption'  => null,
                 'cc'          => null,
                 'bcc'         => null,
+                'message'     => null,
                 'htmlMessage' => null,
                 'attachments' => null,
             ))
             ->setRequired(array(
                 'to',
                 'subject',
-                'message',
             ))
             ->setAllowedTypes(array(
                 'port' => array('null', 'integer'),
