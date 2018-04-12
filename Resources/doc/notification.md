@@ -86,7 +86,7 @@ $response1 = $this->get('notification_api_client.notifier')
 ```php
 $response2 = $this->get('notification_api_client.notifier')
     ->addNotification("email", array(
-        "notifierALias" => "my_email_alias",
+        "notifierAlias" => "my_email_alias",
         "to"            => "to1@mail.com, to2@mail.com, to3@mail.com",
         "cc"            => "cc1@mail.com, cc2@mail.com, cc3@mail.com",
         "bcc"           => "bcc1@mail.com, bcc2@mail.com, bcc3@mail.com",

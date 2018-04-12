@@ -13,6 +13,9 @@ use IDCI\Bundle\NotificationApiClientBundle\Notification\AbstractNotification;
 
 class Notifier
 {
+    const NOTIFICATION_CATEGORY_API = 'api';
+    const NOTIFICATION_CATEGORY_SESSION = 'session';
+
     /**
      * @var RestApiClientInterface
      */
@@ -65,9 +68,11 @@ class Notifier
      * Returns notifications
      *
      * @param string $category
+     * @param string $type
+     *
      * @return array
      */
-    public function getNotifications($category = null)
+    protected function getNotifications($category = null, $type = null)
     {
         if (null === $category) {
             return $this->notifications;
@@ -75,12 +80,48 @@ class Notifier
 
         if (!isset($this->notifications[$category])) {
             throw new \InvalidArgumentException(sprintf(
-                'The given category "%s%" is undefined',
+                'The given category "%s" is undefined',
                 $category
             ));
         }
 
-        return $this->notifications[$category];
+        if (null === $type) {
+            return $this->notifications[$category];
+        }
+
+        if (!isset($this->notifications[$category][$type])) {
+            throw new \InvalidArgumentException(sprintf(
+                'The given type "%s" is undefined in the category "%s"',
+                $type,
+                $category
+            ));
+        }
+
+        return $this->notifications[$category][$type];
+    }
+
+    /**
+     * Returns api notifications
+     *
+     * @param string $type
+     *
+     * @return array
+     */
+    public function getApiNotifications($type = null)
+    {
+        return $this->getNotifications(self::NOTIFICATION_CATEGORY_API, $type);
+    }
+
+    /**
+     * Returns session notifications
+     *
+     * @param string $type
+     *
+     * @return array
+     */
+    public function getSessionNotifications($type = null)
+    {
+        return $this->getNotifications(self::NOTIFICATION_CATEGORY_SESSION, $type);
     }
 
     /**
@@ -89,8 +130,8 @@ class Notifier
     protected function initNotifications()
     {
         $this->notifications = array(
-            'api'     => array(),
-            'session' => array()
+            self::NOTIFICATION_CATEGORY_API => array(),
+            self::NOTIFICATION_CATEGORY_SESSION => array(),
         );
     }
 
@@ -109,24 +150,50 @@ class Notifier
      *
      * @param  string   $type
      * @param  array    $parameters
+     *
      * @return Notifier
      */
     public function addNotification($type, $parameters)
     {
         $notification = $this->createNotification($type, $parameters);
 
-        $category = 'api';
         if ($notification instanceof \IDCI\Bundle\NotificationApiClientBundle\Notification\AbstractSessionNotification) {
-            $category = 'session';
+            $this->addSessionNotification($type, $notification);
+        } elseif ($notification instanceof \IDCI\Bundle\NotificationApiClientBundle\Notification\AbstractApiNotification) {
+            $this->addApiNotification($type, $notification);
         }
-
-        if (!isset($this->notifications[$category][$type])) {
-            $this->notifications[$category][$type] = array();
-        }
-
-        $this->notifications[$category][$type][] = $notification;
 
         return $this;
+    }
+
+    /**
+     * Add Api Notification
+     *
+     * @param  string                $type
+     * @param  AbstractNotification  $notification
+     */
+    protected function addApiNotification($type, AbstractNotification $notification)
+    {
+        if (!isset($this->notifications[self::NOTIFICATION_CATEGORY_API][$type])) {
+            $this->notifications[self::NOTIFICATION_CATEGORY_API][$type] = array();
+        }
+
+        $this->notifications[self::NOTIFICATION_CATEGORY_API][$type][] = $notification;
+    }
+
+    /**
+     * Add Session Notification
+     *
+     * @param  string                $type
+     * @param  AbstractNotification  $notification
+     */
+    protected function addSessionNotification($type, AbstractNotification $notification)
+    {
+        if (!isset($this->notifications[self::NOTIFICATION_CATEGORY_SESSION][$type])) {
+            $this->notifications[self::NOTIFICATION_CATEGORY_SESSION][$type] = array();
+        }
+
+        $this->notifications[self::NOTIFICATION_CATEGORY_SESSION][$type][] = $notification;
     }
 
     /**
@@ -160,67 +227,61 @@ class Notifier
      */
     public function notify()
     {
-        if (count($this->getNotifications('api')) > 0) {
-            $this->apiClient->post(
-                '/notifications',
-                $this->buildNotificationApiQuery()
-            );
-        }
-
-        if (count($this->getNotifications('session')) > 0) {
-           $this->buildNotificationSession();
-        }
+        $apiCount = $this->buildApiNotifications();
+        $sessionCount = $this->buildSessionNotifications();
 
         $this->initNotifications();
+
+        return $apiCount + $sessionCount;
     }
 
     /**
-     * Build notification api query
+     * Build api notifications
      *
-     * @return array
+     * @return int The number of notifications sended
      */
-    public function buildNotificationApiQuery()
+    protected function buildApiNotifications()
     {
-        $query = array();
-        foreach ($this->getNotifications('api') as $type => $notifications) {
-            $query[$type] = self::queryStringify($notifications);
+        $count = 0;
+
+        foreach ($this->getApiNotifications() as $type => $notifications) {
+            foreach ($notifications as $notification) {
+                $normalizedData = $notification->normalize();
+                if ($this->hasSourceName()) {
+                    $normalizedData['sourceName'] = $this->sourceName;
+                }
+
+                $this->apiClient->post('/notifications', array(
+                    'type' => $type,
+                    'data' => $normalizedData,
+                ));
+
+                $count++;
+            }
         }
 
-        if ($this->hasSourceName()) {
-            $query['sourceName'] = $this->sourceName;
-        }
-
-        return $query;
+        return $count;
     }
 
     /**
-     * Query stringify notifications
+     * Build session notifications
      *
-     * @param array $notifications
-     * @return string
+     * @return int The number of notifications setted
      */
-    public static function queryStringify($notifications)
+    protected function buildSessionNotifications()
     {
-        $data = array();
-        foreach ($notifications as $k => $notification) {
-            $data[] = $notification->normalize();
-        }
+        $count = 0;
 
-        return json_encode($data);
-    }
-
-    /**
-     * Build notification session
-     */
-    public function buildNotificationSession()
-    {
-        foreach ($this->getNotifications('session') as $type => $notifications) {
+        foreach ($this->getSessionNotifications() as $type => $notifications) {
             foreach ($notifications as $notification) {
                 $this->session->getFlashBag()->add(
                     $notification->getDataType(),
                     $notification->getDataMessage()
                 );
+                $count++;
             }
         }
+
+        return $count;
     }
 }
