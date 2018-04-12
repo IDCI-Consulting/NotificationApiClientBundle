@@ -247,15 +247,17 @@ class Notifier
         foreach ($this->getApiNotifications() as $type => $notifications) {
             foreach ($notifications as $notification) {
                 $normalizedData = $notification->normalize();
+
+                $postData = array(
+                    'type' => $type,
+                    'data' => json_encode($notification->normalize()),
+                );
+
                 if ($this->hasSourceName()) {
-                    $normalizedData['sourceName'] = $this->sourceName;
+                    $postData['sourceName'] = $this->sourceName;
                 }
 
-                $this->apiClient->post('/notifications', array(
-                    'type' => $type,
-                    'data' => json_encode($normalizedData),
-                ));
-
+                $this->apiClient->post('/notifications', $postData);
                 $count++;
             }
         }
