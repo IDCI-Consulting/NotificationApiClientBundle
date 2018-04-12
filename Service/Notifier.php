@@ -227,8 +227,8 @@ class Notifier
      */
     public function notify()
     {
-        $apiCount = $this->buildApiNotifications();
-        $sessionCount = $this->buildSessionNotifications();
+        $apiCount = $this->sendApiNotifications();
+        $sessionCount = $this->sendSessionNotifications();
 
         $this->initNotifications();
 
@@ -236,11 +236,11 @@ class Notifier
     }
 
     /**
-     * Build api notifications
+     * Send api notifications
      *
      * @return int The number of notifications sended
      */
-    protected function buildApiNotifications()
+    protected function sendApiNotifications()
     {
         $count = 0;
 
@@ -253,7 +253,7 @@ class Notifier
 
                 $this->apiClient->post('/notifications', array(
                     'type' => $type,
-                    'data' => $normalizedData,
+                    'data' => json_encode($normalizedData),
                 ));
 
                 $count++;
@@ -264,11 +264,11 @@ class Notifier
     }
 
     /**
-     * Build session notifications
+     * Send session notifications
      *
      * @return int The number of notifications setted
      */
-    protected function buildSessionNotifications()
+    protected function sendSessionNotifications()
     {
         $count = 0;
 
