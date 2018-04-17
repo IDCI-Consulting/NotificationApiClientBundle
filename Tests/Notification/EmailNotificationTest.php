@@ -51,7 +51,6 @@ class EmailNotificationTest extends \PHPUnit_Framework_TestCase
                 'subject'       => 'Subject',
                 'message'       => 'Message',
                 'htmlMessage'   => '<h1>HTML message</h1>',
-                'attachments'   => array()
             )
         );
 
@@ -79,7 +78,6 @@ class EmailNotificationTest extends \PHPUnit_Framework_TestCase
                     'subject'     => 'Subject',
                     'message'     => 'Message',
                     'htmlMessage' => '<h1>HTML message</h1>',
-                    'attachments' => array()
                 )
             )
         );

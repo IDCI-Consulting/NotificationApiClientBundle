@@ -35,7 +35,6 @@ class EmailNotification extends AbstractApiNotification
                 'bcc'         => null,
                 'message'     => null,
                 'htmlMessage' => null,
-                'attachments' => null,
             ))
             ->setRequired(array(
                 'to',
@@ -46,7 +45,7 @@ class EmailNotification extends AbstractApiNotification
             ))
             ->setAllowedValues(array(
                 'transport'  => array(null, 'smtp', 'sendmail', 'mail'),
-                'encryption' => array(null, 'ssl', 'tsl')
+                'encryption' => array(null, 'ssl', 'tsl'),
             ))
         ;
     }
@@ -65,7 +64,7 @@ class EmailNotification extends AbstractApiNotification
             'login'      => $this->parameters['login'],
             'password'   => $this->parameters['password'],
             'port'       => $this->parameters['port'],
-            'encryption' => $this->parameters['encryption']
+            'encryption' => $this->parameters['encryption'],
         );
     }
 
@@ -77,7 +76,7 @@ class EmailNotification extends AbstractApiNotification
         return array(
             'to'  => $this->parameters['to'],
             'cc'  => $this->parameters['cc'],
-            'bcc' => $this->parameters['bcc']
+            'bcc' => $this->parameters['bcc'],
         );
     }
 
@@ -90,7 +89,6 @@ class EmailNotification extends AbstractApiNotification
             'subject'     => $this->parameters['subject'],
             'message'     => $this->parameters['message'],
             'htmlMessage' => $this->parameters['htmlMessage'],
-            'attachments' => $this->parameters['attachments']
         );
     }
 }

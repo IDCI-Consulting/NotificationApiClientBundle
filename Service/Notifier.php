@@ -148,12 +148,13 @@ class Notifier
     /**
      * Add Notification
      *
-     * @param  string   $type
-     * @param  array    $parameters
+     * @param string $type
+     * @param array  $parameters
+     * @param array  $files
      *
      * @return Notifier
      */
-    public function addNotification($type, $parameters)
+    public function addNotification($type, array $parameters, array $files = array())
     {
         $notification = $this->createNotification($type, $parameters);
 
@@ -169,8 +170,8 @@ class Notifier
     /**
      * Add Api Notification
      *
-     * @param  string                $type
-     * @param  AbstractNotification  $notification
+     * @param string                $type
+     * @param AbstractNotification  $notification
      */
     protected function addApiNotification($type, AbstractNotification $notification)
     {
@@ -184,8 +185,8 @@ class Notifier
     /**
      * Add Session Notification
      *
-     * @param  string                $type
-     * @param  AbstractNotification  $notification
+     * @param string                $type
+     * @param AbstractNotification  $notification
      */
     protected function addSessionNotification($type, AbstractNotification $notification)
     {
