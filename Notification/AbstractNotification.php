@@ -21,15 +21,32 @@ abstract class AbstractNotification
     protected $parameters;
 
     /**
+     * @var array
+     */
+    protected $files;
+
+    /**
      * Constructor
      *
      * @param array $parameters The parameters.
+     * @param array $files      The files.
      */
-    public function __construct(array $parameters = array())
+    public function __construct(array $parameters = array(), array $files = array())
     {
         $resolver = new OptionsResolver();
         $this->configureParameters($resolver);
         $this->parameters = $resolver->resolve($parameters);
+        $this->files = $files;
+    }
+
+    /**
+     * Returns files
+     *
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 
     /**

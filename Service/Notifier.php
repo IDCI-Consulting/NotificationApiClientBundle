@@ -156,7 +156,7 @@ class Notifier
      */
     public function addNotification($type, array $parameters, array $files = array())
     {
-        $notification = $this->createNotification($type, $parameters);
+        $notification = $this->createNotification($type, $parameters, $files);
 
         if ($notification instanceof \IDCI\Bundle\NotificationApiClientBundle\Notification\AbstractSessionNotification) {
             $this->addSessionNotification($type, $notification);
@@ -202,12 +202,13 @@ class Notifier
      *
      * @param string $type       Notification type.
      * @param array  $parameters Notification parameters.
+     * @param array  $files      Notification files.
      *
      * @throw \InvalidArgumentException
      *
      * @return AbstractNotification
      */
-    public function createNotification($type, $parameters)
+    public function createNotification($type, $parameters, array $files = array())
     {
         if (!isset($this->notificationTypes[$type])) {
             throw new \InvalidArgumentException(sprintf(
@@ -218,7 +219,7 @@ class Notifier
 
         $notificationClassName = $this->notificationTypes[$type]['class'];
 
-        return new $notificationClassName($parameters);
+        return new $notificationClassName($parameters, $files);
     }
 
     /**
@@ -256,6 +257,28 @@ class Notifier
 
                 if ($this->hasSourceName()) {
                     $postData['sourceName'] = $this->sourceName;
+                }
+
+                $filePosition = 1;
+                foreach ($notification->getFiles() as $filename => $file) {
+                    $fileKey = sprintf('file%d', $filePosition);
+
+                    // The file is a remote file (start with http)
+                    if (preg_match('/^http/i', $file, $matches)) {
+                        $fileData = file_get_contents($file);
+                        $file = tempnam(sys_get_temp_dir(), $type);
+                        file_put_contents($file, $fileData);
+                    }
+
+                    $finfo = new \finfo(FILEINFO_MIME_TYPE);
+
+                    $postData[$fileKey] = curl_file_create(
+                        $file,
+                        $finfo->file($file),
+                        $filename
+                    );
+
+                    $filePosition++;
                 }
 
                 $this->apiClient->post('/notifications', $postData);
