@@ -49,7 +49,6 @@ To **send notification** you have to use the `notification_api_client.notifier` 
 | subject     | false    | string value | Subject data
 | message     | true     | string value | Email message
 | htmlMessage | true     | string value | Email message in html format
-| attachments | true     | string value | Attachments data
 
 #### Results
 The function `notify()` returns a response from an API Client.
@@ -77,7 +76,6 @@ $response1 = $this->get('notification_api_client.notifier')
         "subject"     => "Notification subject",
         "message"     => "Notification Message",
         "htmlMessage" => "<h1>Titre</h1><p>message</p>",
-        "attachments" => array()
     ))
     ->notify()
 ;
@@ -93,7 +91,6 @@ $response2 = $this->get('notification_api_client.notifier')
         "subject"       => "Notification subject",
         "message"       => "Notification Message",
         "htmlMessage"   => "<h1>Titre</h1><p>message</p>",
-        "attachments"   => array()
     ))
     ->notify()
 ;
@@ -496,7 +493,6 @@ $response = $this->get('notification_api_client.notifier')
         "subject"     => "Notification subject",
         "message"     => "Notification Message",
         "htmlMessage" => "<h1>Titre</h1><p>message</p>",
-        "attachments" => array()
     ))
     ->notify()
 ;
@@ -521,7 +517,6 @@ $response = $this->get('notification_api_client.notifier')
         "subject"     => "Notification subject",
         "message"     => "Notification Message",
         "htmlMessage" => "<h1>Titre</h1><p>message</p>",
-        "attachments" => array()
     ))
     ->addNotification("email", array(
         "notifierALias" => "my_email_alias",
@@ -531,7 +526,6 @@ $response = $this->get('notification_api_client.notifier')
         "subject"       => "Notification subject",
         "message"       => "Notification Message",
         "htmlMessage"   => "<h1>Titre</h1><p>message</p>",
-        "attachments"   => array()
     ))
     ->notify()
 ;
@@ -555,7 +549,6 @@ $response = $this->get('notification_api_client.notifier')
         "subject"     => "Notification subject",
         "message"     => "Notification Message",
         "htmlMessage" => "<h1>Titre</h1><p>message</p>",
-        "attachments" => array()
     ))
     ->addNotification("email", array(
         "notifierALias" => "my_email_alias",
@@ -565,7 +558,6 @@ $response = $this->get('notification_api_client.notifier')
         "subject"       => "Notification subject",
         "message"       => "Notification Message",
         "htmlMessage"   => "<h1>Titre</h1><p>message</p>",
-        "attachments"   => array()
     ))
     ->addNotification("sms_ocito", array(
         "userName"           => "userName_value",
@@ -602,7 +594,7 @@ php app/console tms:notification:notify email '{"to":"to@mail.com","cc":"cc1@mai
 ```
 Case 2 : notification without notifier parameters
 ```sh
-php app/console tms:notification:notify email '{"notifierAlias": "alias", "to": "me@mymail.com", "cc": "cc1@mymail.com, cc2@mymail.com", "bcc": "bcc@mymail.com", "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+php app/console tms:notification:notify email '{"notifierAlias": "alias", "to": "me@mymail.com", "cc": "cc1@mymail.com, cc2@mymail.com", "bcc": "bcc@mymail.com", "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>"}'
 ```
 Advice
 ------
@@ -629,7 +621,6 @@ try {
             "subject"     => "Notification subject",
             "message"     => "Notification Message",
             "htmlMessage" => "<h1>Titre</h1><p>message</p>",
-            "attachments" => array()
         ))
         ->notify()
     ;

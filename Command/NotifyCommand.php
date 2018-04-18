@@ -35,7 +35,7 @@ The parameters are mandatory, see below for example of usage.
 
 Example with an Email notification:
 <info>
-php app/console %command.name% email '{"notifierAlias": "alias", "to": "me@mymail.com", "cc": "cc1@mymail.com, cc2@mymail.com", "bcc": "bcc@mymail.com", "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>", "attachments": []}'
+php app/console %command.name% email '{"notifierAlias": "alias", "to": "me@mymail.com", "cc": "cc1@mymail.com, cc2@mymail.com", "bcc": "bcc@mymail.com", "subject": "notification via command line", "message": "the message to be send", "htmlMessage": "<h1>Titre</h1><p>Message</p>"}' --file='{"name": <name>, "path": <path|url>}'
 </info>
 
 Example with a Facebook notification:
@@ -80,6 +80,13 @@ EOT
                 InputArgument::REQUIRED,
                 'Enter your notification parameters in json format'
             )
+            ->addOption(
+                'file',
+                null,
+                InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL,
+                'File to link with your notification',
+                array()
+            )
         ;
     }
 
@@ -89,14 +96,25 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $type = $input->getArgument('type');
-        $parameters = $input->getArgument('parameters');
-        $parameters = json_decode($parameters, true);
+        $rawParameters = $input->getArgument('parameters');
+        $parameters = json_decode($rawParameters, true);
+        $rawFiles = $input->getOption('file');
+        $files = array();
+
+        foreach ($rawFiles as $file) {
+            $data = json_decode($file, true);
+            if (is_array($data)) {
+                $files[$data['name']] = $data['path'];
+            } else {
+                $files[] = $file;
+            }
+        }
 
         try {
             $this
                 ->getContainer()
                 ->get('notification_api_client.notifier')
-                ->addNotification($type, $parameters)
+                ->addNotification($type, $parameters, $files)
                 ->notify()
             ;
             $output->writeln('<info>Notification sent</info>');
