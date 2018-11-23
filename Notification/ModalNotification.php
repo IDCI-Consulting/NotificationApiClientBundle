@@ -1,53 +1,49 @@
 <?php
 
 /**
+ *
  * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
  * @license: GPL
+ *
  */
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ModalNotification extends AbstractSessionNotification
 {
     /**
      * {@inheritdoc}
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
+    protected function configureParameters(OptionsResolver $resolver)
     {
         parent::configureParameters($resolver);
         $resolver
             ->setDefaults(array(
-                'level'   => 'info',
-                'title'   => null,
+                'level' => 'info',
+                'title' => null,
                 'actions' => array(),
-                'class'   => null,
+                'class' => null,
             ))
-            ->setAllowedValues(array(
-                'level' => array('info', 'error', 'warning')
-            ))
-            ->setAllowedTypes(array(
-                'actions' => array('array')
-            ))
-            ->setNormalizers(array(
-                'actions' => function($options, $value) {
-                    foreach ($value as $k => $action) {
-                        if (isset($action['href'])) {
-                            $value[$k] = array_merge(
+            ->setAllowedValues('level', array('info', 'error', 'warning'))
+            ->setAllowedTypes('actions', array('array'))
+            ->setNormalizer('actions', function ($options, $value) {
+                foreach ($value as $k => $action) {
+                    if (isset($action['href'])) {
+                        $value[$k] = array_merge(
                                 array(
-                                    'name'   => $action['href'],
+                                    'name' => $action['href'],
                                     'target' => '_self',
                                 ),
                                 $action
                             );
-                        }
                     }
-
-                    return $value;
                 }
-            ))
+
+                return $value;
+            }
+            )
         ;
     }
 
@@ -65,10 +61,10 @@ class ModalNotification extends AbstractSessionNotification
     public function getDataMessage()
     {
         return array(
-            'title'   => $this->parameters['title'],
+            'title' => $this->parameters['title'],
             'message' => $this->parameters['message'],
             'actions' => $this->parameters['actions'],
-            'class'   => $this->parameters['class'],
+            'class' => $this->parameters['class'],
         );
     }
 }

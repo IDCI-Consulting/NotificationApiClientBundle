@@ -10,25 +10,23 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractApiNotification extends AbstractNotification
 {
     /**
      * {@inheritdoc}
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
+    protected function configureParameters(OptionsResolver $resolver)
     {
         $resolver
             ->setDefaults(array('notifierAlias' => null))
-            ->setAllowedTypes(array(
-                'notifierAlias' => array("null", "string")
-            ))
+            ->setAllowedTypes('notifierAlias', array('null', 'string'))
         ;
     }
 
     /**
-     * Normalize the notification for the api
+     * Normalize the notification for the api.
      *
      * @return array
      */
@@ -56,21 +54,21 @@ abstract class AbstractApiNotification extends AbstractNotification
     }
 
     /**
-     * Get data from
+     * Get data from.
      *
      * @return array
      */
     abstract public function getDataFrom();
 
     /**
-     * Get data to
+     * Get data to.
      *
      * @return array
      */
     abstract public function getDataTo();
 
     /**
-     * Get data content
+     * Get data content.
      *
      * @return array
      */

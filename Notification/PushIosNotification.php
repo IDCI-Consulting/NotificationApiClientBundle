@@ -10,14 +10,14 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PushIosNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
+    protected function configureParameters(OptionsResolver $resolver)
     {
         parent::configureParameters($resolver);
         $resolver
@@ -42,7 +42,7 @@ class PushIosNotification extends AbstractApiNotification
     public function getDataTo()
     {
         return array(
-            'deviceToken' => $this->parameters['deviceToken']
+            'deviceToken' => $this->parameters['deviceToken'],
         );
     }
 
@@ -52,7 +52,7 @@ class PushIosNotification extends AbstractApiNotification
     public function getDataContent()
     {
         return array(
-            'message' => $this->parameters['message']
+            'message' => $this->parameters['message'],
         );
     }
 }

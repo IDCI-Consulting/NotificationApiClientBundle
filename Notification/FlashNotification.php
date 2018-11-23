@@ -7,23 +7,21 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FlashNotification extends AbstractSessionNotification
 {
     /**
      * {@inheritdoc}
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
+    protected function configureParameters(OptionsResolver $resolver)
     {
         parent::configureParameters($resolver);
         $resolver
             ->setDefaults(array(
                 'level' => 'info',
             ))
-            ->setAllowedValues(array(
-                'level' => array('info', 'error', 'warning')
-            ))
+            ->setAllowedValues('level', array('info', 'error', 'warning'))
         ;
     }
 
