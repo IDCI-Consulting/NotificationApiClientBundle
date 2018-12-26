@@ -10,21 +10,21 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TwitterNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
+    protected function configureParameters(OptionsResolver $resolver)
     {
         parent::configureParameters($resolver);
         $resolver
             ->setDefaults(array(
-                'consumerKey'            => null,
-                'consumerSecret'         => null,
-                'oauthAccessToken'       => null,
+                'consumerKey' => null,
+                'consumerSecret' => null,
+                'oauthAccessToken' => null,
                 'oauthAccessTokenSecret' => null,
             ))
             ->setRequired(array(
@@ -39,9 +39,9 @@ class TwitterNotification extends AbstractApiNotification
     public function getDataFrom()
     {
         return array(
-            'consumerKey'            => $this->parameters['consumerKey'],
-            'consumerSecret'         => $this->parameters['consumerSecret'],
-            'oauthAccessToken'       => $this->parameters['oauthAccessToken'],
+            'consumerKey' => $this->parameters['consumerKey'],
+            'consumerSecret' => $this->parameters['consumerSecret'],
+            'oauthAccessToken' => $this->parameters['oauthAccessToken'],
             'oauthAccessTokenSecret' => $this->parameters['oauthAccessTokenSecret'],
         );
     }
@@ -60,7 +60,7 @@ class TwitterNotification extends AbstractApiNotification
     public function getDataContent()
     {
         return array(
-            'status' => $this->parameters['status']
+            'status' => $this->parameters['status'],
         );
     }
 }

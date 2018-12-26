@@ -10,7 +10,6 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractNotification
@@ -26,10 +25,10 @@ abstract class AbstractNotification
     protected $files;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param array $parameters The parameters.
-     * @param array $files      The files.
+     * @param array $parameters the parameters
+     * @param array $files      the files
      */
     public function __construct(array $parameters = array(), array $files = array())
     {
@@ -40,7 +39,7 @@ abstract class AbstractNotification
     }
 
     /**
-     * Returns files
+     * Returns files.
      *
      * @return array
      */
@@ -50,14 +49,15 @@ abstract class AbstractNotification
     }
 
     /**
-     * Clean data (remove "null" value)
+     * Clean data (remove "null" value).
      *
      * @param array $data
+     *
      * @return array
      */
     protected static function cleanData($data)
     {
-        foreach($data as $k => $v) {
+        foreach ($data as $k => $v) {
             if (null === $v) {
                 unset($data[$k]);
             }
@@ -67,9 +67,9 @@ abstract class AbstractNotification
     }
 
     /**
-     * Configure parameters
+     * Configure parameters.
      *
-     * @param OptionsResolverInterface $resolver The resolver.
+     * @param OptionsResolver $resolver the resolver
      */
-    abstract protected function configureParameters(OptionsResolverInterface $resolver);
+    abstract protected function configureParameters(OptionsResolver $resolver);
 }

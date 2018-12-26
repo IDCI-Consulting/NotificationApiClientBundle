@@ -10,7 +10,6 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractSessionNotification extends AbstractNotification
@@ -18,7 +17,7 @@ abstract class AbstractSessionNotification extends AbstractNotification
     /**
      * {@inheritdoc}
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
+    protected function configureParameters(OptionsResolver $resolver)
     {
         $resolver
             ->setRequired(array('message'))
@@ -26,14 +25,14 @@ abstract class AbstractSessionNotification extends AbstractNotification
     }
 
     /**
-     * Get data type
+     * Get data type.
      *
      * @return string
      */
     abstract public function getDataType();
 
     /**
-     * Get data message
+     * Get data message.
      *
      * @return string
      */

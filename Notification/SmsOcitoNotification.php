@@ -10,24 +10,24 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SmsOcitoNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
+    protected function configureParameters(OptionsResolver $resolver)
     {
         parent::configureParameters($resolver);
         $resolver
             ->setDefaults(array(
-                'userName'           => null, //max = "30"
-                'password'           => null, //max = "30"
-                'senderAppId'        => null, //max = "10"
-                'senderId'           => null, //max = "11"
-                'flag'               => null, //max = "10"
-                'priority'           => 'L',
+                'userName' => null, //max = "30"
+                'password' => null, //max = "30"
+                'senderAppId' => null, //max = "10"
+                'senderId' => null, //max = "11"
+                'flag' => null, //max = "10"
+                'priority' => 'L',
                 'timeToLiveDuration' => null, //max = "30"
                 'timeToSendDuration' => null, //max = "30"
             ))
@@ -35,9 +35,7 @@ class SmsOcitoNotification extends AbstractApiNotification
                 'phoneNumber',  //max = "30"
                 'message',      //max = "70"
             ))
-            ->setAllowedValues(array(
-                'priority' => array('H', 'L')
-            ))
+            ->setAllowedValues('priority', array('H', 'L'))
         ;
     }
 
@@ -47,12 +45,12 @@ class SmsOcitoNotification extends AbstractApiNotification
     public function getDataFrom()
     {
         return array(
-            'userName'           => $this->parameters['userName'],
-            'password'           => $this->parameters['password'],
-            'senderAppId'        => $this->parameters['senderAppId'],
-            'senderId'           => $this->parameters['senderId'],
-            'flag'               => $this->parameters['flag'],
-            'priority'           => $this->parameters['priority'],
+            'userName' => $this->parameters['userName'],
+            'password' => $this->parameters['password'],
+            'senderAppId' => $this->parameters['senderAppId'],
+            'senderId' => $this->parameters['senderId'],
+            'flag' => $this->parameters['flag'],
+            'priority' => $this->parameters['priority'],
             'timeToLiveDuration' => $this->parameters['timeToLiveDuration'],
             'timeToSendDuration' => $this->parameters['timeToSendDuration'],
         );
@@ -64,7 +62,7 @@ class SmsOcitoNotification extends AbstractApiNotification
     public function getDataTo()
     {
         return array(
-            'phoneNumber' => $this->parameters['phoneNumber']
+            'phoneNumber' => $this->parameters['phoneNumber'],
         );
     }
 
@@ -74,7 +72,7 @@ class SmsOcitoNotification extends AbstractApiNotification
     public function getDataContent()
     {
         return array(
-            'message' => $this->parameters['message']
+            'message' => $this->parameters['message'],
         );
     }
 }

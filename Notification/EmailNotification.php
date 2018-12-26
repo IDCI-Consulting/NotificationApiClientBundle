@@ -10,14 +10,14 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EmailNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
+    protected function configureParameters(OptionsResolver $resolver)
     {
         parent::configureParameters($resolver);
         $resolver
@@ -40,13 +40,9 @@ class EmailNotification extends AbstractApiNotification
                 'to',
                 'subject',
             ))
-            ->setAllowedTypes(array(
-                'port' => array('null', 'integer'),
-            ))
-            ->setAllowedValues(array(
-                'transport'  => array(null, 'smtp', 'sendmail', 'mail'),
-                'encryption' => array(null, 'ssl', 'tsl'),
-            ))
+            ->setAllowedTypes('port', array('null', 'integer'))
+            ->setAllowedValues('transport', array(null, 'smtp', 'sendmail', 'mail'))
+            ->setAllowedValues('encryption', array(null, 'ssl', 'tsl'))
         ;
     }
 

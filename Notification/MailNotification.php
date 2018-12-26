@@ -10,24 +10,24 @@
 
 namespace IDCI\Bundle\NotificationApiClientBundle\Notification;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MailNotification extends AbstractApiNotification
 {
     /**
      * {@inheritdoc}
      */
-    protected function configureParameters(OptionsResolverInterface $resolver)
+    protected function configureParameters(OptionsResolver $resolver)
     {
         parent::configureParameters($resolver);
         $resolver
             ->setDefaults(array(
-                'fromFirstName'  => null,
-                'fromLastName'   => null,
-                'fromAddress'    => null,
+                'fromFirstName' => null,
+                'fromLastName' => null,
+                'fromAddress' => null,
                 'fromPostalCode' => null,
-                'fromCity'       => null,
-                'fromCountry'    => null,
+                'fromCity' => null,
+                'fromCountry' => null,
             ))
             ->setRequired(array(
                 'toFirstName',
@@ -47,12 +47,12 @@ class MailNotification extends AbstractApiNotification
     public function getDataFrom()
     {
         return array(
-            'firstName'  => $this->parameters['fromFirstName'],
-            'lastName'   => $this->parameters['fromLastName'],
-            'address'    => $this->parameters['fromAddress'],
+            'firstName' => $this->parameters['fromFirstName'],
+            'lastName' => $this->parameters['fromLastName'],
+            'address' => $this->parameters['fromAddress'],
             'postalCode' => $this->parameters['fromPostalCode'],
-            'city'       => $this->parameters['fromCity'],
-            'country'    => $this->parameters['fromCountry']
+            'city' => $this->parameters['fromCity'],
+            'country' => $this->parameters['fromCountry'],
         );
     }
 
@@ -62,12 +62,12 @@ class MailNotification extends AbstractApiNotification
     public function getDataTo()
     {
         return array(
-            'firstName'  => $this->parameters['toFirstName'],
-            'lastName'   => $this->parameters['toLastName'],
-            'address'    => $this->parameters['toAddress'],
+            'firstName' => $this->parameters['toFirstName'],
+            'lastName' => $this->parameters['toLastName'],
+            'address' => $this->parameters['toAddress'],
             'postalCode' => $this->parameters['toPostalCode'],
-            'city'       => $this->parameters['toCity'],
-            'country'    => $this->parameters['toCountry']
+            'city' => $this->parameters['toCity'],
+            'country' => $this->parameters['toCountry'],
         );
     }
 
@@ -77,7 +77,7 @@ class MailNotification extends AbstractApiNotification
     public function getDataContent()
     {
         return array(
-            'message' => $this->parameters['message']
+            'message' => $this->parameters['message'],
         );
     }
 }
