@@ -16,6 +16,10 @@ class Notifier
     const NOTIFICATION_CATEGORY_API = 'api';
     const NOTIFICATION_CATEGORY_SESSION = 'session';
 
+    const NOTIFICATION_PRIORITY_LOW = -1;
+    const NOTIFICATION_PRIORITY_NORMAL = 0;
+    const NOTIFICATION_PRIORITY_HIGH = 1;
+
     /**
      * @var RestApiClientInterface
      */
@@ -148,20 +152,25 @@ class Notifier
     /**
      * Add Notification
      *
-     * @param string $type
-     * @param array  $parameters
-     * @param array  $files
+     * @param string  $type
+     * @param array   $parameters
+     * @param array   $files
+     * @param integer $priority
      *
      * @return Notifier
      */
-    public function addNotification($type, array $parameters, array $files = array())
-    {
+    public function addNotification(
+        $type,
+        array $parameters,
+        array $files = array(),
+        $priority = _self::NOTIFICATION_PRIORITY_NORMAL
+    ) {
         $notification = $this->createNotification($type, $parameters, $files);
 
         if ($notification instanceof \IDCI\Bundle\NotificationApiClientBundle\Notification\AbstractSessionNotification) {
             $this->addSessionNotification($type, $notification);
         } elseif ($notification instanceof \IDCI\Bundle\NotificationApiClientBundle\Notification\AbstractApiNotification) {
-            $this->addApiNotification($type, $notification);
+            $this->addApiNotification($type, $notification, $priority);
         }
 
         return $this;
@@ -172,14 +181,21 @@ class Notifier
      *
      * @param string                $type
      * @param AbstractNotification  $notification
+     * @param integer               $priority
      */
-    protected function addApiNotification($type, AbstractNotification $notification)
-    {
+    protected function addApiNotification(
+        $type,
+        AbstractNotification $notification,
+        $priority = _self::NOTIFICATION_PRIORITY_NORMAL
+    ) {
         if (!isset($this->notifications[self::NOTIFICATION_CATEGORY_API][$type])) {
             $this->notifications[self::NOTIFICATION_CATEGORY_API][$type] = array();
         }
+        if (!isset($this->notifications[self::NOTIFICATION_CATEGORY_API][$type][$priority])) {
+            $this->notifications[self::NOTIFICATION_CATEGORY_API][$type][$priority] = array();
+        }
 
-        $this->notifications[self::NOTIFICATION_CATEGORY_API][$type][] = $notification;
+        $this->notifications[self::NOTIFICATION_CATEGORY_API][$type][$priority][] = $notification;
     }
 
     /**
@@ -246,43 +262,46 @@ class Notifier
     {
         $count = 0;
 
-        foreach ($this->getApiNotifications() as $type => $notifications) {
-            foreach ($notifications as $notification) {
-                $normalizedData = $notification->normalize();
+        foreach ($this->getApiNotifications() as $type => $priorities) {
+            foreach ($priorities as $priority => $notifications) {
+                foreach ($notifications as $notification) {
+                    $normalizedData = $notification->normalize();
 
-                $postData = array(
-                    'type' => $type,
-                    'data' => json_encode($notification->normalize()),
-                );
-
-                if ($this->hasSourceName()) {
-                    $postData['sourceName'] = $this->sourceName;
-                }
-
-                $filePosition = 1;
-                foreach ($notification->getFiles() as $filename => $file) {
-                    $fileKey = sprintf('file%d', $filePosition);
-
-                    // The file is a remote file (start with http)
-                    if (preg_match('/^http/i', $file, $matches)) {
-                        $fileData = file_get_contents($file);
-                        $file = tempnam(sys_get_temp_dir(), $type);
-                        file_put_contents($file, $fileData);
-                    }
-
-                    $finfo = new \finfo(FILEINFO_MIME_TYPE);
-
-                    $postData[$fileKey] = curl_file_create(
-                        $file,
-                        $finfo->file($file),
-                        $filename
+                    $postData = array(
+                        'type' => $type,
+                        'data' => json_encode($notification->normalize()),
+                        'priority' => $priority,
                     );
 
-                    $filePosition++;
-                }
+                    if ($this->hasSourceName()) {
+                        $postData['sourceName'] = $this->sourceName;
+                    }
 
-                $this->apiClient->post('/notifications', $postData);
-                $count++;
+                    $filePosition = 1;
+                    foreach ($notification->getFiles() as $filename => $file) {
+                        $fileKey = sprintf('file%d', $filePosition);
+
+                        // The file is a remote file (start with http)
+                        if (preg_match('/^http/i', $file, $matches)) {
+                            $fileData = file_get_contents($file);
+                            $file = tempnam(sys_get_temp_dir(), $type);
+                            file_put_contents($file, $fileData);
+                        }
+
+                        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+
+                        $postData[$fileKey] = curl_file_create(
+                            $file,
+                            $finfo->file($file),
+                            $filename
+                        );
+
+                        $filePosition++;
+                    }
+
+                    $this->apiClient->post('/notifications', $postData);
+                    $count++;
+                }
             }
         }
 
