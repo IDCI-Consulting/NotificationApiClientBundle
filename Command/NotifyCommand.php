@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use IDCI\Bundle\NotificationApiClientBundle\Exception\ApiResponseException;
+use IDCI\Bundle\NotificationApiClientBundle\Service\Notifier;
 
 class NotifyCommand extends ContainerAwareCommand
 {
@@ -87,6 +88,13 @@ EOT
                 'File to link with your notification',
                 array()
             )
+            ->addOption(
+                'priority',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The notification priority',
+                Notifier::NOTIFICATION_PRIORITY_NORMAL
+            )
         ;
     }
 
@@ -99,6 +107,7 @@ EOT
         $rawParameters = $input->getArgument('parameters');
         $parameters = json_decode($rawParameters, true);
         $rawFiles = $input->getOption('file');
+        $priority = $input->getOption('priority');
         $files = array();
 
         foreach ($rawFiles as $file) {
@@ -114,7 +123,7 @@ EOT
             $this
                 ->getContainer()
                 ->get('notification_api_client.notifier')
-                ->addNotification($type, $parameters, $files)
+                ->addNotification($type, $parameters, $files, $priority)
                 ->notify()
             ;
             $output->writeln('<info>Notification sent</info>');
