@@ -163,7 +163,7 @@ class Notifier
         $type,
         array $parameters,
         array $files = array(),
-        $priority = _self::NOTIFICATION_PRIORITY_NORMAL
+        $priority = self::NOTIFICATION_PRIORITY_NORMAL
     ) {
         $notification = $this->createNotification($type, $parameters, $files);
 
@@ -186,7 +186,7 @@ class Notifier
     protected function addApiNotification(
         $type,
         AbstractNotification $notification,
-        $priority = _self::NOTIFICATION_PRIORITY_NORMAL
+        $priority = self::NOTIFICATION_PRIORITY_NORMAL
     ) {
         if (!isset($this->notifications[self::NOTIFICATION_CATEGORY_API][$type])) {
             $this->notifications[self::NOTIFICATION_CATEGORY_API][$type] = array();
